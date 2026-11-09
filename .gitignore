@@ -218,3 +218,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---- TP2 RI: arquivos grandes regeneráveis (ver README) ----
+data/
+artifacts/
+# avaliações individuais da planilha cega podem ser versionadas; caches não
+*.npy
+*.pkl
+
+# Arquivos locais de apoio (não versionar)
+CLAUDE.md
+docs/enunciado_tp2.pdf
