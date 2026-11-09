@@ -1,18 +1,21 @@
 # Python 3.11. Instale o torch CPU primeiro:
-#   pip install torch==$(versão abaixo) --index-url https://download.pytorch.org/whl/cpu
+#   pip install torch==2.13.0 --index-url https://download.pytorch.org/whl/cpu
+# regex, pandas, torch e pytrec-eval-terrier fixados em versões anteriores às mais recentes:
+# o Smart App Control do Windows bloqueou as DLLs das versões recém-publicadas.
 ir_measures==0.4.3
 matplotlib==3.11.2
 nltk==3.10.4
 numpy==2.4.6
-pandas==3.1.1
+pandas==3.0.2
 pytest==9.2.0
 python-dotenv==1.2.4
 PyYAML==6.0.3
+regex==2026.9.29
 requests==2.34.2
 scikit-learn==1.9.1
 scipy==1.17.1
 sentence-transformers==6.2.0
 tokenizers==0.23.3
-torch==2.15.0+cpu
+torch==2.13.0+cpu
 tqdm==4.70.1
 transformers==5.22.2

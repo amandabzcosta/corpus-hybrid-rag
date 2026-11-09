@@ -17,7 +17,8 @@ dataset:
 preprocessing:
   lowercase: true
   remove_stopwords: true
-  stopwords_lang: english            
+  stopwords_lang: english
+  stopwords_keep: [d]
   stemmer: porter                      
   keep_numbers: true                 
 
