@@ -8,17 +8,9 @@ Pipeline: documentos → pré-processamento e indexação → recuperação lexi
 | **Amanda Bezerra Costa** | **12680861** |
 | **Leonardo Ferreira Runho** | **11832958** |
 
-## 2. Leia primeiro: o que está pronto e o que falta
-**Pronto e executado (resultados reais em `results/`):** índice invertido do zero + BM25; correção ortográfica e experimento de erros; bi-encoder; RRF; reranking; análises por consulta; contexto, prompts e respostas do RAG; relatório com 14 páginas (`report/relatorio.pdf`).
 
-**Pendências do grupo:**
-1. Preencher nomes, Nº USP e e-mails (README e cabeçalho de `report/relatorio.tex`; os campos em vermelho no PDF).
-2. **Avaliação humana do RAG** (item 13). A planilha cega está em `results/rag_annotation_sheet.csv`; instruções em `docs/AVALIACAO_HUMANA.md`. Depois do `merge`, rode `python scripts/08_make_report_assets.py`, recompile o relatório e escreva os trechos marcados com `[A preencher...]` (tabela de notas, análise de falhas ponta a ponta e conclusão do RAG).
-3. Revisar a seção "Uso de ferramentas de IA" do relatório para refletir o uso real.
-4. A LLM do RAG foi o próprio Claude em chat (ver §6). Se preferirem outra LLM (API ou local), use `scripts/06_rag_generate.py` e refaça a avaliação humana.
-5. Todos os integrantes devem entender o código (há defesa): veja `docs/GUIA_DE_DEFESA.md` e rode os testes.
 
-## 3. Escolhas do projeto (todas feitas no conjunto dev)
+## 2. Escolhas do projeto (todas feitas no conjunto dev)
 | Item | Escolha |
 |---|---|
 | Modelo lexical | **BM25**, k1 = 2,0 e b = 0,5; índice invertido implementado do zero (`src/inverted_index.py`); stopwords NLTK (inglês) + stemmer Snowball |
