@@ -5,8 +5,8 @@ Pipeline: documentos → pré-processamento e indexação → recuperação lexi
 ## 1. Integrantes
 | Nome completo | Nº USP |
 |---|---|
-| **[preencher]** | **[preencher]** |
-| **[preencher]** | **[preencher]** |
+| **Amanda Bezerra Costa** | **12680861** |
+| **Leonardo Ferreira Runho** | **11832958** |
 
 ## 2. Leia primeiro: o que está pronto e o que falta
 **Pronto e executado (resultados reais em `results/`):** índice invertido do zero + BM25; correção ortográfica e experimento de erros; bi-encoder; RRF; reranking; análises por consulta; contexto, prompts e respostas do RAG; relatório com 14 páginas (`report/relatorio.pdf`).
