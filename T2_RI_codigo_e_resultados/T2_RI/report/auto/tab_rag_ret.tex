@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\caption{RAG: recuperação nos Top-5 enviados à LLM (após reranking). ``Graus no Top-5'' = relevância de cada documento do contexto (0 = não relevante/não julgado).}
+\label{tab:rag_ret}
+\scriptsize
+\begin{tabular}{llrlrrr}
+\toprule
+Consulta & Pergunta & Rel. total & Graus no Top-5 & R@5 & P@5 & Hit@5 \\
+\midrule
+PLAIN-68 & What is Actually in Chicken Nuggets? & 55 & 2 0 0 0 0 & 0,018 & 0,20 & 1 \\
+PLAIN-2450 & Are Organic Foods Safer? & 38 & 0 2 0 0 2 & 0,053 & 0,40 & 1 \\
+PLAIN-153 & How Should I Take Probiotics? & 47 & 2 1 1 1 1 & 0,106 & 1,00 & 1 \\
+PLAIN-2850 & More Antibiotics In White Meat or Dark Meat? & 9 & 0 0 0 0 0 & 0,000 & 0,00 & 0 \\
+PLAIN-2750 & Preventing the Common Cold with Probiotics? & 59 & 2 1 2 1 0 & 0,068 & 0,80 & 1 \\
+PLAIN-270 & Is Caffeinated Tea Really Dehydrating? & 52 & 1 0 0 0 1 & 0,038 & 0,40 & 1 \\
+PLAIN-2470 & Is Milk Good for Our Bones? & 73 & 2 2 2 0 0 & 0,041 & 0,60 & 1 \\
+PLAIN-2430 & Preventing Brain Loss with B Vitamins? & 46 & 2 2 0 2 0 & 0,065 & 0,60 & 1 \\
+PLAIN-238 & How Chemically Contaminated Are We? & 54 & 0 1 0 0 0 & 0,018 & 0,20 & 1 \\
+PLAIN-3342 & Is Coconut Milk Good For You? & 3 & 2 0 0 0 2 & 0,667 & 0,40 & 1 \\
+\textbf{Média} &  &  &  & 0,107 & 0,46 & 0,9 \\
+\bottomrule
+\end{tabular}
+\end{table}

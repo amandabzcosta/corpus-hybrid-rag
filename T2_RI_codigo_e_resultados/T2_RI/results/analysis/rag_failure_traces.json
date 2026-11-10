@@ -1,0 +1,782 @@
+[
+ {
+  "query_id": "PLAIN-68",
+  "query": "What is Actually in Chicken Nuggets?",
+  "n_relevantes": 55,
+  "contexto": [
+   {
+    "doc_id": "MED-2991",
+    "relevancia": 2,
+    "titulo": "The autopsy of chicken nuggets reads \"chicken little\".",
+    "rank_lexical": 1,
+    "rank_semantico": 1,
+    "rank_hibrido": 1,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-1797",
+    "relevancia": 0,
+    "titulo": "Comparative genome analysis with the human genome reveals chicken genes associated with fatness and body weight.",
+    "rank_lexical": 23,
+    "rank_semantico": 24,
+    "rank_hibrido": 18,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-2492",
+    "relevancia": 0,
+    "titulo": "Roxarsone, Inorganic Arsenic, and Other Arsenic Species in Chicken: A U.S.-Based Market Basket Sample",
+    "rank_lexical": 8,
+    "rank_semantico": 18,
+    "rank_hibrido": 7,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-2088",
+    "relevancia": 0,
+    "titulo": "Arsenic species in poultry feather meal.",
+    "rank_lexical": 37,
+    "rank_semantico": 5,
+    "rank_hibrido": 8,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-1810",
+    "relevancia": 0,
+    "titulo": "Transmissibility of adenovirus-induced adiposity in a chicken model.",
+    "rank_lexical": 5,
+    "rank_semantico": null,
+    "rank_hibrido": 14,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 2,
+    "relevantes_top10": 3,
+    "relevantes_top100": 12
+   },
+   "semantic": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 1,
+    "relevantes_top10": 2,
+    "relevantes_top100": 13
+   },
+   "hybrid": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 3,
+    "relevantes_top10": 3,
+    "relevantes_top100": 14
+   },
+   "reranking": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 1,
+    "relevantes_top10": 1,
+    "relevantes_top100": 14
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-2450",
+  "query": "Are Organic Foods Safer?",
+  "n_relevantes": 38,
+  "contexto": [
+   {
+    "doc_id": "MED-1140",
+    "relevancia": 0,
+    "titulo": "Organic food: buying more safety or just peace of mind? A critical review of the literature.",
+    "rank_lexical": 1,
+    "rank_semantico": 4,
+    "rank_hibrido": 1,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-1178",
+    "relevancia": 2,
+    "titulo": "Are organic foods safer or healthier than conventional alternatives?: a systematic review.",
+    "rank_lexical": 2,
+    "rank_semantico": 3,
+    "rank_hibrido": 4,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-1144",
+    "relevancia": 0,
+    "titulo": "Perceived risks of conventional and organic produce: pesticides, pathogens, and natural toxins.",
+    "rank_lexical": 3,
+    "rank_semantico": 2,
+    "rank_hibrido": 3,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-1179",
+    "relevancia": 0,
+    "titulo": "Organic foods: health and environmental advantages and disadvantages.",
+    "rank_lexical": 4,
+    "rank_semantico": 1,
+    "rank_hibrido": 2,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-1173",
+    "relevancia": 2,
+    "titulo": "Choice of organic foods is related to perceived consequences for human health and to environmentally friendly behaviour.",
+    "rank_lexical": 8,
+    "rank_semantico": 10,
+    "rank_hibrido": 6,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 2,
+    "relevantes_top5": 1,
+    "relevantes_top10": 2,
+    "relevantes_top100": 7
+   },
+   "semantic": {
+    "primeiro_relevante": 3,
+    "relevantes_top5": 1,
+    "relevantes_top10": 2,
+    "relevantes_top100": 8
+   },
+   "hybrid": {
+    "primeiro_relevante": 4,
+    "relevantes_top5": 1,
+    "relevantes_top10": 2,
+    "relevantes_top100": 8
+   },
+   "reranking": {
+    "primeiro_relevante": 2,
+    "relevantes_top5": 2,
+    "relevantes_top10": 3,
+    "relevantes_top100": 8
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-153",
+  "query": "How Should I Take Probiotics?",
+  "n_relevantes": 47,
+  "contexto": [
+   {
+    "doc_id": "MED-3679",
+    "relevancia": 2,
+    "titulo": "The impact of meals on a probiotic during transit through a model of the human upper gastrointestinal tract.",
+    "rank_lexical": 8,
+    "rank_semantico": 1,
+    "rank_hibrido": 2,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-3692",
+    "relevancia": 1,
+    "titulo": "Human gut microbiota and its relationship to health and disease.",
+    "rank_lexical": 7,
+    "rank_semantico": 5,
+    "rank_hibrido": 6,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-3695",
+    "relevancia": 1,
+    "titulo": "Probiotics for the prevention of pediatric antibiotic-associated diarrhea.",
+    "rank_lexical": 5,
+    "rank_semantico": 8,
+    "rank_hibrido": 9,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-3693",
+    "relevancia": 1,
+    "titulo": "Microbiological evaluation of commercial probiotic products available in the USA in 2009.",
+    "rank_lexical": 14,
+    "rank_semantico": 7,
+    "rank_hibrido": 10,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-3680",
+    "relevancia": 1,
+    "titulo": "Probiotics for preventing acute upper respiratory tract infections.",
+    "rank_lexical": 3,
+    "rank_semantico": 6,
+    "rank_hibrido": 4,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 5,
+    "relevantes_top10": 10,
+    "relevantes_top100": 17
+   },
+   "semantic": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 5,
+    "relevantes_top10": 9,
+    "relevantes_top100": 21
+   },
+   "hybrid": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 5,
+    "relevantes_top10": 10,
+    "relevantes_top100": 21
+   },
+   "reranking": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 5,
+    "relevantes_top10": 9,
+    "relevantes_top100": 21
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-2850",
+  "query": "More Antibiotics In White Meat or Dark Meat?",
+  "n_relevantes": 9,
+  "contexto": [
+   {
+    "doc_id": "MED-3891",
+    "relevancia": 0,
+    "titulo": "Comparison of the Prevalences and Antimicrobial Resistances of Escherichia coli Isolates from Different Retail Meats in the United States, 2002 to 2008",
+    "rank_lexical": null,
+    "rank_semantico": 3,
+    "rank_hibrido": 8,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-4358",
+    "relevancia": 0,
+    "titulo": "Bacteriophage biocontrol in animals and meat products",
+    "rank_lexical": 8,
+    "rank_semantico": 44,
+    "rank_hibrido": 9,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-4983",
+    "relevancia": 0,
+    "titulo": "Meat intake and mortality: a prospective study of over half a million people",
+    "rank_lexical": 4,
+    "rank_semantico": null,
+    "rank_hibrido": 10,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-2584",
+    "relevancia": 0,
+    "titulo": "Dietary risk factors for colon cancer in a low-risk population.",
+    "rank_lexical": 1,
+    "rank_semantico": 64,
+    "rank_hibrido": 2,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-4482",
+    "relevancia": 0,
+    "titulo": "Meat consumption, Cooking Practices, Meat Mutagens and Risk of Prostate Cancer",
+    "rank_lexical": 3,
+    "rank_semantico": 82,
+    "rank_hibrido": 5,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 77,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 2
+   },
+   "semantic": {
+    "primeiro_relevante": 14,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 2
+   },
+   "hybrid": {
+    "primeiro_relevante": 38,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 2
+   },
+   "reranking": {
+    "primeiro_relevante": 16,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 2
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-2750",
+  "query": "Preventing the Common Cold with Probiotics?",
+  "n_relevantes": 59,
+  "contexto": [
+   {
+    "doc_id": "MED-3683",
+    "relevancia": 2,
+    "titulo": "Randomised, double-blind and placebo-controlled study using new probiotic lactobacilli for strengthening the body immune defence against viral infe...",
+    "rank_lexical": 1,
+    "rank_semantico": 1,
+    "rank_hibrido": 1,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-3695",
+    "relevancia": 1,
+    "titulo": "Probiotics for the prevention of pediatric antibiotic-associated diarrhea.",
+    "rank_lexical": 4,
+    "rank_semantico": 7,
+    "rank_hibrido": 4,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-3680",
+    "relevancia": 2,
+    "titulo": "Probiotics for preventing acute upper respiratory tract infections.",
+    "rank_lexical": 2,
+    "rank_semantico": 3,
+    "rank_hibrido": 2,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-3690",
+    "relevancia": 1,
+    "titulo": "Probiotics as prevention and treatment for diarrhea.",
+    "rank_lexical": 5,
+    "rank_semantico": 6,
+    "rank_hibrido": 5,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-4762",
+    "relevancia": 0,
+    "titulo": "Probiotic effects on cold and influenza-like symptom incidence and duration in children.",
+    "rank_lexical": 3,
+    "rank_semantico": 2,
+    "rank_hibrido": 3,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 7,
+    "relevantes_top100": 17
+   },
+   "semantic": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 9,
+    "relevantes_top100": 23
+   },
+   "hybrid": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 9,
+    "relevantes_top100": 18
+   },
+   "reranking": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 8,
+    "relevantes_top100": 18
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-270",
+  "query": "Is Caffeinated Tea Really Dehydrating?",
+  "n_relevantes": 52,
+  "contexto": [
+   {
+    "doc_id": "MED-4331",
+    "relevancia": 1,
+    "titulo": "Black tea is not significantly different from water in the maintenance of normal hydration in human subjects: results from a randomised controlled ...",
+    "rank_lexical": 4,
+    "rank_semantico": 1,
+    "rank_hibrido": 2,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-5245",
+    "relevancia": 0,
+    "titulo": "Effect of decaffeination of coffee or tea on gastro-oesophageal reflux.",
+    "rank_lexical": 1,
+    "rank_semantico": 2,
+    "rank_hibrido": 1,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-878",
+    "relevancia": 0,
+    "titulo": "Acute effects of coffee on endothelial function in healthy subjects.",
+    "rank_lexical": null,
+    "rank_semantico": 13,
+    "rank_hibrido": 38,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-1645",
+    "relevancia": 0,
+    "titulo": "The acute effect of green tea consumption on endothelial function in healthy individuals.",
+    "rank_lexical": 2,
+    "rank_semantico": 5,
+    "rank_hibrido": 3,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-4439",
+    "relevancia": 1,
+    "titulo": "A case of fatal caffeine poisoning.",
+    "rank_lexical": 15,
+    "rank_semantico": 67,
+    "rank_hibrido": 25,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 4,
+    "relevantes_top5": 1,
+    "relevantes_top10": 1,
+    "relevantes_top100": 13
+   },
+   "semantic": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 1,
+    "relevantes_top10": 2,
+    "relevantes_top100": 10
+   },
+   "hybrid": {
+    "primeiro_relevante": 2,
+    "relevantes_top5": 1,
+    "relevantes_top10": 1,
+    "relevantes_top100": 12
+   },
+   "reranking": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 2,
+    "relevantes_top10": 2,
+    "relevantes_top100": 12
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-2470",
+  "query": "Is Milk Good for Our Bones?",
+  "n_relevantes": 73,
+  "contexto": [
+   {
+    "doc_id": "MED-1337",
+    "relevancia": 2,
+    "titulo": "Milk intake and risk of hip fracture in men and women: a meta-analysis of prospective cohort studies.",
+    "rank_lexical": 2,
+    "rank_semantico": 1,
+    "rank_hibrido": 1,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-1340",
+    "relevancia": 2,
+    "titulo": "Milk Consumption During Teenage Years and Risk of Hip Fractures in Older Adults",
+    "rank_lexical": 6,
+    "rank_semantico": 4,
+    "rank_hibrido": 3,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-1338",
+    "relevancia": 2,
+    "titulo": "Milk intake and risk of mortality and fractures in women and men: cohort studies",
+    "rank_lexical": 54,
+    "rank_semantico": 6,
+    "rank_hibrido": 11,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-904",
+    "relevancia": 0,
+    "titulo": "A systematic review and meta-analysis of the effects of pasteurization on milk vitamins, and evidence for raw milk consumption and other health-rel...",
+    "rank_lexical": 44,
+    "rank_semantico": 16,
+    "rank_hibrido": 25,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-4902",
+    "relevancia": 0,
+    "titulo": "Addition of milk prevents vascular protective effects of tea.",
+    "rank_lexical": 33,
+    "rank_semantico": 56,
+    "rank_hibrido": 42,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 2,
+    "relevantes_top5": 2,
+    "relevantes_top10": 4,
+    "relevantes_top100": 26
+   },
+   "semantic": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 8,
+    "relevantes_top100": 24
+   },
+   "hybrid": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 6,
+    "relevantes_top100": 24
+   },
+   "reranking": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 3,
+    "relevantes_top10": 5,
+    "relevantes_top100": 24
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-2430",
+  "query": "Preventing Brain Loss with B Vitamins?",
+  "n_relevantes": 46,
+  "contexto": [
+   {
+    "doc_id": "MED-994",
+    "relevancia": 2,
+    "titulo": "Preventing Alzheimer’s disease-related gray matter atrophy by B-vitamin treatment",
+    "rank_lexical": 1,
+    "rank_semantico": 1,
+    "rank_hibrido": 1,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-980",
+    "relevancia": 2,
+    "titulo": "Homocysteine-Lowering by B Vitamins Slows the Rate of Accelerated Brain Atrophy in Mild Cognitive Impairment: A Randomized Controlled Trial",
+    "rank_lexical": 2,
+    "rank_semantico": 2,
+    "rank_hibrido": 2,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-5128",
+    "relevancia": 0,
+    "titulo": "Low vitamin B-12 status and risk of cognitive decline in older adults.",
+    "rank_lexical": 5,
+    "rank_semantico": 4,
+    "rank_hibrido": 3,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-986",
+    "relevancia": 2,
+    "titulo": "Effect of homocysteine lowering treatment on cognitive function: a systematic review and meta-analysis of randomized controlled trials.",
+    "rank_lexical": 17,
+    "rank_semantico": 3,
+    "rank_hibrido": 4,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-4929",
+    "relevancia": 0,
+    "titulo": "Vitamins E and C in the Prevention of Cardiovascular Disease in Men: The Physicians’ Health Study II Randomized Trial",
+    "rank_lexical": 30,
+    "rank_semantico": 20,
+    "rank_hibrido": 16,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 3,
+    "relevantes_top10": 4,
+    "relevantes_top100": 11
+   },
+   "semantic": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 6,
+    "relevantes_top100": 19
+   },
+   "hybrid": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 3,
+    "relevantes_top10": 5,
+    "relevantes_top100": 18
+   },
+   "reranking": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 3,
+    "relevantes_top10": 4,
+    "relevantes_top100": 18
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-238",
+  "query": "How Chemically Contaminated Are We?",
+  "n_relevantes": 54,
+  "contexto": [
+   {
+    "doc_id": "MED-2391",
+    "relevancia": 0,
+    "titulo": "Perfluorinated Compounds, Polychlorinated Biphenyls, and Organochlorine Pesticide Contamination in Composite Food Samples from Dallas, Texas, USA",
+    "rank_lexical": 1,
+    "rank_semantico": 2,
+    "rank_hibrido": 1,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-4739",
+    "relevancia": 1,
+    "titulo": "Nowhere to hide: Chemical toxicants and the unborn child.",
+    "rank_lexical": 17,
+    "rank_semantico": 26,
+    "rank_hibrido": 16,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-2493",
+    "relevancia": 0,
+    "titulo": "Environmental toxicants and the developing immune system: a missing link in the global battle against infectious disease?",
+    "rank_lexical": 79,
+    "rank_semantico": 19,
+    "rank_hibrido": 26,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-4653",
+    "relevancia": 0,
+    "titulo": "Dietary Intake Is Associated with Phthalate Body Burden in a Nationally Representative Sample",
+    "rank_lexical": 2,
+    "rank_semantico": null,
+    "rank_hibrido": 9,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-2994",
+    "relevancia": 0,
+    "titulo": "Carcinogenicity and regulation of caramel colorings.",
+    "rank_lexical": 29,
+    "rank_semantico": 52,
+    "rank_hibrido": 31,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 17,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 3
+   },
+   "semantic": {
+    "primeiro_relevante": 24,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 2
+   },
+   "hybrid": {
+    "primeiro_relevante": 16,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 4
+   },
+   "reranking": {
+    "primeiro_relevante": 2,
+    "relevantes_top5": 1,
+    "relevantes_top10": 1,
+    "relevantes_top100": 4
+   }
+  }
+ },
+ {
+  "query_id": "PLAIN-3342",
+  "query": "Is Coconut Milk Good For You?",
+  "n_relevantes": 3,
+  "contexto": [
+   {
+    "doc_id": "MED-5014",
+    "relevancia": 2,
+    "titulo": "Dietary intake and the risk of coronary heart disease among the coconut-consuming Minangkabau in West Sumatra, Indonesia.",
+    "rank_lexical": 2,
+    "rank_semantico": 4,
+    "rank_hibrido": 3,
+    "rank_reranking": 1
+   },
+   {
+    "doc_id": "MED-5015",
+    "relevancia": 0,
+    "titulo": "The intravenous use of coconut water.",
+    "rank_lexical": 5,
+    "rank_semantico": 6,
+    "rank_hibrido": 4,
+    "rank_reranking": 2
+   },
+   {
+    "doc_id": "MED-4000",
+    "relevancia": 0,
+    "titulo": "Coconut oil predicts a beneficial lipid profile in pre-menopausal women in the Philippines",
+    "rank_lexical": 3,
+    "rank_semantico": 1,
+    "rank_hibrido": 2,
+    "rank_reranking": 3
+   },
+   {
+    "doc_id": "MED-4002",
+    "relevancia": 0,
+    "titulo": "Effects of dietary coconut oil on the biochemical and anthropometric profiles of women presenting abdominal obesity.",
+    "rank_lexical": 8,
+    "rank_semantico": 7,
+    "rank_hibrido": 7,
+    "rank_reranking": 4
+   },
+   {
+    "doc_id": "MED-5012",
+    "relevancia": 2,
+    "titulo": "The cholesterol-lowering effect of coconut flakes in humans with moderately raised serum cholesterol.",
+    "rank_lexical": 1,
+    "rank_semantico": 2,
+    "rank_hibrido": 1,
+    "rank_reranking": 5
+   }
+  ],
+  "por_etapa": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 2,
+    "relevantes_top10": 2,
+    "relevantes_top100": 3
+   },
+   "semantic": {
+    "primeiro_relevante": 2,
+    "relevantes_top5": 2,
+    "relevantes_top10": 2,
+    "relevantes_top100": 3
+   },
+   "hybrid": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 2,
+    "relevantes_top10": 2,
+    "relevantes_top100": 3
+   },
+   "reranking": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 2,
+    "relevantes_top10": 3,
+    "relevantes_top100": 3
+   }
+  }
+ }
+]

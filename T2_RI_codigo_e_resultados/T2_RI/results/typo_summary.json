@@ -1,0 +1,35 @@
+{
+  "n_consultas": 10,
+  "espaco_amostral_elegivel": 209,
+  "parametros_correcao": {
+    "k": 2,
+    "jaccard": 0.3,
+    "max_edit": 1
+  },
+  "tamanho_dicionario": 26354,
+  "ndcg10_medio": {
+    "original": 0.5965,
+    "erro": 0.0154,
+    "corrigida": 0.5606
+  },
+  "n_com_queda": 10,
+  "n_erro_nao_reduziu": 0,
+  "recuperacao_media_por_consulta": 0.9,
+  "recuperacao_agregada": 0.9382,
+  "correcoes_exatas": 9,
+  "tipos": {
+    "substituição": 3,
+    "inserção": 3,
+    "remoção": 2,
+    "troca": 2
+  },
+  "semantico": {
+    "ndcg10_medio": {
+      "original": 0.5173,
+      "erro": 0.124,
+      "corrigida": 0.4747
+    },
+    "n_com_queda": 8,
+    "recuperacao_media_por_consulta": 0.875
+  }
+}

@@ -1,0 +1,106 @@
+\section{Resultados Obtidos e Análise}
+\subsection{Escolhas feitas no \emph{dev}}
+\textbf{Pré-processamento e BM25.} Remover \emph{stopwords} e aplicar stemming eleva o NDCG@10 do \emph{dev} de 0,2669 (nenhuma etapa) para 0,2965 (+11\%); Snowball e Porter são equivalentes (0,2965 e 0,2963). Na grade de $(k_1,b)$ o NDCG@10 varia só entre 0,2896 e 0,2974; o ótimo ($k_1=\BmK$, $b=\BmB$) supera os valores usuais ($1{,}2$; $0{,}75$) em 0,0009, ou seja, a superfície é plana e o ganho é desprezível.
+
+\input{auto/tab_dev_pre.tex}
+\input{auto/tab_dev_bm25.tex}
+
+\textbf{Bi-encoder.} O melhor candidato foi o \texttt{all-MiniLM-L6-v2} com 256 tokens (0,3024; Tabela~\ref{tab:dev_emb}). Aumentar o limite para 512 tokens reduz o truncamento de 78,8\% para 9,1\% dos documentos e custa 58\% mais tempo de codificação, mas \emph{não} melhora o resultado (0,2956); com 128 tokens o NDCG@10 é 0,3005. Ler mais texto, portanto, não ajudou este modelo (uma possível explicação, não testada aqui, é que ele foi treinado com entradas curtas e que o título e o início do resumo concentram o sinal). O \texttt{paraphrase-MiniLM-L6-v2}, treinado para paráfrase e não para busca, é bem pior (0,2625).
+
+\input{auto/tab_dev_emb.tex}
+
+\textbf{RRF.} O híbrido supera os dois sistemas isolados em \emph{todos} os $k$ avaliados (0,3295--0,3326 contra 0,2974 e 0,3024; Figura~\ref{fig:rrf} e Tabela~\ref{tab:dev_rrf}). O melhor foi $k=\RrfK$ (0,3326); entre os valores exigidos, $k=10,60,100$ dão 0,3326, 0,3307 e 0,3304: a sensibilidade a $k$ é pequena (0,0031 entre o melhor e o pior).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=.5\linewidth]{auto/fig_rrf_k.pdf}
+\caption{NDCG@10 no \emph{dev} em função de $k$ do RRF; linhas tracejadas: sistemas isolados.}
+\label{fig:rrf}
+\end{figure}
+\input{auto/tab_dev_rrf.tex}
+
+\textbf{Cross-encoder.} Em 30 consultas do \emph{dev} (amostra com semente fixa, limitada pelo custo de CPU), o \texttt{ms-marco-MiniLM-L6-v2} elevou o NDCG@10 do híbrido de 0,3642 para 0,3900, enquanto o L12 ficou abaixo do próprio híbrido (0,3581); o L6 foi escolhido (Tabela~\ref{tab:dev_ce}). Veremos na Seção~\ref{sec:rerank} que esse ganho \emph{não} se reproduziu no \emph{test}: 30 consultas são pouco para detectar uma diferença dessa ordem.
+
+\input{auto/tab_dev_ce.tex}
+
+\textbf{Correção ortográfica.} Em 202 consultas do \emph{dev} com um erro gerado, o NDCG@10 caiu de 0,4489 para 0,1857 e voltou a 0,4428 com $k=\SpK$, Jaccard $\ge \SpJ$ e distância $\le \SpEdit$: o termo exato foi recuperado em 94,6\% dos casos e a recuperação média por consulta foi de 95,0\%. Limiares de Jaccard maiores (0,4 e 0,5) descartam candidatos corretos (acerto de 91,6\% e 85,6\%). Com edição máxima 1 ou 2 o resultado é praticamente igual (0,4428 e 0,4423; Tabela~\ref{tab:dev_spell}); adotamos o critério mais conservador.
+
+\input{auto/tab_dev_spell.tex}
+
+\subsection{Lexical $\times$ semântico}
+\input{auto/tab_test_main.tex}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{auto/fig_main.pdf}
+\caption{Esquerda: NDCG@10 no \emph{test} por sistema (IC 95\%). Direita: NDCG@10 por consulta, lexical $\times$ semântico (verde: semântico melhor; vermelho: lexical melhor; cinza: empate).}
+\label{fig:main}
+\end{figure}
+\input{auto/tab_sig.tex}
+
+\textbf{Visão global.} Em média os dois sistemas são equivalentes: NDCG@10 de \NdcgTenLex{} (lexical; o BEIR reporta 0,325 para o BM25 nesta coleção \cite{thakur2021beir}) e \NdcgTenSem{} (semântico), diferença de $-0{,}0137$ sem significância (Wilcoxon, $p=0{,}31$; Tabela~\ref{tab:sig}); P@10 e R@10 são praticamente idênticos e o MAP@10 favorece o lexical (\MapTenLex{} contra \MapTenSem{}). A igualdade média esconde comportamentos muito diferentes por consulta: o semântico vence em \SemWins{} consultas, o lexical em \LexWins{} e há \TieQ{} empates (Figura~\ref{fig:main}), e o Top-10 dos dois sistemas tem Jaccard médio de apenas \OverlapTop. O desencontro de vocabulário é grande: em média \ZeroOverlapPct\% dos documentos relevantes de uma consulta \emph{não contêm nenhum} termo dela (só \AllTermsPct\% contêm todos), e as consultas têm em média \AvgTermsQuery{} termos úteis. \LexNoResult{} consultas do \emph{test} (nomes de alimentos, remédios e lugares, como \emph{eggnog}, \emph{Fosamax}, \emph{okra} e \emph{Yale}) não têm nenhum termo no índice, e o lexical devolve zero resultados; \LexShort{} das 323 consultas têm menos de 100 resultados lexicais. O ganho do semântico cresce com o tamanho da consulta (Spearman entre $\Delta$NDCG e nº de termos: $\rho=\SpearmanNTermsRho$, $p=\SpearmanNTermsP$), mas não se relaciona de forma significativa com a fração de relevantes sem termo da consulta ($\rho=\SpearmanZeroRho$, $p=\SpearmanZeroP$). O tamanho dos documentos recuperados não distingue os sistemas: o Top-10 tem em média \LenTopLex{} tokens no lexical e \LenTopSem{} no semântico, contra \LenCollection{} na coleção e \LenRelevant{} nos relevantes.
+
+\textbf{Os seis casos (Tabelas~\ref{tab:case1}--\ref{tab:case6}).} As três consultas com maior vantagem do semântico e as três com maior vantagem do lexical foram selecionadas automaticamente pela diferença de NDCG@10. Cada análise se apoia nos valores das tabelas e em \texttt{results/\allowbreak analysis/\allowbreak lex\_vs\_sem\_cases.md}.
+
+\input{auto/tab_cases_lexsem.tex}
+
+\textbf{Caso 1 --- \emph{``The Difficulty of Arriving at a Vitamin D Recommendation''} (PLAIN-3085; lexical 0,000 $\times$ semântico 0,571).} Os dois relevantes contêm só um dos quatro termos (\emph{vitamin}); o BM25 recompensa as palavras raras e pouco informativas da consulta: \emph{arriv} (idf 6,18) e \emph{difficulti} (5,08) pesam mais que \emph{vitamin} (2,79), e o Top-5 lexical traz, por exemplo, o MED-3632, sobre um aumento de mortalidade ``após a chegada'' de algo, sem relação com vitamina D. O primeiro relevante está na posição 19 no lexical e nas posições 3 e 4 no semântico (cossenos 0,635 e 0,617): o embedding capta o tema (\emph{recomendação sobre vitamina D}) em vez de somar palavras raras. Evidência de \textbf{peso excessivo de termos raros e de paráfrase}.
+
+\textbf{Caso 2 --- \emph{``low-carb diets''} (PLAIN-1537; 0,095 $\times$ 0,662).} \emph{carb} aparece em um único documento (df $=1$, idf 7,79) porque os textos escrevem \emph{carbohydrate}: abreviação $\times$ forma plena (\textbf{variação de vocabulário e sinonímia}). Esse documento, não relevante, domina o ranking lexical (score 25,8 contra 7,4 do segundo), e os demais documentos lexicais casam só com \emph{low} e \emph{diet} (dietas hipocalóricas, hipoproteicas). Dos 45 relevantes, 16 não têm nenhum termo da consulta; o semântico coloca 4 relevantes no Top-5 e 6 no Top-10 (lexical: 1 e 1).
+
+\textbf{Caso 3 --- \emph{``cocaine''} (PLAIN-924; 0,220 $\times$ 0,778).} Só um documento da coleção contém \emph{cocain}; o lexical devolve apenas esse resultado (relevante, posição 1), de modo que o recall fica limitado a 1/32: 31 dos 32 relevantes não contêm o termo. O semântico mantém esse documento no topo e acrescenta textos sobre vício em comida e circuitos de recompensa (MED-3054, MED-3055, MED-3052, todos relevantes) que nunca citam cocaína: a \textbf{relevância é temática e indireta}. Há 18 relevantes no Top-100 semântico contra 1 no lexical.
+
+\textbf{Caso 4 --- \emph{``kohlrabi''} (PLAIN-1473; 1,000 $\times$ 0,000).} O único relevante (MED-4455) contém o termo raro (df $=1$, idf 7,79), logo o BM25 o coloca em 1º. O tokenizador do bi-encoder fragmenta \emph{kohlrabi} em \texttt{ko\,\#\#hl\,\#\#ra\,\#\#bi}, peças sem relação com a hortaliça; os documentos devolvidos (algas, hibisco) têm cosseno máximo de 0,22 e o relevante fica fora do Top-100. Evidência a favor da \textbf{correspondência exata de termos técnicos e nomes raros}.
+
+\textbf{Caso 5 --- \emph{``shelf life''} (PLAIN-2081; 1,000 $\times$ 0,000).} O relevante (MED-4303, ``shelf-life evaluation of selected culinary oils'') contém os dois termos e o BM25 o ranqueia em 1º (\emph{shelf}: idf 6,18). O semântico interpreta \emph{life} como tempo de vida: o Top-5 é sobre longevidade, restrição calórica e envelhecimento (por exemplo ``Longevity and diet. Myth or pragmatism?''), e o relevante só aparece na posição 15. É um caso de \textbf{ambiguidade} (\emph{shelf life} $\ne$ \emph{life}).
+
+\textbf{Caso 6 --- \emph{``grapes''} (PLAIN-1288; 0,890 $\times$ 0,130).} Dos 196 relevantes, apenas 15 contêm \emph{grape}, mas são eles que o lexical coloca no topo (9 relevantes no Top-10). O semântico traz no Top-5 quatro documentos sobre \emph{grapefruit} (nenhum relevante), cujo termo é segmentado em \texttt{grape\,\#\#fr\,\#\#uit}, ou seja, compartilha a peça \emph{grape} e o domínio ``fruta cítrica/fruta''; o primeiro relevante está na posição 9. Em consulta de uma só palavra, sem contexto, a \textbf{vizinhança lexical e semântica} do embedding produz ruído que a correspondência exata evita. (Os documentos MED-398 e MED-3207 têm o mesmo título e o mesmo cosseno, ou seja, são duplicatas na coleção.)
+
+\subsection{Tolerância a erros ortográficos}
+\input{auto/tab_typo.tex}
+Das \TypoEligible{} consultas elegíveis do \emph{test} (NDCG@10 original $>0$), 10 foram sorteadas, com os quatro tipos de erro atribuídos em rodízio (3 substituições, 3 inserções, 2 remoções, 2 trocas). O NDCG@10 médio do sistema lexical foi de \TypoOrig{} (original) para \TypoErr{} (com erro) e \TypoCorr{} (corrigida): a correção recuperou \TypoRecAgg\% da queda (agregado) e \TypoRecMean\% em média por consulta; em todas as \TypoNDrop{} consultas o erro reduziu o NDCG@10 (nenhuma ficou sem queda), e \TypoNExact{} correções devolveram exatamente o termo original (Tabela~\ref{tab:typo}). A queda é quase total porque várias consultas têm um ou dois termos (\emph{fenugreek}, \emph{salmon}, \emph{memory}\ldots): o erro cria um termo inexistente, com zero \emph{postings}, e nada é recuperado.
+
+\textbf{O caso que falhou} (PLAIN-711, \emph{blood clots} $\rightarrow$ \emph{blood colts}, troca de ordem): todos os candidatos a distância 1 são ``vizinhos'' do erro: \emph{costs} (Jaccard 0,50; frequência 87), \emph{colas}, \emph{coats}, \emph{colds} (0,50) e, por último, \emph{clots} (0,33; frequência 1). A troca de duas letras adjacentes custa 1 na distância de edição, mas altera três bigramas (\texttt{ol}, \texttt{lt}, \texttt{ts}$\rightarrow$\texttt{lo}, \texttt{ot}, \texttt{ts}), e o desempate por Jaccard e depois por frequência escolhe \emph{costs}: NDCG@10 permanece 0 (recuperação 0\%). Uma correção sensível ao contexto (\emph{blood} coocorre com \emph{clots}) ou um modelo de canal ruidoso resolveria o caso; não foi implementada. A amostra de 10 consultas é pequena (a de 202 consultas do \emph{dev} dá recuperação média de 95,0\%).
+
+\textbf{Sistema semântico (opcional).} Com as mesmas consultas, o NDCG@10 do bi-encoder cai de 0,5173 para 0,1240 com o erro e volta a 0,4747 com a consulta corrigida (recuperação média de 87,5\% nas 8 consultas em que o erro reduziu o desempenho; nas outras 2 não houve queda). Os embeddings, portanto, também são frágeis a erros de digitação: o erro altera as peças do tokenizador (\emph{fenugreek}: \texttt{fen\,\#\#ug\,\#\#ree\,\#\#k}; \emph{feugreek}: \texttt{fe\,\#\#ug\,\#\#ree\,\#\#k}), o que muda o vetor da consulta. A correção, aplicada antes da codificação, serve aos dois sistemas.
+
+\subsection{Busca híbrida}
+O RRF com $k=\RrfK$ eleva o NDCG@10 do \emph{test} para \NdcgTenHyb{}: $+0{,}0252$ sobre o lexical ($p=7{,}3\times10^{-5}$) e $+0{,}0388$ sobre o semântico ($p=3{,}5\times10^{-7}$); P@10 passa a \PTenHyb{} e R@10 a \RTenHyb{} (Tabela~\ref{tab:test_main}). O híbrido é melhor que \emph{ambos} os sistemas em \HybBeatBoth{} consultas e pior que ambos em apenas \HybLoseBoth{}; nas demais \HybBetween{} fica igual ou entre os dois. A explicação está na complementaridade medida: o Recall@100 é \RecLexHundred{} no lexical, \RecSemHundred{} no semântico e \RecUnionHundred{} na união; dos relevantes encontrados por algum sistema, \OnlyLexPct\% só pelo lexical, \OnlySemPct\% só pelo semântico e \BothPct\% por ambos. O RRF premia documentos que aparecem nos dois rankings sem comparar escores de escalas diferentes (BM25 e cosseno). Um efeito colateral são os empates de RRF (um documento em 1º só no lexical e outro em 1º só no semântico têm o mesmo escore), resolvidos aqui pelo identificador, o que aparece no caso \emph{kohlrabi} adiante.
+
+\subsection{Reranking}\label{sec:rerank}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{auto/fig_typo_rerank.pdf}
+\caption{Esquerda: NDCG@10 lexical nas 10 consultas do experimento de erros. Direita: $\Delta$NDCG@10 por consulta do reranking (híbrido+reranking $-$ híbrido), ordenado.}
+\label{fig:typo_rerank}
+\end{figure}
+\textbf{Resultado global.} O reranking com o cross-encoder \emph{não} melhorou o NDCG@10 do \emph{test}: \NdcgTenHyb{} (híbrido) contra \NdcgTenRr{} (híbrido+reranking), $\Delta=+0{,}0002$ ($p=0{,}96$). P@10 e R@10 \emph{caíram} (de \PTenHyb{} para \PTenRr{} e de \RTenHyb{} para \RTenRr{}) e o MAP@10 subiu levemente (\MapTenHyb{} $\rightarrow$ \MapTenRr{}). Por consulta, \RrBetter{} melhoraram, \RrWorse{} pioraram e \RrSame{} não mudaram (Figura~\ref{fig:typo_rerank}, painel direito). Havia muito a ganhar: o Top-50 híbrido contém em média \RecFiftyHyb{} dos relevantes e um reordenador perfeito dele alcançaria NDCG@10 de \OracleNdcg{}; o cross-encoder promoveu \RelPromoted{} relevantes das posições 11--50 para o Top-10, mas rebaixou \RelDemoted{} relevantes para fora dele (saldo negativo, coerente com a queda de P@10). O Top-10 pós-reranking tem documentos mais longos (\LenTopRer{} tokens contra \LenTopHyb{} no híbrido e \LenCollection{} na coleção). O ganho de +0,026 visto no \emph{dev} provavelmente refletia a variância de uma amostra de apenas 30 consultas. O resultado do \emph{test} é compatível com o que o BEIR reporta para BM25 + cross-encoder MiniLM no NFCorpus (NDCG@10 de 0,350 \cite{thakur2021beir}): o híbrido já chega a esse patamar sem o reranker. (Hipóteses não testadas aqui: o cross-encoder foi treinado no MS MARCO, com consultas e trechos de web, enquanto no NFCorpus a relevância é derivada de citações e muitas vezes é indireta.)
+
+\input{auto/tab_cases_rerank.tex}
+
+\textbf{Maior ganho 1 --- PLAIN-1320, \emph{``Harvard Physicians' Study II''} (0,091 $\rightarrow$ 0,562; relevantes no Top-10: 1 $\rightarrow$ 3).} O cross-encoder subiu os três relevantes sobre o \emph{Physicians' Health Study} (MED-2760: posição 9 $\rightarrow$ 1, escore 0,755; MED-2758: 12 $\rightarrow$ 3; MED-2761: 22 $\rightarrow$ 6). O semântico havia posto esses documentos nas posições 74, 38 e 84, favorecendo textos sobre médicos em geral (posições 1 a 4: \emph{``How evidence-based medicine biases physicians against nutrition''}, \emph{``Physician disclosure\ldots''}), enquanto o lexical os tinha em 2, 4 e 11. Lendo consulta e documento juntos, o reranker casou o nome próprio ``Physicians' Health Study'' do título; os quatro documentos que o semântico havia posto em 1º a 4º lugar foram para as posições 9, 16, 17 e 28. (O MED-4929, também do \emph{Physicians' Health Study II}, está em 2º e é não relevante no qrels, um sinal de julgamentos incompletos.)
+
+\textbf{Maior ganho 2 --- PLAIN-1473, \emph{``kohlrabi''} (0,631 $\rightarrow$ 1,000).} O único relevante já estava em 2º no híbrido: o 1º era o MED-3947 (hibisco), com o mesmo escore RRF $1/(10+1)$ do relevante (1º só no semântico $\times$ 1º só no lexical); o desempate por identificador favoreceu o irrelevante. O cross-encoder deu +1,22 ao MED-4455 (que contém o termo) contra $-4{,}31$ ao seguinte. O ``ganho'' é a correção de um empate do RRF, e o semântico não tinha informação sobre \emph{kohlrabi} (Caso 4).
+
+\textbf{Pouca ou nenhuma alteração --- PLAIN-1557, \emph{``magnesium''} ($\Delta=0$).} Os três relevantes continuam no Top-10 (posições híbridas 3, 2 e 9; finais 2, 3 e 9): só trocaram de lugar os dois primeiros, ambos com grau 1, o que não altera o NDCG. Cinco posições do Top-10 mudam, mas por documentos não relevantes que entram vindo de mais fundo (MED-3497: 27 $\rightarrow$ 7). Todos os documentos do topo já continham o termo \emph{magnesium}, de modo que o reranker não tinha sinal novo para separá-los.
+
+\textbf{Piora --- PLAIN-1679, \emph{``myelopathy''} (0,387 $\rightarrow$ 0,000).} A palavra não existe no índice (df $=0$): o híbrido é só o ranking semântico, que põe o único relevante (MED-5142, degeneração combinada subaguda da medula espinhal) na posição 5. O cross-encoder o rebaixa para a 40ª (escore $-10{,}2$) e coloca no topo textos sobre \emph{mieloma múltiplo} (por exemplo o MED-1105, escore 0,193): \emph{myelopathy} e \emph{myeloma} compartilham as peças \texttt{my\,\#\#elo} no tokenizador, e o documento relevante nunca usa a palavra da consulta. O modelo, treinado em passagens de web, não conhece a relação clínica e se apoia na forma da palavra.
+
+\subsection{Tempos}
+\input{auto/tab_times.tex}
+Medidos em CPU de um único núcleo (Tabela~\ref{tab:times}): o índice invertido é construído em \IdxTotal{} s e responde em \LexMs{} ms por consulta; os embeddings dos documentos levam \EncDocSeconds{} s e a consulta semântica, \EncQueryMs{} ms; a fusão RRF custa \RrfMs{} ms. O reranking de 50 pares leva \CEMsQuery{} s por consulta (\CESecPair{} s por par, com média de \CEPairTokens{} tokens por par), muito mais que todo o restante junto, e foi implementado com NumPy puro em CPU; em GPU o custo seria muito menor, mas a proporção entre as etapas deve se manter. Sem reranking, a consulta híbrida completa leva cerca de 4 ms.
+
+\subsection{RAG}
+\textbf{Recuperação (Top-5 pós-reranking enviado à LLM).} Pelo menos um documento relevante chegou ao contexto em 9 das 10 consultas (Hit@5 $=$ \RagHit), com Precision@5 médio de \RagPrec{} e Recall@5 médio de \RagRecall{} (Tabela~\ref{tab:rag_ret}). O Recall@5 baixo é esperado: as consultas têm em média 43,6 relevantes, então 5 documentos cobrem no máximo cerca de 11,5\%. O caso extremo é PLAIN-153 (\emph{How Should I Take Probiotics?}), em que os 5 documentos são relevantes; a exceção é PLAIN-2850 (\emph{More Antibiotics In White Meat or Dark Meat?}), sem nenhum relevante no contexto.
+\input{auto/tab_rag_ret.tex}
+
+\textbf{Geração: configuração e verificações objetivas.} A LLM é a descrita na Metodologia; as respostas têm em média \RagWordsA{} palavras na condição A e \RagWordsB{} na B. As respostas B citam \RagCited{} documentos no total, \textbf{todos presentes no contexto enviado} (\RagCitedValid{} de \RagCited{}, nenhum identificador inventado); \RagCitedRel{} das citações apontam para documentos relevantes no qrels, porque várias respostas citam documentos irrelevantes justamente para dizer que eles não tratam da pergunta (\RagCtxRel{} dos \RagCtxN{} documentos do contexto são relevantes). As respostas A não têm fontes (0 identificadores), como previsto. Estas verificações automáticas \emph{não substituem} a avaliação humana.
+
+\textbf{Avaliação humana (Tabela~\ref{tab:rag_grades}).} \todo{A preencher pelos integrantes: avaliar a planilha cega (results/\allowbreak rag\_annotation\_sheet.csv) com o script 07 e atualizar esta tabela e o texto abaixo. Discutir as médias A $\times$ B por critério, a concordância entre avaliadores e a ausência de fontes na condição A (rastreabilidade N/A).}
+\input{auto/tab_rag_grades.tex}
+
+\subsection{Análise de falhas ponta a ponta}
+\todo{Escolher, depois das notas, três consultas: (1) o RAG melhorou claramente a resposta; (2) pouca diferença; (3) o RAG não ajudou ou prejudicou. Para a (3), localizar o estágio do problema (lexical, semântico, fusão, reranking, seleção de contexto ou geração) com results/\allowbreak analysis/\allowbreak rag\_failure\_traces.md.}
+\textbf{Evidência já disponível para um candidato à categoria (3): PLAIN-2850.} Existem 9 relevantes no qrels e nenhum chegou ao Top-10 em nenhuma etapa: em cada sistema só 2 deles estão no Top-100 e o primeiro relevante aparece na posição 77 (lexical), 14 (semântico), 38 (híbrido) e 16 (reranking). A informação necessária, portanto, nunca chegou ao contexto: o problema está na \textbf{recuperação} (os dois recuperadores falham e a fusão e o reranking não os salvam), não na geração. A resposta B declara que o contexto não tem evidência suficiente, o que é fiel ao contexto, mas pouco útil; os documentos recuperados tratam de resistência bacteriana em carnes de varejo, bacteriófagos e consumo de carne e doenças, sem comparar carne branca e escura. Confirme a classificação com as notas.
+
+\subsection{Limitações}
+(i) A escolha do cross-encoder usou só 30 consultas do \emph{dev} e não se confirmou no \emph{test}. (ii) O experimento de erros usa 10 consultas e um erro por consulta; o \emph{dev} (202 consultas) corrobora o resultado. (iii) Os qrels do NFCorpus são incompletos e derivados de citações (por exemplo, o MED-4929 é tematicamente adequado ao caso PLAIN-1320, mas não é relevante), o que subestima todos os sistemas. (iv) Cada sistema foi executado uma vez, sem repetições. (v) A LLM do RAG foi usada por interface de chat, sem controle de temperatura ou semente. (vi) Tempos medidos em uma CPU de um núcleo.

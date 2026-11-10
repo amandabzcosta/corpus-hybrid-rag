@@ -1,0 +1,11 @@
+query_id,query_original,query_erro,query_corrigida,tipo_erro,NDCG10_original,NDCG10_erro,NDCG10_corrigida,recuperacao,termo_original,termo_erro,termo_corrigido,correcao_exata,correcoes_aplicadas,NDCG10_sem_original,NDCG10_sem_erro,NDCG10_sem_corrigida,recuperacao_sem
+PLAIN-344,Dioxins Stored in Our Own Fat May Increase Diabetes Risk,Diofins Stored in Our Own Fat May Increase Diabetes Risk,Dioxins Stored in Our Own Fat May Increase Diabetes Risk,substituição,0.4169,0.0,0.4169,1.0,dioxins,diofins,dioxins,True,"{""diofins"": ""dioxins""}",0.4411,0.1335,0.4411,1.0
+PLAIN-1527,liver disease,livwer disease,liver disease,inserção,0.7682,0.0694,0.7682,1.0,liver,livwer,liver,True,"{""livwer"": ""liver""}",1.0,0.0636,1.0,1.0
+PLAIN-1172,fenugreek,feugreek,fenugreek,remoção,0.2201,0.0,0.2201,1.0,fenugreek,feugreek,fenugreek,True,"{""feugreek"": ""fenugreek""}",0.2201,0.2201,0.2201,erro não reduziu o desempenho
+PLAIN-711,blood clots,blood colts,blood costs,troca,0.359,0.0,0.0,0.0,clots,colts,costs,False,"{""colts"": ""costs""}",0.4263,0.0,0.0,0.0
+PLAIN-2124,spearmint,skearmint,spearmint,substituição,0.359,0.0,0.359,1.0,spearmint,skearmint,spearmint,True,"{""skearmint"": ""spearmint""}",0.5541,0.2337,0.5541,1.0
+PLAIN-2040,salmon,saglmon,salmon,inserção,0.7506,0.0,0.7506,1.0,salmon,saglmon,salmon,True,"{""saglmon"": ""salmon""}",0.5174,0.0,0.5174,1.0
+PLAIN-1983,rapamycin,raamycin,rapamycin,remoção,1.0,0.0,1.0,1.0,rapamycin,raamycin,rapamycin,True,"{""raamycin"": ""rapamycin""}",1.0,0.3052,1.0,1.0
+PLAIN-1601,memory,mmeory,memory,troca,0.5806,0.0,0.5806,1.0,memory,mmeory,memory,True,"{""mmeory"": ""memory""}",0.6817,0.0851,0.6817,1.0
+PLAIN-701,black raspberries,black raspberrieh,black raspberries,substituição,0.5104,0.0843,0.5104,1.0,raspberries,raspberrieh,raspberries,True,"{""raspberrieh"": ""raspberries""}",0.3327,0.199,0.3327,1.0
+PLAIN-1473,kohlrabi,kohlrrabi,kohlrabi,inserção,1.0,0.0,1.0,1.0,kohlrabi,kohlrrabi,kohlrabi,True,"{""kohlrrabi"": ""kohlrabi""}",0.0,0.0,0.0,erro não reduziu o desempenho

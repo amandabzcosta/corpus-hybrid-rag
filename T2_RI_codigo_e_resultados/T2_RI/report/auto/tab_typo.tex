@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\caption{Experimento de tolerância a erros (sistema lexical, \textbf{test}). Recup. = (corrigida $-$ erro)/(original $-$ erro).}
+\label{tab:typo}
+\scriptsize
+\begin{tabular}{llllllrrr}
+\toprule
+Consulta & Tipo de erro & Original & Com erro & Corrigido & NDCG orig. & NDCG erro & NDCG corr. & Recup. \\
+\midrule
+PLAIN-344 & substituição & \texttt{dioxins} & \texttt{diofins} & \texttt{dioxins} & 0,417 & 0,000 & 0,417 & 100\% \\
+PLAIN-1527 & inserção & \texttt{liver} & \texttt{livwer} & \texttt{liver} & 0,768 & 0,069 & 0,768 & 100\% \\
+PLAIN-1172 & remoção & \texttt{fenugreek} & \texttt{feugreek} & \texttt{fenugreek} & 0,220 & 0,000 & 0,220 & 100\% \\
+PLAIN-711 & troca & \texttt{clots} & \texttt{colts} & \texttt{costs} & 0,359 & 0,000 & 0,000 & 0\% \\
+PLAIN-2124 & substituição & \texttt{spearmint} & \texttt{skearmint} & \texttt{spearmint} & 0,359 & 0,000 & 0,359 & 100\% \\
+PLAIN-2040 & inserção & \texttt{salmon} & \texttt{saglmon} & \texttt{salmon} & 0,751 & 0,000 & 0,751 & 100\% \\
+PLAIN-1983 & remoção & \texttt{rapamycin} & \texttt{raamycin} & \texttt{rapamycin} & 1,000 & 0,000 & 1,000 & 100\% \\
+PLAIN-1601 & troca & \texttt{memory} & \texttt{mmeory} & \texttt{memory} & 0,581 & 0,000 & 0,581 & 100\% \\
+PLAIN-701 & substituição & \texttt{raspberries} & \texttt{raspberrieh} & \texttt{raspberries} & 0,510 & 0,084 & 0,510 & 100\% \\
+PLAIN-1473 & inserção & \texttt{kohlrabi} & \texttt{kohlrrabi} & \texttt{kohlrabi} & 1,000 & 0,000 & 1,000 & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table}

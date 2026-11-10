@@ -1,0 +1,1069 @@
+[
+ {
+  "query_id": "PLAIN-3085",
+  "query": "The Difficulty of Arriving at a Vitamin D Recommendation",
+  "metricas": {
+   "lexical": 0.0,
+   "semantico": 0.5706417189553201,
+   "delta": 0.5706417189553201
+  },
+  "termos": [
+   {
+    "termo": "difficulti",
+    "df": 22,
+    "idf": 5.08
+   },
+   {
+    "termo": "arriv",
+    "df": 7,
+    "idf": 6.18
+   },
+   {
+    "termo": "vitamin",
+    "df": 222,
+    "idf": 2.79
+   },
+   {
+    "termo": "recommend",
+    "df": 275,
+    "idf": 2.58
+   }
+  ],
+  "cobertura_relevantes": {
+   "n_relevantes": 2,
+   "sem_nenhum_termo": 0,
+   "com_todos_os_termos": 0,
+   "media_termos_presentes": 1.0,
+   "n_termos_consulta": 4
+  },
+  "resumo": {
+   "lexical": {
+    "primeiro_relevante": 19,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 2
+   },
+   "semantico": {
+    "primeiro_relevante": 3,
+    "relevantes_top5": 2,
+    "relevantes_top10": 2,
+    "relevantes_top100": 2
+   }
+  },
+  "top5": {
+   "lexical": [
+    {
+     "rank": 1,
+     "doc_id": "MED-3632",
+     "relevancia": 0,
+     "score": 12.5265,
+     "tam_doc": 153,
+     "termos_presentes": 1,
+     "tf": {
+      "arriv": 4
+     },
+     "ranks_outros": {
+      "semantico": null
+     },
+     "titulo": "An unexpected mortality increase in the United States follows arrival of the …"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-2765",
+     "relevancia": 0,
+     "score": 11.414,
+     "tam_doc": 160,
+     "termos_presentes": 2,
+     "tf": {
+      "vitamin": 3,
+      "recommend": 9
+     },
+     "ranks_outros": {
+      "semantico": 19
+     },
+     "titulo": "The value of current nutrition information."
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-919",
+     "relevancia": 0,
+     "score": 11.2684,
+     "tam_doc": 155,
+     "termos_presentes": 2,
+     "tf": {
+      "vitamin": 7,
+      "recommend": 3
+     },
+     "ranks_outros": {
+      "semantico": 5
+     },
+     "titulo": "Evaluation, treatment, and prevention of vitamin D deficiency: an Endocrine S…"
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-4872",
+     "relevancia": 0,
+     "score": 11.1646,
+     "tam_doc": 170,
+     "termos_presentes": 2,
+     "tf": {
+      "vitamin": 14,
+      "recommend": 2
+     },
+     "ranks_outros": {
+      "semantico": 14
+     },
+     "titulo": "Safety considerations and potential interactions of vitamins: should vitamins…"
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-4104",
+     "relevancia": 0,
+     "score": 10.3949,
+     "tam_doc": 275,
+     "termos_presentes": 2,
+     "tf": {
+      "vitamin": 4,
+      "recommend": 6
+     },
+     "ranks_outros": {
+      "semantico": null
+     },
+     "titulo": "Changes in nutrient intake and dietary quality among participants with type 2…"
+    }
+   ],
+   "semantico": [
+    {
+     "rank": 1,
+     "doc_id": "MED-714",
+     "relevancia": 0,
+     "score": 0.7008,
+     "tam_doc": 158,
+     "termos_presentes": 2,
+     "tf": {
+      "vitamin": 10,
+      "recommend": 1
+     },
+     "ranks_outros": {
+      "lexical": 7
+     },
+     "titulo": "Towards prevention of vitamin D deficiency and beyond: knowledge gaps and res…"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-4566",
+     "relevancia": 0,
+     "score": 0.6409,
+     "tam_doc": 218,
+     "termos_presentes": 1,
+     "tf": {
+      "vitamin": 8
+     },
+     "ranks_outros": {
+      "lexical": 59
+     },
+     "titulo": "Taking vitamin D with the largest meal improves absorption and results in hig…"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-4573",
+     "relevancia": 2,
+     "score": 0.635,
+     "tam_doc": 135,
+     "termos_presentes": 1,
+     "tf": {
+      "vitamin": 15
+     },
+     "ranks_outros": {
+      "lexical": 19
+     },
+     "titulo": "Low Vitamin D Status: Definition, Prevalence, Consequences and Correction"
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-4570",
+     "relevancia": 2,
+     "score": 0.6172,
+     "tam_doc": 146,
+     "termos_presentes": 1,
+     "tf": {
+      "vitamin": 7
+     },
+     "ranks_outros": {
+      "lexical": 47
+     },
+     "titulo": "Vitamin D supplement doses and serum 25-hydroxyvitamin D in the range associa…"
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-919",
+     "relevancia": 0,
+     "score": 0.6105,
+     "tam_doc": 155,
+     "termos_presentes": 2,
+     "tf": {
+      "vitamin": 7,
+      "recommend": 3
+     },
+     "ranks_outros": {
+      "lexical": 3
+     },
+     "titulo": "Evaluation, treatment, and prevention of vitamin D deficiency: an Endocrine S…"
+    }
+   ]
+  },
+  "grupo": "Vantagem do semântico"
+ },
+ {
+  "query_id": "PLAIN-1537",
+  "query": "low-carb diets",
+  "metricas": {
+   "lexical": 0.0947883643695507,
+   "semantico": 0.6618313225363274,
+   "delta": 0.5670429581667766
+  },
+  "termos": [
+   {
+    "termo": "low",
+    "df": 726,
+    "idf": 1.61
+   },
+   {
+    "termo": "carb",
+    "df": 1,
+    "idf": 7.79
+   },
+   {
+    "termo": "diet",
+    "df": 1041,
+    "idf": 1.25
+   }
+  ],
+  "cobertura_relevantes": {
+   "n_relevantes": 45,
+   "sem_nenhum_termo": 16,
+   "com_todos_os_termos": 0,
+   "media_termos_presentes": 0.91,
+   "n_termos_consulta": 3
+  },
+  "resumo": {
+   "lexical": {
+    "primeiro_relevante": 4,
+    "relevantes_top5": 1,
+    "relevantes_top10": 1,
+    "relevantes_top100": 7
+   },
+   "semantico": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 6,
+    "relevantes_top100": 8
+   }
+  },
+  "top5": {
+   "lexical": [
+    {
+     "rank": 1,
+     "doc_id": "MED-4880",
+     "relevancia": 0,
+     "score": 25.7822,
+     "tam_doc": 178,
+     "termos_presentes": 3,
+     "tf": {
+      "low": 11,
+      "carb": 8,
+      "diet": 11
+     },
+     "ranks_outros": {
+      "semantico": 2
+     },
+     "titulo": "Effects of very-low-carbohydrate (horsemeat- or beef-based) diets and restric…"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-2943",
+     "relevancia": 0,
+     "score": 7.4133,
+     "tam_doc": 252,
+     "termos_presentes": 2,
+     "tf": {
+      "low": 18,
+      "diet": 14
+     },
+     "ranks_outros": {
+      "semantico": 43
+     },
+     "titulo": "Long-term low-calorie low-protein vegan diet and endurance exercise are assoc…"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-1714",
+     "relevancia": 0,
+     "score": 7.2666,
+     "tam_doc": 248,
+     "termos_presentes": 2,
+     "tf": {
+      "low": 17,
+      "diet": 11
+     },
+     "ranks_outros": {
+      "semantico": null
+     },
+     "titulo": "Long-term low-protein, low-calorie diet and endurance exercise modulate metab…"
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-4515",
+     "relevancia": 1,
+     "score": 6.9691,
+     "tam_doc": 233,
+     "termos_presentes": 2,
+     "tf": {
+      "low": 10,
+      "diet": 11
+     },
+     "ranks_outros": {
+      "semantico": 1
+     },
+     "titulo": "The effect of a plant-based low-carbohydrate (\"Eco-Atkins\") diet on body weig…"
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-2458",
+     "relevancia": 0,
+     "score": 6.9346,
+     "tam_doc": 216,
+     "termos_presentes": 2,
+     "tf": {
+      "low": 8,
+      "diet": 13
+     },
+     "ranks_outros": {
+      "semantico": null
+     },
+     "titulo": "Manipulating antioxidant intake in asthma: a randomized controlled trial."
+    }
+   ],
+   "semantico": [
+    {
+     "rank": 1,
+     "doc_id": "MED-4515",
+     "relevancia": 1,
+     "score": 0.6623,
+     "tam_doc": 233,
+     "termos_presentes": 2,
+     "tf": {
+      "low": 10,
+      "diet": 11
+     },
+     "ranks_outros": {
+      "lexical": 4
+     },
+     "titulo": "The effect of a plant-based low-carbohydrate (\"Eco-Atkins\") diet on body weig…"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-4880",
+     "relevancia": 0,
+     "score": 0.6094,
+     "tam_doc": 178,
+     "termos_presentes": 3,
+     "tf": {
+      "low": 11,
+      "carb": 8,
+      "diet": 11
+     },
+     "ranks_outros": {
+      "lexical": 1
+     },
+     "titulo": "Effects of very-low-carbohydrate (horsemeat- or beef-based) diets and restric…"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-4514",
+     "relevancia": 1,
+     "score": 0.5962,
+     "tam_doc": 308,
+     "termos_presentes": 2,
+     "tf": {
+      "low": 9,
+      "diet": 7
+     },
+     "ranks_outros": {
+      "lexical": 18
+     },
+     "titulo": "Low-carbohydrate diets and all-cause and cause-specific mortality: Two cohort…"
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-1616",
+     "relevancia": 1,
+     "score": 0.587,
+     "tam_doc": 241,
+     "termos_presentes": 2,
+     "tf": {
+      "low": 4,
+      "diet": 6
+     },
+     "ranks_outros": {
+      "lexical": 43
+     },
+     "titulo": "Very-low-carbohydrate ketogenic diet v. low-fat diet for long-term weight los…"
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-2586",
+     "relevancia": 1,
+     "score": 0.5584,
+     "tam_doc": 238,
+     "termos_presentes": 2,
+     "tf": {
+      "low": 3,
+      "diet": 2
+     },
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Systematic review and meta-analysis of clinical trials of the effects of low …"
+    }
+   ]
+  },
+  "grupo": "Vantagem do semântico"
+ },
+ {
+  "query_id": "PLAIN-924",
+  "query": "cocaine",
+  "metricas": {
+   "lexical": 0.2200917662980801,
+   "semantico": 0.7778721720600672,
+   "delta": 0.5577804057619871
+  },
+  "termos": [
+   {
+    "termo": "cocain",
+    "df": 1,
+    "idf": 7.79
+   }
+  ],
+  "cobertura_relevantes": {
+   "n_relevantes": 32,
+   "sem_nenhum_termo": 31,
+   "com_todos_os_termos": 1,
+   "media_termos_presentes": 0.03,
+   "n_termos_consulta": 1
+  },
+  "resumo": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 1,
+    "relevantes_top10": 1,
+    "relevantes_top100": 1
+   },
+   "semantico": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 7,
+    "relevantes_top100": 18
+   }
+  },
+  "top5": {
+   "lexical": [
+    {
+     "rank": 1,
+     "doc_id": "MED-3044",
+     "relevancia": 1,
+     "score": 20.4291,
+     "tam_doc": 217,
+     "termos_presentes": 1,
+     "tf": {
+      "cocain": 16
+     },
+     "ranks_outros": {
+      "semantico": 1
+     },
+     "titulo": "Cue-induced cocaine craving: neuroanatomical specificity for drug users and d…"
+    }
+   ],
+   "semantico": [
+    {
+     "rank": 1,
+     "doc_id": "MED-3044",
+     "relevancia": 1,
+     "score": 0.4667,
+     "tam_doc": 217,
+     "termos_presentes": 1,
+     "tf": {
+      "cocain": 16
+     },
+     "ranks_outros": {
+      "lexical": 1
+     },
+     "titulo": "Cue-induced cocaine craving: neuroanatomical specificity for drug users and d…"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-3054",
+     "relevancia": 1,
+     "score": 0.3844,
+     "tam_doc": 128,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Does food addiction exist? A phenomenological discussion based on the psychia…"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-3055",
+     "relevancia": 1,
+     "score": 0.3389,
+     "tam_doc": 139,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Food and drug reward: overlapping circuits in human obesity and addiction."
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-3052",
+     "relevancia": 1,
+     "score": 0.3345,
+     "tam_doc": 139,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Obesity and addiction: neurobiological overlaps."
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-4790",
+     "relevancia": 0,
+     "score": 0.3133,
+     "tam_doc": 130,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "The risks of copper toxicity contributing to cognitive decline in the aging p…"
+    }
+   ]
+  },
+  "grupo": "Vantagem do semântico"
+ },
+ {
+  "query_id": "PLAIN-1473",
+  "query": "kohlrabi",
+  "metricas": {
+   "lexical": 1.0,
+   "semantico": 0.0,
+   "delta": -1.0
+  },
+  "termos": [
+   {
+    "termo": "kohlrabi",
+    "df": 1,
+    "idf": 7.79
+   }
+  ],
+  "cobertura_relevantes": {
+   "n_relevantes": 1,
+   "sem_nenhum_termo": 0,
+   "com_todos_os_termos": 1,
+   "media_termos_presentes": 1.0,
+   "n_termos_consulta": 1
+  },
+  "resumo": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 1,
+    "relevantes_top10": 1,
+    "relevantes_top100": 1
+   },
+   "semantico": {
+    "primeiro_relevante": null,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 0
+   }
+  },
+  "top5": {
+   "lexical": [
+    {
+     "rank": 1,
+     "doc_id": "MED-4455",
+     "relevancia": 1,
+     "score": 12.5956,
+     "tam_doc": 118,
+     "termos_presentes": 1,
+     "tf": {
+      "kohlrabi": 2
+     },
+     "ranks_outros": {
+      "semantico": null
+     },
+     "titulo": "Glucoraphanin and 4-hydroxyglucobrassicin contents in seeds of 59 cultivars o…"
+    }
+   ],
+   "semantico": [
+    {
+     "rank": 1,
+     "doc_id": "MED-3947",
+     "relevancia": 0,
+     "score": 0.2202,
+     "tam_doc": 169,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Hibiscus anthocyanins rich extract-induced apoptotic cell death in human prom…"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-4660",
+     "relevancia": 0,
+     "score": 0.2173,
+     "tam_doc": 139,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Variability of iodine content in common commercially available edible seaweed…"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-3441",
+     "relevancia": 0,
+     "score": 0.2156,
+     "tam_doc": 79,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Marine edible algae as disease preventers."
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-3447",
+     "relevancia": 0,
+     "score": 0.2128,
+     "tam_doc": 112,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Seaweed prevents breast cancer?"
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-5024",
+     "relevancia": 0,
+     "score": 0.2125,
+     "tam_doc": 92,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Disseminated chlorellosis in a dog."
+    }
+   ]
+  },
+  "grupo": "Vantagem do lexical"
+ },
+ {
+  "query_id": "PLAIN-2081",
+  "query": "shelf life",
+  "metricas": {
+   "lexical": 1.0,
+   "semantico": 0.0,
+   "delta": -1.0
+  },
+  "termos": [
+   {
+    "termo": "shelf",
+    "df": 7,
+    "idf": 6.18
+   },
+   {
+    "termo": "life",
+    "df": 262,
+    "idf": 2.63
+   }
+  ],
+  "cobertura_relevantes": {
+   "n_relevantes": 1,
+   "sem_nenhum_termo": 0,
+   "com_todos_os_termos": 1,
+   "media_termos_presentes": 2.0,
+   "n_termos_consulta": 2
+  },
+  "resumo": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 1,
+    "relevantes_top10": 1,
+    "relevantes_top100": 1
+   },
+   "semantico": {
+    "primeiro_relevante": 15,
+    "relevantes_top5": 0,
+    "relevantes_top10": 0,
+    "relevantes_top100": 1
+   }
+  },
+  "top5": {
+   "lexical": [
+    {
+     "rank": 1,
+     "doc_id": "MED-4303",
+     "relevancia": 1,
+     "score": 17.3552,
+     "tam_doc": 181,
+     "termos_presentes": 2,
+     "tf": {
+      "shelf": 4,
+      "life": 4
+     },
+     "ranks_outros": {
+      "semantico": 15
+     },
+     "titulo": "Oxidative stability and shelf-life evaluation of selected culinary oils."
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-1182",
+     "relevancia": 0,
+     "score": 12.8995,
+     "tam_doc": 182,
+     "termos_presentes": 2,
+     "tf": {
+      "shelf": 2,
+      "life": 2
+     },
+     "ranks_outros": {
+      "semantico": null
+     },
+     "titulo": "Fruit and Soil Quality of Organic and Conventional Strawberry Agroecosystems"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-2700",
+     "relevancia": 0,
+     "score": 12.048,
+     "tam_doc": 230,
+     "termos_presentes": 2,
+     "tf": {
+      "shelf": 2,
+      "life": 2
+     },
+     "ranks_outros": {
+      "semantico": null
+     },
+     "titulo": "The effect of blood removal on oxidation and shelf life of broiler breast mea…"
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-2671",
+     "relevancia": 0,
+     "score": 10.1531,
+     "tam_doc": 100,
+     "termos_presentes": 2,
+     "tf": {
+      "shelf": 1,
+      "life": 1
+     },
+     "ranks_outros": {
+      "semantico": 35
+     },
+     "titulo": "Microbiology of fresh and restructured lamb meat: a review."
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-2074",
+     "relevancia": 0,
+     "score": 8.7183,
+     "tam_doc": 171,
+     "termos_presentes": 2,
+     "tf": {
+      "shelf": 1,
+      "life": 1
+     },
+     "ranks_outros": {
+      "semantico": 86
+     },
+     "titulo": "Modifying the processing and handling of frozen broccoli for increased sulfor…"
+    }
+   ],
+   "semantico": [
+    {
+     "rank": 1,
+     "doc_id": "MED-1378",
+     "relevancia": 0,
+     "score": 0.4154,
+     "tam_doc": 135,
+     "termos_presentes": 1,
+     "tf": {
+      "life": 2
+     },
+     "ranks_outros": {
+      "lexical": 54
+     },
+     "titulo": "Longevity and diet. Myth or pragmatism?"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-2422",
+     "relevancia": 0,
+     "score": 0.3863,
+     "tam_doc": 143,
+     "termos_presentes": 1,
+     "tf": {
+      "life": 2
+     },
+     "ranks_outros": {
+      "lexical": 61
+     },
+     "titulo": "A statistical regression model for the estimation of acrylamide concentration…"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-2510",
+     "relevancia": 0,
+     "score": 0.3856,
+     "tam_doc": 121,
+     "termos_presentes": 1,
+     "tf": {
+      "life": 3
+     },
+     "ranks_outros": {
+      "lexical": 30
+     },
+     "titulo": "Comparative and meta-analytic insights into life extension via dietary restri…"
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-4715",
+     "relevancia": 0,
+     "score": 0.3818,
+     "tam_doc": 232,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Effects of date ( Phoenix dactylifera L., Medjool or Hallawi Variety) consump…"
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-1433",
+     "relevancia": 0,
+     "score": 0.3732,
+     "tam_doc": 121,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Dietary Advanced Glycation End Products and Aging"
+    }
+   ]
+  },
+  "grupo": "Vantagem do lexical"
+ },
+ {
+  "query_id": "PLAIN-1288",
+  "query": "grapes",
+  "metricas": {
+   "lexical": 0.8899541168509599,
+   "semantico": 0.1298750116533407,
+   "delta": -0.7600791051976192
+  },
+  "termos": [
+   {
+    "termo": "grape",
+    "df": 29,
+    "idf": 4.81
+   }
+  ],
+  "cobertura_relevantes": {
+   "n_relevantes": 196,
+   "sem_nenhum_termo": 181,
+   "com_todos_os_termos": 15,
+   "media_termos_presentes": 0.08,
+   "n_termos_consulta": 1
+  },
+  "resumo": {
+   "lexical": {
+    "primeiro_relevante": 1,
+    "relevantes_top5": 4,
+    "relevantes_top10": 9,
+    "relevantes_top100": 15
+   },
+   "semantico": {
+    "primeiro_relevante": 9,
+    "relevantes_top5": 0,
+    "relevantes_top10": 2,
+    "relevantes_top100": 22
+   }
+  },
+  "top5": {
+   "lexical": [
+    {
+     "rank": 1,
+     "doc_id": "MED-2668",
+     "relevancia": 1,
+     "score": 11.6841,
+     "tam_doc": 108,
+     "termos_presentes": 1,
+     "tf": {
+      "grape": 7
+     },
+     "ranks_outros": {
+      "semantico": 15
+     },
+     "titulo": "Concord grape juice supplementation and neurocognitive function in human agin…"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-2669",
+     "relevancia": 1,
+     "score": 11.4134,
+     "tam_doc": 142,
+     "termos_presentes": 1,
+     "tf": {
+      "grape": 7
+     },
+     "ranks_outros": {
+      "semantico": 13
+     },
+     "titulo": "Concord grape juice supplementation improves memory function in older adults …"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-2083",
+     "relevancia": 0,
+     "score": 11.1106,
+     "tam_doc": 182,
+     "termos_presentes": 1,
+     "tf": {
+      "grape": 7
+     },
+     "ranks_outros": {
+      "semantico": 5
+     },
+     "titulo": "Grape juice, but not orange juice or grapefruit juice, inhibits human platele…"
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-1538",
+     "relevancia": 1,
+     "score": 11.1032,
+     "tam_doc": 183,
+     "termos_presentes": 1,
+     "tf": {
+      "grape": 7
+     },
+     "ranks_outros": {
+      "semantico": 26
+     },
+     "titulo": "A premeal snack of raisins decreases mealtime food intake more than grapes in…"
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-1533",
+     "relevancia": 1,
+     "score": 10.6914,
+     "tam_doc": 183,
+     "termos_presentes": 1,
+     "tf": {
+      "grape": 6
+     },
+     "ranks_outros": {
+      "semantico": null
+     },
+     "titulo": "An after-school snack of raisins lowers cumulative food intake in young child…"
+    }
+   ],
+   "semantico": [
+    {
+     "rank": 1,
+     "doc_id": "MED-3200",
+     "relevancia": 0,
+     "score": 0.4264,
+     "tam_doc": 142,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "Prospective study of grapefruit intake and risk of breast cancer in postmenop…"
+    },
+    {
+     "rank": 2,
+     "doc_id": "MED-398",
+     "relevancia": 0,
+     "score": 0.425,
+     "tam_doc": 90,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "The grapefruit: an old wine in a new glass? Metabolic and cardiovascular pers…"
+    },
+    {
+     "rank": 3,
+     "doc_id": "MED-3207",
+     "relevancia": 0,
+     "score": 0.425,
+     "tam_doc": 90,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "The grapefruit: an old wine in a new glass? Metabolic and cardiovascular pers…"
+    },
+    {
+     "rank": 4,
+     "doc_id": "MED-3210",
+     "relevancia": 0,
+     "score": 0.4243,
+     "tam_doc": 206,
+     "termos_presentes": 0,
+     "tf": {},
+     "ranks_outros": {
+      "lexical": null
+     },
+     "titulo": "The effects of daily consumption of grapefruit on body weight, lipids, and bl…"
+    },
+    {
+     "rank": 5,
+     "doc_id": "MED-2083",
+     "relevancia": 0,
+     "score": 0.4141,
+     "tam_doc": 182,
+     "termos_presentes": 1,
+     "tf": {
+      "grape": 7
+     },
+     "ranks_outros": {
+      "lexical": 3
+     },
+     "titulo": "Grape juice, but not orange juice or grapefruit juice, inhibits human platele…"
+    }
+   ]
+  },
+  "grupo": "Vantagem do lexical"
+ }
+]

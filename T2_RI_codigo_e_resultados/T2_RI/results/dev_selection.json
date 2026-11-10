@@ -1,0 +1,57 @@
+{
+  "preprocessing": {
+    "remove_stopwords": true,
+    "stemmer": "snowball"
+  },
+  "bm25": {
+    "k1": 2.0,
+    "b": 0.5
+  },
+  "dev_lexical_ndcg10": 0.2974,
+  "spelling": {
+    "k": 2,
+    "jaccard": 0.3,
+    "max_edit": 1
+  },
+  "bi_encoder": {
+    "id": "all-MiniLM-L6-v2@256"
+  },
+  "dev_semantic_ndcg10": 0.3024,
+  "rrf_k": 10,
+  "dev_hybrid_ndcg10": 0.3326,
+  "cross_encoder": {
+    "id": "ms-marco-MiniLM-L6-v2"
+  },
+  "dev_rerank_queries": [
+    "PLAIN-1017",
+    "PLAIN-1108",
+    "PLAIN-111",
+    "PLAIN-1129",
+    "PLAIN-1140",
+    "PLAIN-142",
+    "PLAIN-1451",
+    "PLAIN-1505",
+    "PLAIN-1546",
+    "PLAIN-1689",
+    "PLAIN-1771",
+    "PLAIN-1793",
+    "PLAIN-1982",
+    "PLAIN-2080",
+    "PLAIN-2091",
+    "PLAIN-2112",
+    "PLAIN-216",
+    "PLAIN-2208",
+    "PLAIN-2353",
+    "PLAIN-237",
+    "PLAIN-2679",
+    "PLAIN-3052",
+    "PLAIN-3073",
+    "PLAIN-3200",
+    "PLAIN-3471",
+    "PLAIN-560",
+    "PLAIN-644",
+    "PLAIN-770",
+    "PLAIN-781",
+    "PLAIN-848"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "backend": "manual",
+  "modelo": "Claude Sonnet 5.5",
+  "execucao": "interface de chat (claude.ai), sem API",
+  "temperatura": "padrao do servico (nao controlavel)",
+  "seed": "n/a",
+  "max_tokens": "limite de 200 palavras no prompt",
+  "custo": "0 (plano de chat)"
+}

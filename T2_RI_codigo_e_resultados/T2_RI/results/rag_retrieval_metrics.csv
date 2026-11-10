@@ -1,0 +1,12 @@
+query_id,query,context_doc_ids,Recall@5,Precision@5,Hit@5,n_relevantes_no_contexto,n_relevantes_total,relevancias_no_contexto
+PLAIN-68,What is Actually in Chicken Nuggets?,MED-2991 MED-1797 MED-2492 MED-2088 MED-1810,0.0182,0.2,1.0,1.0,55.0,2 0 0 0 0
+PLAIN-2450,Are Organic Foods Safer?,MED-1140 MED-1178 MED-1144 MED-1179 MED-1173,0.0526,0.4,1.0,2.0,38.0,0 2 0 0 2
+PLAIN-153,How Should I Take Probiotics?,MED-3679 MED-3692 MED-3695 MED-3693 MED-3680,0.1064,1.0,1.0,5.0,47.0,2 1 1 1 1
+PLAIN-2850,More Antibiotics In White Meat or Dark Meat?,MED-3891 MED-4358 MED-4983 MED-2584 MED-4482,0.0,0.0,0.0,0.0,9.0,0 0 0 0 0
+PLAIN-2750,Preventing the Common Cold with Probiotics?,MED-3683 MED-3695 MED-3680 MED-3690 MED-4762,0.0678,0.8,1.0,4.0,59.0,2 1 2 1 0
+PLAIN-270,Is Caffeinated Tea Really Dehydrating?,MED-4331 MED-5245 MED-878 MED-1645 MED-4439,0.0385,0.4,1.0,2.0,52.0,1 0 0 0 1
+PLAIN-2470,Is Milk Good for Our Bones?,MED-1337 MED-1340 MED-1338 MED-904 MED-4902,0.0411,0.6,1.0,3.0,73.0,2 2 2 0 0
+PLAIN-2430,Preventing Brain Loss with B Vitamins?,MED-994 MED-980 MED-5128 MED-986 MED-4929,0.0652,0.6,1.0,3.0,46.0,2 2 0 2 0
+PLAIN-238,How Chemically Contaminated Are We?,MED-2391 MED-4739 MED-2493 MED-4653 MED-2994,0.0185,0.2,1.0,1.0,54.0,0 1 0 0 0
+PLAIN-3342,Is Coconut Milk Good For You?,MED-5014 MED-5015 MED-4000 MED-4002 MED-5012,0.6667,0.4,1.0,2.0,3.0,2 0 0 0 2
+MÉDIA,,,0.1075,0.46,0.9,2.3,43.6,

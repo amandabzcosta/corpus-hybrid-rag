@@ -1,0 +1,176 @@
+{
+  "selecao_dev": {
+    "preprocessing": {
+      "remove_stopwords": true,
+      "stemmer": "snowball"
+    },
+    "bm25": {
+      "k1": 2.0,
+      "b": 0.5
+    },
+    "dev_lexical_ndcg10": 0.2974,
+    "spelling": {
+      "k": 2,
+      "jaccard": 0.3,
+      "max_edit": 1
+    },
+    "bi_encoder": {
+      "id": "all-MiniLM-L6-v2@256"
+    },
+    "dev_semantic_ndcg10": 0.3024,
+    "rrf_k": 10,
+    "dev_hybrid_ndcg10": 0.3326,
+    "cross_encoder": {
+      "id": "ms-marco-MiniLM-L6-v2"
+    },
+    "dev_rerank_queries": [
+      "PLAIN-1017",
+      "PLAIN-1108",
+      "PLAIN-111",
+      "PLAIN-1129",
+      "PLAIN-1140",
+      "PLAIN-142",
+      "PLAIN-1451",
+      "PLAIN-1505",
+      "PLAIN-1546",
+      "PLAIN-1689",
+      "PLAIN-1771",
+      "PLAIN-1793",
+      "PLAIN-1982",
+      "PLAIN-2080",
+      "PLAIN-2091",
+      "PLAIN-2112",
+      "PLAIN-216",
+      "PLAIN-2208",
+      "PLAIN-2353",
+      "PLAIN-237",
+      "PLAIN-2679",
+      "PLAIN-3052",
+      "PLAIN-3073",
+      "PLAIN-3200",
+      "PLAIN-3471",
+      "PLAIN-560",
+      "PLAIN-644",
+      "PLAIN-770",
+      "PLAIN-781",
+      "PLAIN-848"
+    ]
+  },
+  "indice": {
+    "n_documentos": 3633,
+    "vocabulario": 18958,
+    "total_postings": 359439,
+    "total_tokens": 602027,
+    "comprimento_medio_doc": 165.71,
+    "tempo_preprocessamento_s": 0.823,
+    "tempo_estruturas_indice_s": 0.224,
+    "tempo_construcao_total_s": 1.047,
+    "tempo_construcao_wall_s": 1.225,
+    "preprocessamento": {
+      "tokenizacao": "regex [a-z0-9]+ sobre texto em minúsculas sem acentos (NFKD)",
+      "stopwords": "NLTK (inglês)",
+      "stemming": "snowball"
+    },
+    "bm25": {
+      "k1": 2.0,
+      "b": 0.5
+    }
+  },
+  "lexical_ms_por_consulta": {
+    "media": 0.2530003591330979,
+    "mediana": 0.16457200000008498,
+    "max": 2.1392700000006926
+  },
+  "semantico_docs": {
+    "embedding_seconds": 219.31,
+    "n_docs": 3633,
+    "dim": 384,
+    "max_seq_length": 256,
+    "docs_truncated": 2864,
+    "pct_docs_truncated": 78.83,
+    "tokens_mean": 357.4,
+    "tokens_median": 357.0,
+    "tokens_p95": 558.0,
+    "tokens_max": 2377,
+    "encoder": {
+      "model": "sentence-transformers/all-MiniLM-L6-v2",
+      "revision": "pesos sha256:994a58868f7a",
+      "library": "tokenizers 0.23.3 + onnxruntime 1.31.0",
+      "dim": 384,
+      "max_seq_length": 256,
+      "similarity": "cosseno (produto interno de vetores normalizados)",
+      "normalization": "L2",
+      "pooling": "média dos tokens",
+      "source": "export ONNX fp32 do all-MiniLM-L6-v2 (espelho no GitHub); embeddings idênticos (cos=1,000000) aos do sentence-transformers"
+    }
+  },
+  "semantico_ms_por_consulta": {
+    "media": 3.515180603715174,
+    "mediana": 2.997308999999504,
+    "max": 74.3315839999994
+  },
+  "fusao_rrf_ms_por_consulta": {
+    "media": 0.1017529442724212,
+    "k": 10
+  },
+  "reranker": {
+    "modelo": {
+      "model": "cross-encoder/ms-marco-MiniLM-L6-v2",
+      "revision": "pesos sha256:821d1aa69520",
+      "library": "tokenizers 0.23.3 + NumpyBert (numpy puro)",
+      "max_length": 512,
+      "score": "logit (ativação Identity)",
+      "source": "model.safetensors de espelho no GitHub; reproduz o valor de referência do card do modelo (8,607141 / -4,320078 vs 8,607138 / -4,320078)"
+    },
+    "pares": 16150,
+    "pares_truncados": 1516,
+    "pct_pares_truncados": 9.39,
+    "tokens_par_media": 353.7,
+    "tokens_par_p95": 570.0,
+    "profundidade": 50,
+    "segundos_por_par": 0.24606720149510858,
+    "ms_por_consulta_50_pares": 12303.360074755428,
+    "pares_calculados_no_total": 16150
+  },
+  "validacao_ir_measures_max_abs_diff": {
+    "lexical": {
+      "P10": 0.0,
+      "R10": 0.0,
+      "AP10": 0.0,
+      "NDCG10": 2.220446049250313e-16
+    },
+    "semantic": {
+      "P10": 0.0,
+      "R10": 0.0,
+      "AP10": 0.0,
+      "NDCG10": 3.3306690738754696e-16
+    },
+    "hybrid": {
+      "P10": 0.0,
+      "R10": 0.0,
+      "AP10": 0.0,
+      "NDCG10": 3.3306690738754696e-16
+    },
+    "hybrid_rerank": {
+      "P10": 0.0,
+      "R10": 0.0,
+      "AP10": 0.0,
+      "NDCG10": 2.220446049250313e-16
+    }
+  },
+  "ambiente": {
+    "python": "3.12.3",
+    "so": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+    "cpu_cores": 1,
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "onnxruntime": "1.31.0",
+    "ram_gb": 3.9,
+    "tokenizers": "0.23.3",
+    "nltk": "3.10.4",
+    "ir_measures": "0.4.3",
+    "cpu_model": "Intel(R) Xeon(R) Processor @ 2.10GHz",
+    "gpu": "nenhuma"
+  }
+}

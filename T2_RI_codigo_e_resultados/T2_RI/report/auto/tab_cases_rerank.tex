@@ -1,0 +1,80 @@
+\begin{table}[!htb]
+\centering
+\caption{Reranking, caso 1 (maior ganho 1): PLAIN-1320 --- ``Harvard Physicians' Study II''. NDCG@10: híbrido 0,091 $\rightarrow$ 0,562. Documentos do Top-10 (antes ou depois) com maior deslocamento, ordenados pela posição final. $\Delta$ = posição híbrida $-$ posição final.}
+\label{tab:rr1}
+\scriptsize
+\begin{tabular}{rrrlrrrrrr}
+\toprule
+rank CE & rank híb. & $\Delta$ & doc & rel & score CE & r$_{lex}$ & r$_{sem}$ & $|d|$ & ter \\
+\midrule
+5 & 19 & +14 & MED-4398 & 0 & -4,21 & 5 & >100 & 157 & 3 \\
+6 & 22 & +16 & MED-2761 & 1 & -5,36 & 11 & 84 & 205 & 3 \\
+7 & 26 & +19 & MED-3932 & 0 & -6,24 & 10 & >100 & 188 & 3 \\
+8 & 46 & +38 & MED-5124 & 0 & -7,14 & 24 & >100 & 205 & 2 \\
+10 & 39 & +29 & MED-1622 & 0 & -7,52 & 21 & >100 & 184 & 3 \\
+16 & 1 & -15 & MED-1053 & 0 & -8,55 & 6 & 4 & 144 & 2 \\
+17 & 3 & -14 & MED-1097 & 0 & -8,66 & 14 & 3 & 86 & 1 \\
+28 & 2 & -26 & MED-2112 & 0 & -9,78 & 17 & 1 & 64 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!htb]
+\centering
+\caption{Reranking, caso 2 (maior ganho 2): PLAIN-1473 --- ``kohlrabi''. NDCG@10: híbrido 0,631 $\rightarrow$ 1,000. Documentos do Top-10 (antes ou depois) com maior deslocamento, ordenados pela posição final. $\Delta$ = posição híbrida $-$ posição final.}
+\label{tab:rr2}
+\scriptsize
+\begin{tabular}{rrrlrrrrrr}
+\toprule
+rank CE & rank híb. & $\Delta$ & doc & rel & score CE & r$_{lex}$ & r$_{sem}$ & $|d|$ & ter \\
+\midrule
+4 & 48 & +44 & MED-1686 & 0 & -6,73 & >100 & 47 & 106 & 0 \\
+7 & 45 & +38 & MED-2135 & 0 & -8,07 & >100 & 44 & 197 & 0 \\
+9 & 36 & +27 & MED-712 & 0 & -8,42 & >100 & 35 & 186 & 0 \\
+40 & 10 & -30 & MED-744 & 0 & -10,23 & >100 & 9 & 124 & 0 \\
+41 & 6 & -35 & MED-5024 & 0 & -10,24 & >100 & 5 & 92 & 0 \\
+43 & 7 & -36 & MED-4385 & 0 & -10,38 & >100 & 6 & 87 & 0 \\
+44 & 3 & -41 & MED-4660 & 0 & -10,43 & >100 & 2 & 139 & 0 \\
+47 & 4 & -43 & MED-3441 & 0 & -10,89 & >100 & 3 & 79 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!htb]
+\centering
+\caption{Reranking, caso 3 (pouca/nenhuma alteração): PLAIN-1557 --- ``magnesium''. NDCG@10: híbrido 0,315 $\rightarrow$ 0,315. Documentos do Top-10 (antes ou depois) com maior deslocamento, ordenados pela posição final. $\Delta$ = posição híbrida $-$ posição final.}
+\label{tab:rr3}
+\scriptsize
+\begin{tabular}{rrrlrrrrrr}
+\toprule
+rank CE & rank híb. & $\Delta$ & doc & rel & score CE & r$_{lex}$ & r$_{sem}$ & $|d|$ & ter \\
+\midrule
+2 & 3 & +1 & MED-3918 & 1 & -0,53 & 3 & 3 & 98 & 1 \\
+3 & 2 & -1 & MED-4315 & 1 & -1,36 & 4 & 2 & 82 & 1 \\
+5 & 11 & +6 & MED-5005 & 0 & -2,69 & 7 & >100 & 259 & 1 \\
+7 & 27 & +20 & MED-3497 & 0 & -3,80 & 16 & >100 & 180 & 1 \\
+8 & 41 & +33 & MED-2249 & 0 & -3,90 & 23 & >100 & 237 & 1 \\
+15 & 7 & -8 & MED-1844 & 0 & -5,36 & >100 & 5 & 167 & 0 \\
+30 & 5 & -25 & MED-1110 & 0 & -7,06 & >100 & 4 & 139 & 0 \\
+34 & 8 & -26 & MED-1843 & 0 & -7,97 & >100 & 6 & 143 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!htb]
+\centering
+\caption{Reranking, caso 4 (piora): PLAIN-1679 --- ``myelopathy''. NDCG@10: híbrido 0,387 $\rightarrow$ 0,000. Documentos do Top-10 (antes ou depois) com maior deslocamento, ordenados pela posição final. $\Delta$ = posição híbrida $-$ posição final.}
+\label{tab:rr4}
+\scriptsize
+\begin{tabular}{rrrlrrrrrr}
+\toprule
+rank CE & rank híb. & $\Delta$ & doc & rel & score CE & r$_{lex}$ & r$_{sem}$ & $|d|$ & ter \\
+\midrule
+1 & 32 & +31 & MED-1105 & 0 & 0,19 & >100 & 32 & 83 & 0 \\
+2 & 24 & +22 & MED-1104 & 0 & -0,93 & >100 & 24 & 62 & 0 \\
+6 & 19 & +13 & MED-1111 & 0 & -2,88 & >100 & 19 & 195 & 0 \\
+9 & 2 & -7 & MED-1113 & 0 & -4,11 & >100 & 2 & 185 & 0 \\
+10 & 39 & +29 & MED-4312 & 0 & -5,22 & >100 & 39 & 77 & 0 \\
+15 & 7 & -8 & MED-3302 & 0 & -7,58 & >100 & 7 & 111 & 0 \\
+37 & 1 & -36 & MED-5133 & 0 & -9,98 & >100 & 1 & 89 & 0 \\
+40 & 5 & -35 & MED-5142 & 1 & -10,20 & >100 & 5 & 129 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}

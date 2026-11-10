@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\caption{Resultados no \textbf{test} (323 consultas). IC: bootstrap percentil (10.000 reamostragens) sobre as consultas.}
+\label{tab:test_main}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Sistema & P@10 & R@10 & MAP@10 & NDCG@10 & IC 95\% NDCG@10 \\
+\midrule
+Lexical (BM25) & 0,2406 & 0,1549 & 0,1231 & 0,3303 & [0,296; 0,365] \\
+Semântico & 0,2433 & 0,1550 & 0,1108 & 0,3167 & [0,284; 0,352] \\
+Híbrido (RRF) & \textbf{0,2607} & \textbf{0,1741} & 0,1353 & 0,3555 & [0,321; 0,392] \\
+Híbrido + reranking & 0,2502 & 0,1665 & \textbf{0,1388} & \textbf{0,3557} & [0,321; 0,391] \\
+\bottomrule
+\end{tabular}
+\end{table}

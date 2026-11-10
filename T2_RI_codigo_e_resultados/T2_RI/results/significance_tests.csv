@@ -1,0 +1,7 @@
+A,B,dif_media_NDCG10,A_melhor,B_melhor,empates,p_wilcoxon
+semantic,lexical,-0.0137,99,114,110,0.31172397672582086
+hybrid,lexical,0.0252,113,77,133,7.258650312360808e-05
+hybrid,semantic,0.0388,134,69,120,3.4810716067707365e-07
+hybrid_rerank,hybrid,0.0002,100,99,124,0.9588211146025323
+hybrid_rerank,lexical,0.0254,110,72,141,7.3362144283525e-05
+hybrid_rerank,semantic,0.0391,121,95,107,0.0006375691915628733

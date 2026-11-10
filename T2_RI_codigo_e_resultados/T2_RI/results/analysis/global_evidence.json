@@ -1,0 +1,60 @@
+{
+ "tam_medio_doc_colecao_tokens": 165.71070740434902,
+ "tam_medio_doc_relevante_tokens": 166.55042970650234,
+ "tam_medio_top10_por_sistema": {
+  "lexical": 170.44477611940297,
+  "semantic": 154.28204334365324,
+  "hybrid": 159.61300309597524,
+  "reranking": 176.69411764705882
+ },
+ "frac_media_relevantes_sem_nenhum_termo_da_consulta": 0.6056743136343994,
+ "frac_media_relevantes_com_todos_os_termos": 0.10519038899256888,
+ "n_termos_consulta_media": 2.5758513931888545,
+ "ndcg_medio_lexical_por_n_termos": {
+  "1": 0.3772,
+  "2": 0.3386,
+  "3": 0.2455,
+  "4": 0.2876,
+  "5": 0.3986,
+  "6": 0.3016,
+  "7": 0.4169,
+  "8": 0.6131,
+  "9": 0.3274
+ },
+ "spearman_delta_sem_lex_vs_frac_relevantes_sem_termo": {
+  "rho": 0.07360780618065425,
+  "p": 0.18698322132641518
+ },
+ "spearman_delta_sem_lex_vs_n_termos": {
+  "rho": 0.18091445776324885,
+  "p": 0.0010914961486563212
+ },
+ "consultas_semantico_melhor": 99,
+ "consultas_lexical_melhor": 114,
+ "consultas_empate": 110,
+ "reranking": {
+  "melhoraram": 100,
+  "pioraram": 99,
+  "iguais": 124
+ },
+ "overlap_top10_lex_sem_jaccard": 0.20078814061946748,
+ "recall100": {
+  "lexical": 0.24837381297825958,
+  "semantico": 0.31150992401169303,
+  "uniao": 0.35641153793647357
+ },
+ "relevantes_achados_so_pelo_lexical": 0.16425750565134675,
+ "relevantes_achados_so_pelo_semantico": 0.32887322705477207,
+ "relevantes_achados_pelos_dois": 0.5068692672938812,
+ "hibrido_vs_melhor_isolado": {
+  "melhor_que_ambos": 52,
+  "pior_que_ambos": 6,
+  "entre_os_dois_ou_igual": 265
+ },
+ "rerank_margem": {
+  "recall50_hibrido": 0.26650765261104997,
+  "ndcg10_oraculo_reordenando_top50": 0.5812183977754145,
+  "relevantes_promovidos_para_top10": 167,
+  "relevantes_rebaixados_do_top10": 201
+ }
+}

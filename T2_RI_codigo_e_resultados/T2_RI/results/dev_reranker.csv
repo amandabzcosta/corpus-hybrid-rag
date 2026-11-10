@@ -1,0 +1,4 @@
+modelo,n_consultas,P10,R10,AP10,NDCG10
+hibrido (sem reranking),30,0.2533,0.2004,0.1526,0.3642
+ms-marco-MiniLM-L6-v2,30,0.2833,0.2247,0.1601,0.39
+ms-marco-MiniLM-L12-v2,30,0.27,0.2041,0.1374,0.3581

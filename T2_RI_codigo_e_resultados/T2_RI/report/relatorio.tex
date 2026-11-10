@@ -1,0 +1,39 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{mathptmx}
+\usepackage[scaled=.9]{helvet}
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{booktabs,tabularx,multirow,graphicx,xcolor,amsmath,enumitem,microtype}
+\usepackage[font=small,labelfont=bf,skip=3pt]{caption}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parskip}{3pt plus 1pt}
+\emergencystretch=2em
+\setlength{\parindent}{0pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt plus 2pt minus 2pt}
+\setlength{\intextsep}{6pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{.9}
+\renewcommand{\floatpagefraction}{.85}
+\bibliographystyle{plainnat}
+\input{auto/numbers.tex}
+\newcommand{\todo}[1]{\textcolor{red}{\textbf{[#1]}}}
+\newcommand{\LLMDescricao}{Claude Sonnet 5.5 (Anthropic), executado como serviço externo pela interface de chat (sem API); portanto temperatura e semente não são controláveis (amostragem padrão do serviço) e o custo foi nulo (plano de chat). O limite de saída foi de 200 palavras, pedido no \emph{prompt}; os prompts completos e as respostas estão em \texttt{rag\_experiment.csv}. As respostas da condição A foram escritas \emph{antes} de qualquer documento recuperado ser visualizado, e as da condição B usam apenas o contexto fornecido. O código aceita outras LLMs (modelos abertos locais, APIs compatíveis com OpenAI e API da Anthropic) via \texttt{06\_rag\_generate.py}.}
+
+\title{\textbf{Busca Lexical, Semântica e Híbrida com \emph{Reranking} e RAG no NFCorpus}\\[2pt]\large Trabalho Prático 2 --- SCC0282 Recuperação de Informação (2º semestre de 2026)}
+\author{\todo{Nome completo do integrante 1} (Nº USP \todo{•••}) \quad \todo{Nome completo do integrante 2} (Nº USP \todo{•••})\\[2pt]
+Instituto de Ciências Matemáticas e de Computação (ICMC)\\Universidade de São Paulo (USP), São Carlos, SP\\[1pt]
+\texttt{\todo{email1@usp.br}}, \texttt{\todo{email2@usp.br}}}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-6pt}
+\input{sec_intro_metodologia}
+\input{sec_resultados}
+\input{sec_final}
+\input{sec_ia}
+\bibliography{refs}
+\end{document}

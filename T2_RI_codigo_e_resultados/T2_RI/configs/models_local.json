@@ -1,0 +1,19 @@
+{
+  "_comentario": "Mesmos candidatos de models_hf.json, mas lendo pesos locais SEM PyTorch/Hugging Face (onnxruntime e numpy). Foi a configuração usada na execução que gerou results/. Coloque os pesos em models/ (ver README).",
+  "bi_encoders": [
+    {"id": "all-MiniLM-L6-v2@128", "name": "sentence-transformers/all-MiniLM-L6-v2", "kind": "onnx", "path": "models/minilm", "max_seq_length": 128,
+     "source": "export ONNX fp32 do all-MiniLM-L6-v2 (espelho no GitHub); embeddings idênticos (cos=1,000000) aos do sentence-transformers"},
+    {"id": "all-MiniLM-L6-v2@256", "name": "sentence-transformers/all-MiniLM-L6-v2", "kind": "onnx", "path": "models/minilm", "max_seq_length": 256,
+     "source": "export ONNX fp32 do all-MiniLM-L6-v2 (espelho no GitHub); embeddings idênticos (cos=1,000000) aos do sentence-transformers"},
+    {"id": "all-MiniLM-L6-v2@512", "name": "sentence-transformers/all-MiniLM-L6-v2", "kind": "onnx", "path": "models/minilm", "max_seq_length": 512,
+     "source": "export ONNX fp32 do all-MiniLM-L6-v2 (espelho no GitHub); embeddings idênticos (cos=1,000000) aos do sentence-transformers"},
+    {"id": "paraphrase-MiniLM-L6-v2@128", "name": "sentence-transformers/paraphrase-MiniLM-L6-v2", "kind": "numpy", "path": "models/paraphrase", "max_seq_length": 128,
+     "source": "model.safetensors de espelho no GitHub (cópia do repositório do Hugging Face)"}
+  ],
+  "cross_encoders": [
+    {"id": "ms-marco-MiniLM-L6-v2", "name": "cross-encoder/ms-marco-MiniLM-L6-v2", "kind": "numpy", "path": "models/ce_l6", "max_length": 512,
+     "source": "model.safetensors de espelho no GitHub; reproduz o valor de referência do card do modelo (8,607141 / -4,320078 vs 8,607138 / -4,320078)"},
+    {"id": "ms-marco-MiniLM-L12-v2", "name": "cross-encoder/ms-marco-MiniLM-L12-v2", "kind": "onnx", "path": "models/ce_l12", "max_length": 512,
+     "source": "export ONNX fp32 de espelho no GitHub"}
+  ]
+}

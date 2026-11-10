@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\caption{Escolha do cross-encoder no \textbf{dev} (amostra de consultas com semente fixa; reordena o Top-50 do híbrido).}
+\label{tab:dev_ce}
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Sistema & Consultas & P@10 & R@10 & MAP@10 & NDCG@10 \\
+\midrule
+hibrido (sem reranking) & 30 & 0,2533 & 0,2004 & 0,1526 & 0,3642 \\
+ms-marco-MiniLM-L6-v2 & 30 & 0,2833 & 0,2247 & 0,1601 & 0,3900 \\
+ms-marco-MiniLM-L12-v2 & 30 & 0,2700 & 0,2041 & 0,1374 & 0,3581 \\
+\bottomrule
+\end{tabular}
+\end{table}

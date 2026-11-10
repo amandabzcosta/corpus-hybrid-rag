@@ -1,0 +1,102 @@
+\begin{table}[!htb]
+\centering
+\caption{Caso 1 (vantagem do semântico): PLAIN-3085 --- ``The Difficulty of Arriving at a Vitamin D Recommendation''. NDCG@10: lexical 0,000, semântico 0,571. Relevantes: 2; 0 sem nenhum termo da consulta. Colunas: relevância (0--2), score (BM25 | cosseno), posição no outro sistema, $|d|$ = tokens do documento no índice, ter = termos da consulta presentes.}
+\label{tab:case1}
+\scriptsize
+\begin{tabular}{rlrrrrr|lrrrrr}
+\toprule
+\# & doc & rel & BM25 & r$_s$ & $|d|$ & ter & doc & rel & cos & r$_l$ & $|d|$ & ter \\
+\midrule
+1 & MED-3632 & 0 & 12,53 & >100 & 153 & 1 & MED-714 & 0 & 0,701 & 7 & 158 & 2 \\
+2 & MED-2765 & 0 & 11,41 & 19 & 160 & 2 & MED-4566 & 0 & 0,641 & 59 & 218 & 1 \\
+3 & MED-919 & 0 & 11,27 & 5 & 155 & 2 & MED-4573 & 2 & 0,635 & 19 & 135 & 1 \\
+4 & MED-4872 & 0 & 11,16 & 14 & 170 & 2 & MED-4570 & 2 & 0,617 & 47 & 146 & 1 \\
+5 & MED-4104 & 0 & 10,39 & >100 & 275 & 2 & MED-919 & 0 & 0,611 & 3 & 155 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!htb]
+\centering
+\caption{Caso 2 (vantagem do semântico): PLAIN-1537 --- ``low-carb diets''. NDCG@10: lexical 0,095, semântico 0,662. Relevantes: 45; 16 sem nenhum termo da consulta. Colunas: relevância (0--2), score (BM25 | cosseno), posição no outro sistema, $|d|$ = tokens do documento no índice, ter = termos da consulta presentes.}
+\label{tab:case2}
+\scriptsize
+\begin{tabular}{rlrrrrr|lrrrrr}
+\toprule
+\# & doc & rel & BM25 & r$_s$ & $|d|$ & ter & doc & rel & cos & r$_l$ & $|d|$ & ter \\
+\midrule
+1 & MED-4880 & 0 & 25,78 & 2 & 178 & 3 & MED-4515 & 1 & 0,662 & 4 & 233 & 2 \\
+2 & MED-2943 & 0 & 7,41 & 43 & 252 & 2 & MED-4880 & 0 & 0,609 & 1 & 178 & 3 \\
+3 & MED-1714 & 0 & 7,27 & >100 & 248 & 2 & MED-4514 & 1 & 0,596 & 18 & 308 & 2 \\
+4 & MED-4515 & 1 & 6,97 & 1 & 233 & 2 & MED-1616 & 1 & 0,587 & 43 & 241 & 2 \\
+5 & MED-2458 & 0 & 6,93 & >100 & 216 & 2 & MED-2586 & 1 & 0,558 & >100 & 238 & 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!htb]
+\centering
+\caption{Caso 3 (vantagem do semântico): PLAIN-924 --- ``cocaine''. NDCG@10: lexical 0,220, semântico 0,778. Relevantes: 32; 31 sem nenhum termo da consulta. Colunas: relevância (0--2), score (BM25 | cosseno), posição no outro sistema, $|d|$ = tokens do documento no índice, ter = termos da consulta presentes.}
+\label{tab:case3}
+\scriptsize
+\begin{tabular}{rlrrrrr|lrrrrr}
+\toprule
+\# & doc & rel & BM25 & r$_s$ & $|d|$ & ter & doc & rel & cos & r$_l$ & $|d|$ & ter \\
+\midrule
+1 & MED-3044 & 1 & 20,43 & 1 & 217 & 1 & MED-3044 & 1 & 0,467 & 1 & 217 & 1 \\
+2 & - & - & - & >100 & - & - & MED-3054 & 1 & 0,384 & >100 & 128 & 0 \\
+3 & - & - & - & >100 & - & - & MED-3055 & 1 & 0,339 & >100 & 139 & 0 \\
+4 & - & - & - & >100 & - & - & MED-3052 & 1 & 0,335 & >100 & 139 & 0 \\
+5 & - & - & - & >100 & - & - & MED-4790 & 0 & 0,313 & >100 & 130 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!htb]
+\centering
+\caption{Caso 4 (vantagem do lexical): PLAIN-1473 --- ``kohlrabi''. NDCG@10: lexical 1,000, semântico 0,000. Relevantes: 1; 0 sem nenhum termo da consulta. Colunas: relevância (0--2), score (BM25 | cosseno), posição no outro sistema, $|d|$ = tokens do documento no índice, ter = termos da consulta presentes.}
+\label{tab:case4}
+\scriptsize
+\begin{tabular}{rlrrrrr|lrrrrr}
+\toprule
+\# & doc & rel & BM25 & r$_s$ & $|d|$ & ter & doc & rel & cos & r$_l$ & $|d|$ & ter \\
+\midrule
+1 & MED-4455 & 1 & 12,60 & >100 & 118 & 1 & MED-3947 & 0 & 0,220 & >100 & 169 & 0 \\
+2 & - & - & - & >100 & - & - & MED-4660 & 0 & 0,217 & >100 & 139 & 0 \\
+3 & - & - & - & >100 & - & - & MED-3441 & 0 & 0,216 & >100 & 79 & 0 \\
+4 & - & - & - & >100 & - & - & MED-3447 & 0 & 0,213 & >100 & 112 & 0 \\
+5 & - & - & - & >100 & - & - & MED-5024 & 0 & 0,212 & >100 & 92 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!htb]
+\centering
+\caption{Caso 5 (vantagem do lexical): PLAIN-2081 --- ``shelf life''. NDCG@10: lexical 1,000, semântico 0,000. Relevantes: 1; 0 sem nenhum termo da consulta. Colunas: relevância (0--2), score (BM25 | cosseno), posição no outro sistema, $|d|$ = tokens do documento no índice, ter = termos da consulta presentes.}
+\label{tab:case5}
+\scriptsize
+\begin{tabular}{rlrrrrr|lrrrrr}
+\toprule
+\# & doc & rel & BM25 & r$_s$ & $|d|$ & ter & doc & rel & cos & r$_l$ & $|d|$ & ter \\
+\midrule
+1 & MED-4303 & 1 & 17,36 & 15 & 181 & 2 & MED-1378 & 0 & 0,415 & 54 & 135 & 1 \\
+2 & MED-1182 & 0 & 12,90 & >100 & 182 & 2 & MED-2422 & 0 & 0,386 & 61 & 143 & 1 \\
+3 & MED-2700 & 0 & 12,05 & >100 & 230 & 2 & MED-2510 & 0 & 0,386 & 30 & 121 & 1 \\
+4 & MED-2671 & 0 & 10,15 & 35 & 100 & 2 & MED-4715 & 0 & 0,382 & >100 & 232 & 0 \\
+5 & MED-2074 & 0 & 8,72 & 86 & 171 & 2 & MED-1433 & 0 & 0,373 & >100 & 121 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!htb]
+\centering
+\caption{Caso 6 (vantagem do lexical): PLAIN-1288 --- ``grapes''. NDCG@10: lexical 0,890, semântico 0,130. Relevantes: 196; 181 sem nenhum termo da consulta. Colunas: relevância (0--2), score (BM25 | cosseno), posição no outro sistema, $|d|$ = tokens do documento no índice, ter = termos da consulta presentes.}
+\label{tab:case6}
+\scriptsize
+\begin{tabular}{rlrrrrr|lrrrrr}
+\toprule
+\# & doc & rel & BM25 & r$_s$ & $|d|$ & ter & doc & rel & cos & r$_l$ & $|d|$ & ter \\
+\midrule
+1 & MED-2668 & 1 & 11,68 & 15 & 108 & 1 & MED-3200 & 0 & 0,426 & >100 & 142 & 0 \\
+2 & MED-2669 & 1 & 11,41 & 13 & 142 & 1 & MED-398 & 0 & 0,425 & >100 & 90 & 0 \\
+3 & MED-2083 & 0 & 11,11 & 5 & 182 & 1 & MED-3207 & 0 & 0,425 & >100 & 90 & 0 \\
+4 & MED-1538 & 1 & 11,10 & 26 & 183 & 1 & MED-3210 & 0 & 0,424 & >100 & 206 & 0 \\
+5 & MED-1533 & 1 & 10,69 & >100 & 183 & 1 & MED-2083 & 0 & 0,414 & 3 & 182 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
