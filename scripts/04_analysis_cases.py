@@ -1,6 +1,3 @@
-"""Análises por consulta (itens 7 e 10): casos lexical x semântico e casos de reranking, com evidências numéricas.
-Seleção dos casos 100% automática, a partir de results/metrics_per_query.csv (nenhuma escolha manual).
-Saídas em results/analysis/: lex_vs_sem_cases.{md,json}, rerank_cases.{md,json}, global_evidence.json."""
 from __future__ import annotations
 
 import json
@@ -18,9 +15,8 @@ from src.results_io import read_run
 
 OUT = RESULTS_DIR / "analysis"
 
-
 def main():
-    args = base_parser(__doc__).parse_args()
+    args = base_parser('Análises por consulta (itens 7 e 10): casos lexical x semântico e casos de reranking, com evidências numéricas.').parse_args()
     ctx, sel = Ctx(), load_selection()
     OUT.mkdir(exist_ok=True)
     pre, bm = sel["preprocessing"], sel["bm25"]
@@ -129,7 +125,6 @@ def main():
     print(json.dumps(ev, ensure_ascii=False, indent=1))
     print("\nCasos lexical x semântico:", [(c["grupo"], c["query_id"], round(c["metricas"]["delta"], 3)) for c in cases])
     print("Casos reranking:", [(c["grupo"], c["query_id"], round(c["metricas"]["delta"], 3)) for c in rcases])
-
 
 if __name__ == "__main__":
     main()

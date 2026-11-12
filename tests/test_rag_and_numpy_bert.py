@@ -9,20 +9,17 @@ from src.rag import (CRITERIA, make_blind_sheet, merge_grades, retrieval_at_k, u
 
 ROOT = Path(__file__).resolve().parents[1]
 
-
 def test_retrieval_at_5():
     qrels = {"d1": 2, "d2": 1, "d7": 1, "d8": 0}
     m = retrieval_at_k(["d1", "x", "d2", "y", "z", "d7"], qrels, 5)
     assert m["Recall@5"] == pytest.approx(2 / 3) and m["Precision@5"] == pytest.approx(2 / 5) and m["Hit@5"] == 1
     assert retrieval_at_k(["x", "y"], qrels, 5)["Hit@5"] == 0
 
-
 def test_prompts_have_ids_only_in_condition_b():
     docs = [("MED-1", "Title one", "Text one."), ("MED-2", "Title two", "Text two.")]
     assert "[MED-1]" not in user_prompt_a("Q?") and "MED" not in user_prompt_a("Q?")
     b = user_prompt_b("Q?", docs)
     assert "[MED-1] Title one" in b and "[MED-2] Title two" in b and b.rstrip().endswith("Question: Q?")
-
 
 def test_blind_sheet_and_merge_with_two_annotators():
     rag = pd.DataFrame([{"query_id": q, "query": f"{q}?", "condition": c, "answer": f"ans {q}{c}", "context_doc_ids": "MED-1"}
@@ -34,11 +31,11 @@ def test_blind_sheet_and_merge_with_two_annotators():
     for c in CRITERIA:
         s1[c], s2[c] = "2", "1"
     s1["just_fidelidade"] = "ok"
-    merged, means, agree = merge_grades(rag, key, [s1, s2])
-    assert merged.loc[merged.condition == "A", "rastreabilidade"].isna().all()       # N/A na condição A
-    assert means.loc["B", "fidelidade"] == pytest.approx(1.5)
-    assert agree["fidelidade"]["concordancia_exata"] == 0.0
-
+    merged, means, agree = merge_grades(rag, key, s1, {"h": s1, "ia": s2})
+    assert (merged.loc[merged.condition == "A", "rastreabilidade"] == "N/A").all()
+    assert means.loc["B", "fidelidade"] == pytest.approx(2.0) and pd.isna(means.loc["A", "rastreabilidade"])
+    assert merged.loc[merged.condition == "B", "justificativa_fidelidade"].eq("ok").all()
+    assert agree["h x ia"]["fidelidade"]["concordancia_exata"] == 0.0
 
 def test_numpy_bert_random_weights_shapes():
     rng = np.random.default_rng(0)
@@ -67,10 +64,8 @@ def test_numpy_bert_random_weights_shapes():
     ids2[1, 5:] = (ids2[1, 5:] + 1) % V
     assert np.allclose(h[1, :5], net.forward(ids2, mask)[1, :5], atol=1e-5)
 
-
 @pytest.mark.skipif(not (ROOT / "models" / "ce_l6" / "model.safetensors").exists(), reason="pesos locais ausentes")
 def test_numpy_bert_reproduces_model_card_scores():
-    """Valor de referência do card do cross-encoder ms-marco-MiniLM-L6-v2: [8.607138, -4.320078]."""
     from tokenizers import Tokenizer
     tok = Tokenizer.from_file(str(ROOT / "models/ce_l6/tokenizer.json"))
     tok.enable_truncation(max_length=512)

@@ -1,17 +1,3 @@
-"""Índice invertido implementado do zero (item 2) e ranqueamento BM25 (item 3).
-
-Estruturas de dados
--------------------
-postings : dict[str, (array('I'), array('I'))]
-           termo -> (doc_idx ordenados, tf correspondentes); a posting list de um termo guarda TF por documento,
-           e o DF do termo é o comprimento da lista.
-doc_ids  : list[str]    doc_idx -> doc_id externo (ex.: "MED-10")
-doc_len  : array('I')   |d| = nº de tokens do documento após o pré-processamento
-Estatísticas globais: N, comprimento médio (avgdl), tamanho do vocabulário e total de postings.
-
-Nenhuma consulta percorre a coleção: o ranking é calculado "termo a termo" (term-at-a-time), acumulando
-scores apenas dos documentos que aparecem nas posting lists dos termos da consulta.
-"""
 from __future__ import annotations
 
 import heapq
@@ -22,7 +8,6 @@ from array import array
 from collections import Counter
 from typing import Callable, Iterable
 
-
 class InvertedIndex:
     def __init__(self) -> None:
         self.postings: dict[str, tuple[array, array]] = {}
@@ -32,7 +17,6 @@ class InvertedIndex:
         self.preprocess_seconds: float = 0.0   # tokenização + stopwords + stemming dos documentos
         self.structure_seconds: float = 0.0    # construção das posting lists
 
-    # ---------- construção ----------
     def add_document(self, doc_id: str, tokens: list[str]) -> None:
         idx = len(self.doc_ids)
         self.doc_ids.append(doc_id)
@@ -57,7 +41,6 @@ class InvertedIndex:
             index.structure_seconds += time.perf_counter() - t1
         return index
 
-    # ---------- consulta às estatísticas ----------
     @property
     def N(self) -> int:
         return len(self.doc_ids)
@@ -79,7 +62,6 @@ class InvertedIndex:
         return len(p[0]) if p else 0
 
     def tf(self, term: str, doc_idx: int) -> int:
-        """TF do termo no documento (busca binária na posting list)."""
         p = self.postings.get(term)
         if not p:
             return 0
@@ -102,7 +84,6 @@ class InvertedIndex:
             "tempo_construcao_total_s": round(self.preprocess_seconds + self.structure_seconds, 3),
         }
 
-    # ---------- persistência ----------
     def save(self, path) -> None:
         with open(path, "wb") as f:
             pickle.dump(self.__dict__, f, protocol=pickle.HIGHEST_PROTOCOL)
@@ -114,10 +95,7 @@ class InvertedIndex:
             index.__dict__.update(pickle.load(f))
         return index
 
-
 class BM25Searcher:
-    """BM25 (Robertson/Lucene):  score(q,d) = sum_t qtf * idf(t) * tf*(k1+1) / (tf + k1*(1-b+b*|d|/avgdl)),
-    com idf(t) = ln(1 + (N - df + 0.5) / (df + 0.5)). Empates são resolvidos pelo menor doc_idx."""
 
     def __init__(self, index: InvertedIndex, k1: float = 1.2, b: float = 0.75) -> None:
         self.index, self.k1, self.b = index, k1, b
@@ -150,6 +128,5 @@ class BM25Searcher:
         return heapq.nsmallest(top_k, acc.items(), key=lambda kv: (-kv[1], kv[0]))
 
     def term_contribution(self, term: str, doc_idx: int) -> float:
-        """Contribuição de um termo (qtf=1) ao score de um documento — usada nas análises por consulta."""
         tf = self.index.tf(term, doc_idx)
         return self.idf(term) * tf * (self.k1 + 1.0) / (tf + self._norm[doc_idx]) if tf else 0.0

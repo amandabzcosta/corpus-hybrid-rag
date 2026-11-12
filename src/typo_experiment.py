@@ -1,13 +1,3 @@
-"""Experimento de tolerância a erros (item 4): construção dos casos com erro ortográfico e correção.
-
-Protocolo (padronização do enunciado):
- (i)   dicionário = termos da coleção antes de stemming/lematização;
- (ii)  cada erro gera um termo INEXISTENTE no dicionário;
- (iii) só entram consultas com NDCG@10 original > 0 (sistema lexical);
- (iv)  recuperação por consulta = (NDCG_corrigida - NDCG_erro) / (NDCG_original - NDCG_erro) se o denominador > 0.
-Decisões do grupo (sem usar qrels): um erro por consulta, no termo de maior IDF (o mais informativo) com >= 5
-letras que não seja stopword; a 1ª letra é preservada; os 4 tipos de erro são atribuídos em rodízio.
-"""
 from __future__ import annotations
 
 import random
@@ -17,9 +7,7 @@ from .config import SEED
 from .preprocess import raw_tokens
 from .spelling import (ERROR_TYPES, SpellCorrector, apply_corrections, make_typo, pick_target_token, replace_word)
 
-
 def make_typo_cases(query_ids, queries: Mapping[str, str], lex, dictionary, stopwords, seed: int = SEED) -> list[dict]:
-    """Um caso por consulta, com tipo de erro atribuído em rodízio (fallback para outro tipo se for impossível)."""
     weight = lambda t: lex.searcher.idf(lex.pre.stem(t))
     cases = []
     for i, qid in enumerate(query_ids):
@@ -41,14 +29,10 @@ def make_typo_cases(query_ids, queries: Mapping[str, str], lex, dictionary, stop
             break
     return cases
 
-
 def correct_query(text_err: str, corrector: SpellCorrector) -> tuple[str, dict]:
-    """Aplica a correção a todos os termos desconhecidos da consulta. Retorna (texto corrigido, {errado: corrigido})."""
     _, changes = corrector.correct_tokens(raw_tokens(text_err))
     return apply_corrections(text_err, changes), changes
 
-
 def recovery(ndcg_orig: float, ndcg_err: float, ndcg_corr: float):
-    """(corrigida - erro) / (original - erro) quando o denominador > 0; caso contrário None (erro não reduziu o desempenho)."""
     den = ndcg_orig - ndcg_err
     return (ndcg_corr - ndcg_err) / den if den > 1e-12 else None

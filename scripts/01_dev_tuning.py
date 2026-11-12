@@ -1,12 +1,3 @@
-"""Ajustes no conjunto DEV (o test nunca é usado para escolher nada).
-
-Estágios (rode todos com --stage all, ou um de cada vez):
-  lexical   : etapas de pré-processamento (stopwords/stemming) e parâmetros k1, b do BM25
-  spelling  : parâmetros da correção ortográfica (k-gramas, limiar de Jaccard, distância máxima de edição)
-  semantic  : escolha do bi-encoder (modelo e max_seq_length)
-  rrf       : parâmetro k do RRF, avaliando {10, 60, 100} e mais valores
-  rerank    : escolha do cross-encoder (em uma amostra de consultas do dev)
-Saídas: results/dev_*.csv e results/dev_selection.json (lido pelos demais scripts)."""
 from __future__ import annotations
 
 import random
@@ -28,10 +19,8 @@ from src.typo_experiment import correct_query, make_typo_cases, recovery
 
 PRE_CONFIGS = [(False, None), (True, None), (False, "porter"), (True, "porter"), (True, "snowball")]
 
-
 def ndcg_of(run, qrels):
     return float(evaluate_run(run, qrels)["NDCG10"].mean())
-
 
 def stage_lexical(ctx):
     qrels = ctx.qrels["dev"]
@@ -62,12 +51,10 @@ def stage_lexical(ctx):
                     "bm25": {"k1": float(top["k1"]), "b": float(top["b"])},
                     "dev_lexical_ndcg10": float(top["NDCG10"])})
 
-
 def lexical_from_selection(ctx):
     sel = load_selection()
     pre, bm = sel["preprocessing"], sel["bm25"]
     return LexicalSystem(ctx.docs, pre["remove_stopwords"], pre["stemmer"], bm["k1"], bm["b"])
-
 
 def stage_spelling(ctx):
     lex = lexical_from_selection(ctx)
@@ -108,11 +95,9 @@ def stage_spelling(ctx):
     save_selection({"spelling": {"k": int(best["k"]), "jaccard": float(best["jaccard"]), "max_edit": int(best["max_edit"])}})
     print("-> melhor:", dict(best))
 
-
 def semantic_system(ctx, spec, deadline=None):
     return SemanticSystem(load_bi_encoder(spec), ctx.doc_ids, ctx.doc_texts, spec["id"].replace("@", "_"),
                           deadline=deadline)
-
 
 def stage_semantic(ctx, mc, deadline):
     rows, infos = [], {}
@@ -130,7 +115,6 @@ def stage_semantic(ctx, mc, deadline):
     best = df.sort_values(["NDCG10", "AP10"], ascending=False).iloc[0]
     save_selection({"bi_encoder": {"id": best["modelo"]}, "dev_semantic_ndcg10": float(best["NDCG10"])})
     print("-> melhor:", best["modelo"])
-
 
 def stage_rrf(ctx, mc, deadline):
     sel = load_selection()
@@ -151,7 +135,6 @@ def stage_rrf(ctx, mc, deadline):
     best = h.sort_values(["NDCG10", "k"], ascending=[False, True]).iloc[0]
     save_selection({"rrf_k": int(best["k"]), "dev_hybrid_ndcg10": float(best["NDCG10"])})
     print("-> melhor k:", int(best["k"]))
-
 
 def stage_rerank(ctx, mc, deadline, n_queries: int):
     sel = load_selection()
@@ -179,9 +162,8 @@ def stage_rerank(ctx, mc, deadline, n_queries: int):
     save_selection({"cross_encoder": {"id": best["modelo"]}, "dev_rerank_queries": sample})
     print("-> melhor:", best["modelo"])
 
-
 def main():
-    ap = base_parser(__doc__)
+    ap = base_parser('Ajustes no conjunto DEV (o test nunca é usado para escolher nada).')
     ap.add_argument("--stage", default="all", choices=["all", "lexical", "spelling", "semantic", "rrf", "rerank"])
     ap.add_argument("--rerank-dev-queries", type=int, default=40, help="nº de consultas do dev usadas para escolher o cross-encoder")
     args = ap.parse_args()
@@ -203,7 +185,6 @@ def main():
     except TimeBudgetExceeded as e:
         print("\n[!]", e, "-> rode o mesmo comando para continuar.")
         raise SystemExit(3)
-
 
 if __name__ == "__main__":
     main()

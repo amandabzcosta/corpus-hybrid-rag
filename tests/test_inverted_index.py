@@ -12,14 +12,11 @@ DOCS = {
     "d4": "Coconut milk, coconut oil and saturated fat.",
 }
 
-
 def build(**kw):
     pre = Preprocessor(**kw)
     return InvertedIndex.build(DOCS.items(), pre), pre
 
-
 def brute_force_bm25(index_tokens, query_tokens, k1, b):
-    """Referência: BM25 calculado varrendo todos os documentos (apenas para o teste)."""
     N = len(index_tokens)
     avgdl = sum(len(t) for t in index_tokens.values()) / N
     df = Counter(t for toks in index_tokens.values() for t in set(toks))
@@ -35,7 +32,6 @@ def brute_force_bm25(index_tokens, query_tokens, k1, b):
             scores[d] = s
     return scores
 
-
 def test_posting_lists_and_stats():
     idx, pre = build(remove_stopwords=True, stemmer="porter")
     assert idx.N == 4 and idx.doc_ids == list(DOCS)
@@ -46,7 +42,6 @@ def test_posting_lists_and_stats():
     assert idx.num_postings == sum(len(p[0]) for p in idx.postings.values())
     assert idx.total_tokens == sum(idx.doc_len)
     assert abs(idx.avgdl - idx.total_tokens / 4) < 1e-12
-
 
 def test_bm25_matches_brute_force():
     idx, pre = build(remove_stopwords=True, stemmer="porter")
@@ -59,14 +54,12 @@ def test_bm25_matches_brute_force():
             assert got.keys() == ref.keys()
             assert all(abs(got[d] - ref[d]) < 1e-9 for d in ref)
 
-
 def test_ranking_order_and_tie_break():
     idx, pre = build(remove_stopwords=True, stemmer="porter")
     hits = BM25Searcher(idx).search(pre("probiotics"), 10)
     assert [idx.doc_ids[d] for d, _ in hits][0] == "d3"           # tf maior -> primeiro
     scores = [s for _, s in hits]
     assert scores == sorted(scores, reverse=True)
-
 
 def test_save_load_roundtrip(tmp_path):
     idx, _ = build()

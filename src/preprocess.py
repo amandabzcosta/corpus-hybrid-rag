@@ -1,10 +1,3 @@
-"""Pré-processamento (item 1): normalização, tokenização, stopwords e stemming.
-
-Bibliotecas externas: `unicodedata`/`re` (biblioteca padrão), NLTK (lista de stopwords e stemmers).
-Duas visões do texto são usadas no projeto:
-  * `raw_tokens`  : tokens normalizados ANTES de stopwords/stemming -> dicionário da correção ortográfica;
-  * `Preprocessor`: pipeline completo -> termos do índice invertido (documentos e consultas).
-"""
 from __future__ import annotations
 
 import re
@@ -14,20 +7,14 @@ from nltk.stem import PorterStemmer, SnowballStemmer
 
 _TOKEN_RE = re.compile(r"[a-z0-9]+")
 
-
 def normalize(text: str) -> str:
-    """Minúsculas + remoção de acentos (NFKD)."""
     text = unicodedata.normalize("NFKD", text.lower())
     return "".join(c for c in text if not unicodedata.combining(c))
 
-
 def raw_tokens(text: str) -> list[str]:
-    """Tokenização por sequências alfanuméricas (hífens e apóstrofos separam tokens)."""
     return _TOKEN_RE.findall(normalize(text))
 
-
 def english_stopwords() -> frozenset[str]:
-    """Lista de stopwords do NLTK; os fragmentos gerados pela tokenização (don, t, s...) também entram."""
     try:
         from nltk.corpus import stopwords
         words = stopwords.words("english")
@@ -42,9 +29,7 @@ def english_stopwords() -> frozenset[str]:
         out.update(raw_tokens(w))
     return frozenset(out)
 
-
 class Preprocessor:
-    """Pipeline configurável: tokens -> (stopwords) -> (stemming)."""
 
     def __init__(self, remove_stopwords: bool = True, stemmer: str | None = "porter"):
         if stemmer not in (None, "porter", "snowball"):

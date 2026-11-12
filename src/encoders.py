@@ -1,10 +1,3 @@
-"""Backends de bi-encoder e cross-encoder (itens 5 e 9).
-
-kind = "st"    : sentence-transformers (padrão; baixa os modelos do Hugging Face) — recomendado no Colab/PC local.
-kind = "onnx"  : onnxruntime + tokenizers, com os pesos do MESMO modelo exportados para ONNX.
-kind = "numpy" : encoder BERT em numpy puro (src/numpy_bert.py), lendo model.safetensors.
-Os dois últimos existem para ambientes sem PyTorch/Hugging Face; os três expõem a mesma interface.
-"""
 from __future__ import annotations
 
 import hashlib
@@ -17,15 +10,17 @@ import numpy as np
 
 from .config import ROOT
 
-
 class TimeBudgetExceeded(RuntimeError):
-    """Orçamento de tempo da execução esgotado; o progresso já está salvo em cache — execute de novo para continuar."""
-
+    pass
 
 def _resolve(p: str) -> Path:
     p = Path(p)
     return p if p.is_absolute() else ROOT / p
 
+def _hf_revision(name: str) -> str | None:
+    from huggingface_hub.constants import HF_HUB_CACHE
+    ref = Path(HF_HUB_CACHE) / f"models--{name.replace('/', '--')}" / "refs" / "main"
+    return ref.read_text().strip() if ref.exists() else None
 
 def _sha256(path: Path, n: int = 12) -> str:
     h = hashlib.sha256()
@@ -34,10 +29,6 @@ def _sha256(path: Path, n: int = 12) -> str:
             h.update(chunk)
     return h.hexdigest()[:n]
 
-
-# =====================================================================================================
-#  Base para backends locais (tokenização com `tokenizers`, batches ordenados por tamanho)
-# =====================================================================================================
 class _LocalBert:
     def __init__(self, spec: dict, max_len_key: str, default_max_len: int) -> None:
         from tokenizers import Tokenizer
@@ -61,7 +52,6 @@ class _LocalBert:
         else:
             raise ValueError(f"engine inválido: {self.engine}")
 
-    # tokenização ------------------------------------------------------------------------------
     def _tokenize(self, inputs, truncate: bool = True):
         self.tok.no_padding()
         if truncate:
@@ -71,7 +61,6 @@ class _LocalBert:
         return self.tok.encode_batch(inputs)
 
     def _run(self, encs):
-        """Executa um batch de Encoding -> saída bruta do modelo (hidden states ou logits)."""
         n, L = len(encs), max(len(e.ids) for e in encs)
         ids = np.zeros((n, L), np.int64)
         am = np.zeros((n, L), np.int64)
@@ -95,10 +84,6 @@ class _LocalBert:
             yield order[i:i + bs]
             i += bs
 
-
-# =====================================================================================================
-#  Bi-encoders
-# =====================================================================================================
 class LocalBiEncoder(_LocalBert):
     kind = "local"
 
@@ -135,7 +120,6 @@ class LocalBiEncoder(_LocalBert):
                 "similarity": "cosseno (produto interno de vetores normalizados)", "normalization": "L2",
                 "pooling": "média dos tokens", "source": self.spec.get("source", "")}
 
-
 class STBiEncoder:
     kind = "st"
 
@@ -165,16 +149,13 @@ class STBiEncoder:
             rev = self.model[0].auto_model.config._commit_hash
         except Exception:
             pass
+        rev = rev or _hf_revision(self.spec["name"])
         return {"model": self.spec["name"], "revision": rev or self.spec.get("revision", "n/d"),
                 "library": f"sentence-transformers {sentence_transformers.__version__} (torch {torch.__version__})",
                 "dim": int(self.model.get_sentence_embedding_dimension()), "max_seq_length": self.max_seq_length,
                 "similarity": "cosseno (produto interno de vetores normalizados)", "normalization": "L2",
                 "pooling": "conforme o modelo", "source": "Hugging Face Hub"}
 
-
-# =====================================================================================================
-#  Cross-encoders
-# =====================================================================================================
 class LocalCrossEncoder(_LocalBert):
     kind = "local"
 
@@ -206,7 +187,6 @@ class LocalCrossEncoder(_LocalBert):
                 "library": lib, "max_length": self.max_length, "score": "logit (ativação Identity)",
                 "source": self.spec.get("source", "")}
 
-
 class STCrossEncoder:
     kind = "st"
 
@@ -234,15 +214,13 @@ class STCrossEncoder:
             rev = self.model.model.config._commit_hash
         except Exception:
             pass
+        rev = rev or _hf_revision(self.spec["name"])
         return {"model": self.spec["name"], "revision": rev or self.spec.get("revision", "n/d"),
                 "library": f"sentence-transformers {sentence_transformers.__version__} (torch {torch.__version__})",
                 "max_length": self.max_length, "score": "saída do modelo (logit/ativação padrão do CrossEncoder)",
                 "source": "Hugging Face Hub"}
 
-
 class CachedCrossEncoder:
-    """Envolve um cross-encoder com cache em disco (JSONL, append-only) por (modelo, consulta, documento).
-    Torna a execução retomável e evita recomputar pares já avaliados (ex.: dev e test compartilham pares)."""
 
     def __init__(self, inner, path: Path, deadline: float | None = None) -> None:
         self.inner, self.path, self.deadline = inner, Path(path), deadline
@@ -289,11 +267,8 @@ class CachedCrossEncoder:
     def __getattr__(self, name):          # delega pair_token_lengths, info, max_length...
         return getattr(self.inner, name)
 
-
-# =====================================================================================================
 def load_bi_encoder(spec: dict):
     return STBiEncoder(spec) if spec["kind"] == "st" else LocalBiEncoder(spec)
-
 
 def load_cross_encoder(spec: dict):
     return STCrossEncoder(spec) if spec["kind"] == "st" else LocalCrossEncoder(spec)

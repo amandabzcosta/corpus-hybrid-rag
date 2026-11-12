@@ -1,4 +1,3 @@
-"""Configuração central do projeto: caminhos, sementes e constantes definidas no enunciado do T2."""
 from __future__ import annotations
 
 import json
@@ -8,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = Path(os.environ.get("RI_DATA_DIR", ROOT / "data" / "nfcorpus"))
 RESULTS_DIR = Path(os.environ.get("RI_RESULTS_DIR", ROOT / "results"))
-CACHE_DIR = Path(os.environ.get("RI_CACHE_DIR", ROOT / "cache"))   # embeddings/scores em cache (regeneráveis; não são entregues)
+CACHE_DIR = Path(os.environ.get("RI_CACHE_DIR", ROOT / "artifacts"))
 CONFIGS_DIR = ROOT / "configs"
 
 SEED = 42                           # semente única do projeto
@@ -34,12 +33,7 @@ EXPECTED_STATS = {
     "n_test_question_queries": 42,
 }
 
-
 def models_config(path: str | os.PathLike | None = None) -> dict:
-    """Lê o JSON com os modelos candidatos (bi-encoders e cross-encoders).
-
-    Ordem de busca: argumento -> variável RI_MODELS -> configs/models_hf.json (Hugging Face, padrão).
-    """
     p = Path(path or os.environ.get("RI_MODELS") or CONFIGS_DIR / "models_hf.json")
     if not p.is_absolute():
         p = ROOT / p

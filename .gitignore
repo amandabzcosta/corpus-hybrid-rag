@@ -229,3 +229,5 @@ artifacts/
 # Arquivos locais de apoio (não versionar)
 CLAUDE.md
 docs/enunciado_tp2.pdf
+models/
+cache/

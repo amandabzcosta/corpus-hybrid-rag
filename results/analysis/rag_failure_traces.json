@@ -451,7 +451,7 @@
     "primeiro_relevante": 1,
     "relevantes_top5": 1,
     "relevantes_top10": 2,
-    "relevantes_top100": 10
+    "relevantes_top100": 9
    },
    "hybrid": {
     "primeiro_relevante": 2,

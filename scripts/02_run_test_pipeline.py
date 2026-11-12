@@ -1,7 +1,3 @@
-"""Pipeline completo no conjunto TEST com as escolhas feitas no DEV (results/dev_selection.json):
-  lexical (índice invertido + BM25) | semântico (bi-encoder) | híbrido (RRF) | híbrido + reranking (cross-encoder)
-Gera: results_lexical.csv, results_semantic.csv, results_hybrid.csv, results_reranking.csv, metrics_per_query.csv,
-      summary_test.csv, significance_tests.csv, timings.json, environment.json."""
 from __future__ import annotations
 
 import json
@@ -25,35 +21,34 @@ from src.results_io import write_metrics_per_query, write_ranking_csv
 from src.semantic import SemanticSystem
 from src.encoders import load_bi_encoder
 
-
 def environment() -> dict:
     import os
-    import onnxruntime
+    import subprocess
     import scipy
     info = {"python": platform.python_version(), "so": platform.platform(), "cpu_cores": os.cpu_count(),
-            "numpy": np.__version__, "pandas": pd.__version__, "scipy": scipy.__version__,
-            "onnxruntime": onnxruntime.__version__}
-    try:
-        info["ram_gb"] = round(os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES") / 2**30, 1)
-    except (ValueError, OSError):
-        pass
-    for lib in ("tokenizers", "nltk", "sentence_transformers", "torch", "ir_measures"):
+            "numpy": np.__version__, "pandas": pd.__version__, "scipy": scipy.__version__}
+    for lib in ("onnxruntime", "tokenizers", "nltk", "sentence_transformers", "transformers", "torch", "ir_measures"):
         try:
             info[lib] = __import__(lib).__version__
         except Exception:
             pass
+    ps = lambda cmd: subprocess.run(["powershell", "-NoProfile", "-Command", cmd], capture_output=True, text=True).stdout.strip()
     try:
-        import subprocess
-        out = subprocess.run(["lscpu"], capture_output=True, text=True).stdout
-        info["cpu_model"] = next((l.split(":", 1)[1].strip() for l in out.splitlines() if l.startswith("Model name")), "n/d")
+        if platform.system() == "Windows":
+            info["cpu_model"] = ps("(Get-CimInstance Win32_Processor).Name")
+            info["ram_gb"] = round(int(ps("(Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory")) / 2**30, 1)
+            info["gpu"] = ps("(Get-CimInstance Win32_VideoController).Name -join '; '")
+        else:
+            out = subprocess.run(["lscpu"], capture_output=True, text=True).stdout
+            info["cpu_model"] = next((l.split(":", 1)[1].strip() for l in out.splitlines() if l.startswith("Model name")), "n/d")
+            info["ram_gb"] = round(os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES") / 2**30, 1)
     except Exception:
         pass
-    info["gpu"] = "nenhuma" if "torch" not in info else "ver torch.cuda"
+    info["dispositivo_modelos"] = "CPU (torch CPU)"
     return info
 
-
 def main():
-    ap = base_parser(__doc__)
+    ap = base_parser('Pipeline completo no TEST com as escolhas do DEV: lexical, semântico, híbrido e reranking.')
     ap.add_argument("--limit", type=int, default=None, help="só para testes de fumaça: usa as N primeiras consultas")
     args = ap.parse_args()
     ctx, mc, sel, deadline = Ctx(), load_models(args), load_selection(), deadline_from(args)
@@ -156,7 +151,6 @@ def main():
     timings["ambiente"] = environment()
     (RESULTS_DIR / "timings.json").write_text(json.dumps(timings, ensure_ascii=False, indent=2, default=float), encoding="utf-8")
     print("\nResultados em", RESULTS_DIR)
-
 
 if __name__ == "__main__":
     main()

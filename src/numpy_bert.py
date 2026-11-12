@@ -1,10 +1,3 @@
-"""Encoder BERT (inferência) em numpy puro, lendo pesos .safetensors.
-
-Existe para rodar os modelos MiniLM em ambientes sem PyTorch (ex.: o sandbox em que parte dos experimentos
-foi executada). Implementa exatamente a arquitetura BERT usada pelos modelos do projeto
-(embeddings -> N camadas de self-attention + FFN com GELU exata -> pooler/classificador opcionais).
-A correção foi validada contra o valor de referência publicado no card do cross-encoder (ver tests/).
-"""
 from __future__ import annotations
 
 import numpy as np
@@ -12,16 +5,13 @@ from scipy.special import erf
 
 _SQRT2 = np.float32(np.sqrt(2.0))
 
-
 def _layer_norm(x: np.ndarray, w: np.ndarray, b: np.ndarray, eps: float) -> np.ndarray:
     mu = x.mean(-1, keepdims=True)
     var = ((x - mu) ** 2).mean(-1, keepdims=True)
     return (x - mu) / np.sqrt(var + eps) * w + b
 
-
 def _gelu(x: np.ndarray) -> np.ndarray:
     return 0.5 * x * (1.0 + erf(x / _SQRT2))
-
 
 class NumpyBert:
     def __init__(self, tensors: dict[str, np.ndarray], heads: int = 12, eps: float = 1e-12) -> None:
@@ -59,7 +49,6 @@ class NumpyBert:
             return cls({k: f.get_tensor(k) for k in f.keys()}, heads=heads)
 
     def forward(self, input_ids: np.ndarray, attention_mask: np.ndarray, token_type_ids: np.ndarray | None = None) -> np.ndarray:
-        """Retorna os estados ocultos finais (B, L, H)."""
         B, L = input_ids.shape
         H, A = self.hidden, self.heads
         dh = H // A
@@ -84,7 +73,6 @@ class NumpyBert:
         return x
 
     def classify(self, hidden: np.ndarray) -> np.ndarray:
-        """Logit do cross-encoder: classificador(tanh(pooler(h[CLS])))  ->  (B,)"""
         assert self.pooler is not None and self.classifier is not None, "modelo sem pooler/classificador"
         pooled = np.tanh(hidden[:, 0] @ self.pooler[0] + self.pooler[1])
         return (pooled @ self.classifier[0] + self.classifier[1])[:, 0]

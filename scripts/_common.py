@@ -1,4 +1,3 @@
-"""Utilitários compartilhados pelos scripts (carregam dados, seleção feita no dev e modelos)."""
 from __future__ import annotations
 
 import argparse
@@ -15,9 +14,7 @@ from src.data import doc_text, load_all, split_queries  # noqa: E402
 
 SELECTION_PATH = RESULTS_DIR / "dev_selection.json"
 
-
 class Ctx:
-    """Dados do NFCorpus já carregados e validados."""
 
     def __init__(self) -> None:
         self.corpus, self.queries, self.qrels, self.info = load_all()
@@ -27,10 +24,8 @@ class Ctx:
         self.dev_queries = split_queries(self.queries, self.qrels["dev"])
         self.test_queries = split_queries(self.queries, self.qrels["test"])
 
-
 def load_selection() -> dict:
     return json.loads(SELECTION_PATH.read_text(encoding="utf-8")) if SELECTION_PATH.exists() else {}
-
 
 def save_selection(update: dict) -> dict:
     RESULTS_DIR.mkdir(exist_ok=True)
@@ -38,7 +33,6 @@ def save_selection(update: dict) -> dict:
     sel.update(update)
     SELECTION_PATH.write_text(json.dumps(sel, ensure_ascii=False, indent=2), encoding="utf-8")
     return sel
-
 
 def base_parser(desc: str) -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(description=desc)
@@ -48,17 +42,14 @@ def base_parser(desc: str) -> argparse.ArgumentParser:
                    help="orçamento de tempo; ao esgotar, o progresso fica salvo em cache e basta rodar de novo")
     return p
 
-
 def deadline_from(args) -> float | None:
     return time.time() + 60 * args.time_budget_min if getattr(args, "time_budget_min", None) else None
-
 
 def find_spec(specs: list[dict], spec_id: str) -> dict:
     for s in specs:
         if s["id"] == spec_id:
             return s
     raise KeyError(f"modelo '{spec_id}' não está no JSON de modelos")
-
 
 def load_models(args):
     return models_config(args.models)

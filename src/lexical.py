@@ -1,11 +1,9 @@
-"""Sistema lexical: pré-processamento + índice invertido do zero + BM25 (itens 1 a 3)."""
 from __future__ import annotations
 
 import time
 
 from .inverted_index import BM25Searcher, InvertedIndex
 from .preprocess import Preprocessor
-
 
 class LexicalSystem:
     def __init__(self, doc_texts: dict[str, str], remove_stopwords: bool = True, stemmer: str | None = "porter",
@@ -15,7 +13,6 @@ class LexicalSystem:
         self.set_params(k1, b)
 
     def set_params(self, k1: float, b: float) -> None:
-        """Reajusta k1/b sem reconstruir o índice (TF, DF e |d| independem desses parâmetros)."""
         self.k1, self.b = k1, b
         self.searcher = BM25Searcher(self.index, k1, b)
 
@@ -28,7 +25,6 @@ class LexicalSystem:
         return {qid: self.search(text, top_k) for qid, text in queries.items()}
 
     def timed_run(self, queries: dict[str, str], top_k: int = 100, warmup: int = 5):
-        """Executa todas as consultas medindo o tempo por consulta (pré-processamento + busca + top-k)."""
         qs = list(queries.items())
         for _, text in qs[:warmup]:
             self.search(text, top_k)

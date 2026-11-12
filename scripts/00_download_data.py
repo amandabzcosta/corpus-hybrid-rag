@@ -1,15 +1,9 @@
-"""Baixa e valida o NFCorpus (versão BEIR) em data/nfcorpus/.
-
-  python scripts/00_download_data.py                       # baixa o zip oficial do BEIR
-  python scripts/00_download_data.py --zip nfcorpus.zip    # usa um zip já baixado
-  python scripts/00_download_data.py --from-dir pasta/     # copia de uma pasta com corpus.jsonl, queries.jsonl e qrels/
-Ao final, confere as estatísticas oficiais (3.633 documentos, 3.237 consultas, 323 consultas no test, 324 no dev)
-e se o código do enunciado reproduz as 10 consultas do experimento de RAG."""
 from __future__ import annotations
 
 import shutil
 import urllib.request
 import zipfile
+from collections import Counter
 
 from _common import ROOT, argparse  # noqa: F401
 
@@ -19,9 +13,8 @@ from src.data import load_all
 URL = "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nfcorpus.zip"
 MD5_BEIR = "a89dba18a62ef92f7d323ec890a0d38d"   # md5 do nfcorpus.zip publicado no README do BEIR
 
-
 def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(description='Baixa e valida o NFCorpus (versão BEIR) em data/nfcorpus/.', formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--zip", default=None)
     ap.add_argument("--from-dir", default=None)
     args = ap.parse_args()
@@ -41,8 +34,12 @@ def main():
             z.extractall(DATA_DIR.parent)
     corpus, queries, qrels, info = load_all(validate=True)
     print("OK — dataset validado:", info["stats"])
+    for split, qr in qrels.items():
+        grades = Counter(g for v in qr.values() for g in v.values())
+        n_rel = [sum(1 for g in v.values() if g > 0) for v in qr.values()]
+        print(f"[{split}] graus: {dict(sorted(grades.items()))} | relevantes por consulta: "
+              f"média {sum(n_rel) / len(n_rel):.1f}, mín {min(n_rel)}, máx {max(n_rel)}")
     print("consultas do RAG (seed 42):", info["rag_ids"])
-
 
 if __name__ == "__main__":
     main()

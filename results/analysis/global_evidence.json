@@ -22,12 +22,12 @@
   "9": 0.3274
  },
  "spearman_delta_sem_lex_vs_frac_relevantes_sem_termo": {
-  "rho": 0.07360780618065425,
-  "p": 0.18698322132641518
+  "rho": 0.07365099175447319,
+  "p": 0.1867240189776626
  },
  "spearman_delta_sem_lex_vs_n_termos": {
-  "rho": 0.18091445776324885,
-  "p": 0.0010914961486563212
+  "rho": 0.1808557666990412,
+  "p": 0.001095655685639799
  },
  "consultas_semantico_melhor": 99,
  "consultas_lexical_melhor": 114,
@@ -40,12 +40,12 @@
  "overlap_top10_lex_sem_jaccard": 0.20078814061946748,
  "recall100": {
   "lexical": 0.24837381297825958,
-  "semantico": 0.31150992401169303,
-  "uniao": 0.35641153793647357
+  "semantico": 0.3114503860264584,
+  "uniao": 0.35635199995123895
  },
- "relevantes_achados_so_pelo_lexical": 0.16425750565134675,
- "relevantes_achados_so_pelo_semantico": 0.32887322705477207,
- "relevantes_achados_pelos_dois": 0.5068692672938812,
+ "relevantes_achados_so_pelo_lexical": 0.16433544189949578,
+ "relevantes_achados_so_pelo_semantico": 0.3286199342482878,
+ "relevantes_achados_pelos_dois": 0.5070446238522164,
  "hibrido_vs_melhor_isolado": {
   "melhor_que_ambos": 52,
   "pior_que_ambos": 6,

@@ -96,7 +96,7 @@ Relevantes no qrels: 52
 | etapa | 1º relevante | relevantes no Top-5 | Top-10 | Top-100 |
 |---|---|---|---|---|
 | lexical | 4 | 1 | 1 | 13 |
-| semantic | 1 | 1 | 2 | 10 |
+| semantic | 1 | 1 | 2 | 9 |
 | hybrid | 2 | 1 | 1 | 12 |
 | reranking | 1 | 2 | 2 | 12 |
 

@@ -1,9 +1,3 @@
-"""Executa o pipeline completo na ordem recomendada, pulando etapas já concluídas (idempotente e retomável).
-
-  python scripts/run_all.py                 # roda tudo o que falta (00 -> 05)
-  python scripts/run_all.py --force dev-rerank test    # refaz etapas específicas
-  python scripts/run_all.py --list          # mostra o estado de cada etapa
-Etapas manuais (LLM e avaliação humana): scripts 06 e 07, ver README."""
 from __future__ import annotations
 
 import argparse
@@ -31,9 +25,8 @@ STAGES = [
     ("rag-prepare", ["05_rag_prepare.py"], lambda: (RESULTS_DIR / "rag_prompts.jsonl").exists()),
 ]
 
-
 def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(description='Executa o pipeline completo na ordem recomendada, pulando etapas já concluídas (idempotente e retomável).', formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--force", nargs="*", default=[], help="nomes das etapas a refazer")
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--rerank-dev-queries", type=int, default=30)
@@ -59,7 +52,6 @@ def main():
             print(f"[!] etapa '{name}' terminou com código {rc}")
             raise SystemExit(rc)
     print("\nPipeline concluído. Próximos passos manuais: scripts 06 (LLM) e 07 (avaliação humana).")
-
 
 if __name__ == "__main__":
     main()

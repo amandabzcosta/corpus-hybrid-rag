@@ -1,4 +1,3 @@
-"""Leitura do NFCorpus (formato BEIR): corpus.jsonl, queries.jsonl e qrels/{train,dev,test}.tsv."""
 from __future__ import annotations
 
 import csv
@@ -9,32 +8,23 @@ from pathlib import Path
 
 from .config import DATA_DIR, EXPECTED_RAG_IDS, EXPECTED_STATS, RAG_N_QUERIES
 
-
 def _jsonl(path: Path):
     with open(path, encoding="utf-8") as f:
         for line in f:
             if line.strip():
                 yield json.loads(line)
 
-
 def doc_text(doc: dict) -> str:
-    """Representação única do documento em TODOS os sistemas: título + texto (enunciado, Metodologia)."""
     return f"{doc.get('title', '')} {doc.get('text', '')}".strip()
 
-
 def load_corpus(data_dir: Path = DATA_DIR) -> dict[str, dict]:
-    """doc_id -> {"title", "text"} preservando a ordem do arquivo."""
     return {d["_id"]: {"title": d.get("title", ""), "text": d.get("text", "")}
             for d in _jsonl(Path(data_dir) / "corpus.jsonl")}
 
-
 def load_queries(data_dir: Path = DATA_DIR) -> dict[str, str]:
-    """query_id -> texto. O arquivo contém as consultas de TODOS os splits (3.237)."""
     return {q["_id"]: q["text"] for q in _jsonl(Path(data_dir) / "queries.jsonl")}
 
-
 def load_qrels(split: str, data_dir: Path = DATA_DIR) -> dict[str, dict[str, int]]:
-    """query_id -> {doc_id: grau de relevância}. As consultas do split são as que aparecem aqui."""
     qrels: dict[str, dict[str, int]] = defaultdict(dict)
     with open(Path(data_dir) / "qrels" / f"{split}.tsv", encoding="utf-8", newline="") as f:
         reader = csv.reader(f, delimiter="\t")
@@ -44,20 +34,14 @@ def load_qrels(split: str, data_dir: Path = DATA_DIR) -> dict[str, dict[str, int
                 qrels[row[0].strip()][row[1].strip()] = int(row[2])
     return dict(qrels)
 
-
 def split_queries(queries: dict[str, str], qrels: dict[str, dict[str, int]]) -> dict[str, str]:
-    """Consultas de um split (as que têm julgamentos), em ordem alfabética de id (determinístico)."""
     return {q: queries[q] for q in sorted(qrels)}
 
-
 def rag_query_ids(test_qrels: dict, queries: dict[str, str]) -> list[str]:
-    """Código do enunciado (item 12): sorteio com seed 42 entre as consultas do test terminadas em '?'."""
     ids = [q for q in sorted(test_qrels.keys()) if queries[q].strip().endswith("?")]
     return random.Random(42).sample(ids, RAG_N_QUERIES)
 
-
 def validate_dataset(corpus, queries, qrels_by_split, strict: bool = True) -> dict:
-    """Confere se a cópia local bate com as estatísticas do NFCorpus/BEIR e com a lista de consultas do RAG."""
     s = EXPECTED_STATS
     got = {
         "n_docs": len(corpus), "n_queries": len(queries),
@@ -75,7 +59,6 @@ def validate_dataset(corpus, queries, qrels_by_split, strict: bool = True) -> di
     if problems and strict:
         raise AssertionError("Dataset diferente do esperado:\n  " + "\n  ".join(problems))
     return {"stats": got, "rag_ids": rag, "problems": problems}
-
 
 def load_all(data_dir: Path = DATA_DIR, validate: bool = True):
     corpus = load_corpus(data_dir)

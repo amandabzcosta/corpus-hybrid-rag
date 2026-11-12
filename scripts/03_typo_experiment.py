@@ -1,5 +1,3 @@
-"""Experimento de tolerância a erros (item 4) em 10 consultas do TEST: original x com erro x corrigida.
-Avaliação obrigatória no sistema lexical (NDCG@10); o sistema semântico entra como análise opcional."""
 from __future__ import annotations
 
 import json
@@ -20,9 +18,8 @@ from src.typo_experiment import correct_query, make_typo_cases, recovery
 
 N_QUERIES = 10
 
-
 def main():
-    args = base_parser(__doc__).parse_args()
+    args = base_parser('Experimento de tolerância a erros (item 4) em 10 consultas do TEST: original x com erro x corrigida.').parse_args()
     ctx, mc, sel = Ctx(), load_models(args), load_selection()
     pre, bm, sp = sel["preprocessing"], sel["bm25"], sel["spelling"]
     lex = LexicalSystem(ctx.docs, pre["remove_stopwords"], pre["stemmer"], bm["k1"], bm["b"])
@@ -89,7 +86,6 @@ def main():
                                 "recuperacao_media_por_consulta": round(float(np.mean([r["recuperacao_sem"] for r in vs])), 4) if vs else None}
     (RESULTS_DIR / "typo_summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
-
 
 if __name__ == "__main__":
     main()

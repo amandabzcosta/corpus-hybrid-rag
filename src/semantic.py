@@ -1,7 +1,3 @@
-"""Recuperação semântica (item 5): embeddings densos de um bi-encoder pré-treinado + busca exaustiva por cosseno.
-
-Os embeddings dos documentos são calculados uma única vez (em blocos, com cache em disco retomável) e a
-consulta é codificada a cada busca. Vetores L2-normalizados -> o produto interno é o cosseno."""
 from __future__ import annotations
 
 import hashlib
@@ -14,7 +10,6 @@ import numpy as np
 from .config import CACHE_DIR
 from .encoders import TimeBudgetExceeded
 
-
 class SemanticSystem:
     def __init__(self, encoder, doc_ids: list[str], doc_texts: list[str], name: str, cache_dir: Path = CACHE_DIR,
                  chunk_docs: int = 128, deadline: float | None = None) -> None:
@@ -25,12 +20,12 @@ class SemanticSystem:
         self.emb: np.ndarray | None = None
         self.build_info: dict = {}
 
-    # ---------- indexação (embeddings dos documentos) ----------
     def build(self, verbose: bool = True) -> dict:
         final = self.dir / "embeddings.npy"
         if final.exists():
             self.emb = np.load(final)
             self.build_info = json.loads((self.dir / "info.json").read_text())
+            self.build_info["encoder"] = self.encoder.info()
             return self.build_info
         self.dir.mkdir(parents=True, exist_ok=True)
         lengths = self.encoder.token_lengths(self.doc_texts)                  # sem truncamento
@@ -73,7 +68,6 @@ class SemanticSystem:
         self.emb = emb
         return self.build_info
 
-    # ---------- consulta ----------
     def encode_query(self, text: str) -> np.ndarray:
         return self.encoder.encode([text], is_query=True)[0]
 
@@ -93,7 +87,6 @@ class SemanticSystem:
         return {q: self.search_vec(v, top_k) for q, v in zip(qids, qv)}
 
     def timed_run(self, queries: dict[str, str], top_k: int = 100, warmup: int = 3):
-        """Uma consulta por vez (latência): codificação da consulta + similaridade com todos os documentos + top-k."""
         items = list(queries.items())
         for _, t in items[:warmup]:
             self.search(t, top_k)

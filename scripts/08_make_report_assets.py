@@ -1,6 +1,3 @@
-"""Gera as tabelas (.tex), figuras (.pdf) e macros numéricas do relatório a partir de results/.
-Tudo em report/auto/. O relatório (report/relatorio.tex) só faz \\input desses arquivos, então os números do texto,
-das tabelas e dos CSVs entregues são sempre os mesmos."""
 from __future__ import annotations
 
 import json
@@ -23,10 +20,8 @@ SYS = {"lexical": "Lexical (BM25)", "semantic": "Semântico", "hybrid": "Híbrid
 MACRO = {"lexical": "Lex", "semantic": "Sem", "hybrid": "Hyb", "hybrid_rerank": "Rr"}
 plt.rcParams.update({"font.size": 8, "axes.spines.top": False, "axes.spines.right": False, "figure.dpi": 150})
 
-
 def pt(x, nd=4):
     return "—" if x is None or (isinstance(x, float) and np.isnan(x)) else f"{x:.{nd}f}".replace(".", ",")
-
 
 def esc(s) -> str:
     s = str(s)
@@ -37,10 +32,8 @@ def esc(s) -> str:
         s = s.replace(a, b)
     return s
 
-
 def macro(name: str, value) -> str:
     return f"\\newcommand{{\\{name}}}{{{value}}}\n"
-
 
 def table(rows, header, colspec, caption, label, font=r"\small", extra_after_header="", pos="t"):
     lines = [f"\\begin{{table}}[{pos}]", r"\centering", f"\\caption{{{caption}}}", f"\\label{{{label}}}", font,
@@ -50,22 +43,18 @@ def table(rows, header, colspec, caption, label, font=r"\small", extra_after_hea
     lines += [r"\bottomrule", r"\end{tabular}", r"\end{table}"]
     return "\n".join(lines) + "\n"
 
-
 def bold_best(vals, nd=4, higher=True):
     best = max(vals) if higher else min(vals)
     return [(f"\\textbf{{{pt(v, nd)}}}" if v == best else pt(v, nd)) for v in vals]
 
-
 def save(name, text):
     (AUTO / name).write_text(text, encoding="utf-8")
-
 
 def bootstrap_ci(x, n=10000, seed=42):
     rng = np.random.default_rng(seed)
     x = np.asarray(x)
     means = rng.choice(x, size=(n, len(x)), replace=True).mean(1)
     return np.percentile(means, [2.5, 97.5])
-
 
 def main():
     AUTO.mkdir(parents=True, exist_ok=True)
@@ -312,7 +301,6 @@ def main():
     ax.set_xlabel("consultas (ordenadas)"); ax.set_ylabel("$\\Delta$NDCG@10 (rerank $-$ híbrido)")
     fig.tight_layout(); fig.savefig(AUTO / "fig_typo_rerank.pdf"); plt.close(fig)
     print("arquivos gerados em", AUTO, sorted(p.name for p in AUTO.iterdir()))
-
 
 if __name__ == "__main__":
     main()

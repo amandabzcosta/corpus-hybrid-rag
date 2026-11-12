@@ -1,5 +1,3 @@
-"""RAG, parte 1 (itens 11 a 14): contexto Top-5 pós-reranking das 10 consultas fixas, métricas de recuperação @5,
-prompts das condições A (sem RAG) e B (com RAG) e rastreio de falhas ponta a ponta."""
 from __future__ import annotations
 
 import json
@@ -13,9 +11,8 @@ from src.data import rag_query_ids
 from src.rag import SYSTEM_A, SYSTEM_B, full_prompt, retrieval_at_k, user_prompt_a, user_prompt_b
 from src.results_io import read_run
 
-
 def main():
-    args = base_parser(__doc__).parse_args()
+    args = base_parser('RAG, parte 1: contexto Top-5 pós-reranking, métricas @5, prompts A/B e rastreio de falhas.').parse_args()
     ctx = Ctx()
     qids = rag_query_ids(ctx.qrels["test"], ctx.queries)
     runs = {n: read_run(RESULTS_DIR / f"results_{n}.csv", sorted(ctx.qrels["test"])) for n in ("lexical", "semantic", "hybrid", "reranking")}
@@ -58,7 +55,6 @@ def main():
     (RESULTS_DIR / "analysis" / "rag_failure_traces.md").write_text("\n".join(md), encoding="utf-8")
     pd.set_option("display.width", 220)
     print(pd.concat([df.drop(columns=["query", "context_doc_ids"]), pd.DataFrame([mean]).drop(columns=["query", "context_doc_ids"])]).to_string(index=False))
-
 
 if __name__ == "__main__":
     main()

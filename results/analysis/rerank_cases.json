@@ -4,8 +4,8 @@
   "query": "Harvard Physicians’ Study II",
   "metricas": {
    "hibrido": 0.091092403223458,
-   "reranking": 0.5616927747727312,
-   "delta": 0.47060037154927314
+   "reranking": 0.561692774772731,
+   "delta": 0.47060037154927303
   },
   "n_termos_consulta": 4,
   "deslocamento": {
