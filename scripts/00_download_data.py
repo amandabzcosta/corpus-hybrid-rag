@@ -1,44 +1,48 @@
-import sys
-from collections import Counter
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from src.data import download_and_extract, load_corpus, load_qrels, load_queries
-from src.io_utils import load_config, project_path
+"""Baixa e valida o NFCorpus (versão BEIR) em data/nfcorpus/.
 
-sys.stdout.reconfigure(encoding="utf-8")
+  python scripts/00_download_data.py                       # baixa o zip oficial do BEIR
+  python scripts/00_download_data.py --zip nfcorpus.zip    # usa um zip já baixado
+  python scripts/00_download_data.py --from-dir pasta/     # copia de uma pasta com corpus.jsonl, queries.jsonl e qrels/
+Ao final, confere as estatísticas oficiais (3.633 documentos, 3.237 consultas, 323 consultas no test, 324 no dev)
+e se o código do enunciado reproduz as 10 consultas do experimento de RAG."""
+from __future__ import annotations
+
+import shutil
+import urllib.request
+import zipfile
+
+from _common import ROOT, argparse  # noqa: F401
+
+from src.config import DATA_DIR
+from src.data import load_all
+
+URL = "https://public.ukp.informatik.tu-darmstadt.de/thakur/BEIR/datasets/nfcorpus.zip"
+MD5_BEIR = "a89dba18a62ef92f7d323ec890a0d38d"   # md5 do nfcorpus.zip publicado no README do BEIR
+
 
 def main():
-    cfg = load_config()
-    ds = cfg["dataset"]
-    dataset_dir = download_and_extract(ds["url"], project_path(cfg["paths"]["data_dir"]))
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--zip", default=None)
+    ap.add_argument("--from-dir", default=None)
+    args = ap.parse_args()
+    DATA_DIR.parent.mkdir(parents=True, exist_ok=True)
+    if args.from_dir:
+        shutil.copytree(args.from_dir, DATA_DIR, dirs_exist_ok=True)
+    else:
+        path = args.zip
+        if path is None:
+            path = str(DATA_DIR.parent / "nfcorpus.zip")
+            print("baixando", URL)
+            urllib.request.urlretrieve(URL, path)
+        import hashlib
+        md5 = hashlib.md5(open(path, 'rb').read()).hexdigest()
+        print('md5 do zip:', md5, '(confere com o BEIR)' if md5 == MD5_BEIR else '(DIFERE do md5 publicado pelo BEIR; verifique o arquivo)')
+        with zipfile.ZipFile(path) as z:
+            z.extractall(DATA_DIR.parent)
+    corpus, queries, qrels, info = load_all(validate=True)
+    print("OK — dataset validado:", info["stats"])
+    print("consultas do RAG (seed 42):", info["rag_ids"])
 
-    corpus = load_corpus(dataset_dir)
-    queries = load_queries(dataset_dir)
-    print(f"\nDocumentos: {len(corpus)}")
-    print(f"Consultas (queries.jsonl): {len(queries)}")
-
-    assert len(corpus) == ds["expected_docs"], "número de documentos diferente do enunciado"
-    assert len(queries) == ds["expected_queries"], "número de consultas diferente do enunciado"
-
-    for split in ["train", "dev", "test"]:
-        qrels = load_qrels(dataset_dir, split)
-        n_pairs = sum(len(v) for v in qrels.values())
-        grades = Counter(g for v in qrels.values() for g in v.values())
-        n_rel = [sum(1 for g in v.values() if g > 0) for v in qrels.values()]
-        missing_q = [q for q in qrels if q not in queries]
-        missing_d = {d for v in qrels.values() for d in v if d not in corpus}
-        print(f"\n[{split}] consultas: {len(qrels)} | pares julgados: {n_pairs}")
-        print(f"  distribuição dos graus: {dict(sorted(grades.items()))}")
-        print(f"  relevantes (grau>0) por consulta: média {sum(n_rel)/len(n_rel):.1f}, "
-              f"mín {min(n_rel)}, máx {max(n_rel)}")
-        print(f"  consultas ausentes do queries.jsonl: {len(missing_q)} | "
-              f"docs ausentes do corpus: {len(missing_d)}")
-        if split == "test":
-            assert len(qrels) == ds["expected_test_queries"], "test deveria ter 323 consultas"
-
-    empty = [d for d, v in corpus.items() if not (v["title"] + v["text"]).strip()]
-    print(f"\nDocumentos com título+texto vazio: {len(empty)}")
-    print("\nOK: contagens validadas.")
 
 if __name__ == "__main__":
     main()
