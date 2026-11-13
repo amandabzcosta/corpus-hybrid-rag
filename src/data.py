@@ -28,7 +28,7 @@ def load_qrels(split: str, data_dir: Path = DATA_DIR) -> dict[str, dict[str, int
     qrels: dict[str, dict[str, int]] = defaultdict(dict)
     with open(Path(data_dir) / "qrels" / f"{split}.tsv", encoding="utf-8", newline="") as f:
         reader = csv.reader(f, delimiter="\t")
-        next(reader)  # cabeçalho: query-id, corpus-id, score
+        next(reader)
         for row in reader:
             if len(row) >= 3:
                 qrels[row[0].strip()][row[1].strip()] = int(row[2])

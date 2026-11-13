@@ -18,7 +18,7 @@ def english_stopwords() -> frozenset[str]:
     try:
         from nltk.corpus import stopwords
         words = stopwords.words("english")
-    except LookupError:  # primeira execução: baixa o recurso
+    except LookupError:
         import nltk
         nltk.download("stopwords", quiet=True)
         from nltk.corpus import stopwords

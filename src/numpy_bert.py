@@ -15,7 +15,6 @@ def _gelu(x: np.ndarray) -> np.ndarray:
 
 class NumpyBert:
     def __init__(self, tensors: dict[str, np.ndarray], heads: int = 12, eps: float = 1e-12) -> None:
-        # aceita prefixo "bert." (modelo de classificação) ou sem prefixo (encoder puro)
         pre = "bert." if any(k.startswith("bert.embeddings") for k in tensors) else ""
         g = lambda name: np.ascontiguousarray(tensors[pre + name], dtype=np.float32)
         self.heads, self.eps = heads, eps

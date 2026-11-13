@@ -59,7 +59,6 @@ def validate_with_ir_measures(run: Mapping[str, Sequence], qrels: Mapping[str, M
 
     ids_run = to_id_run(run)
     qrel_objs = [ir_measures.Qrel(q, d, g) for q, dq in qrels.items() for d, g in dq.items()]
-    # score = -posição, para que a ordem avaliada pela biblioteca seja exatamente a do ranking
     run_objs = [ir_measures.ScoredDoc(q, d, float(-i)) for q, docs in ids_run.items() if q in qrels
                 for i, d in enumerate(docs)]
     measures = {"P10": P(cutoff=K), "R10": R(cutoff=K), "AP10": AP(cutoff=K), "NDCG10": nDCG(cutoff=K)}

@@ -136,12 +136,13 @@ def stage_rrf(ctx, mc, deadline):
     save_selection({"rrf_k": int(best["k"]), "dev_hybrid_ndcg10": float(best["NDCG10"])})
     print("-> melhor k:", int(best["k"]))
 
-def stage_rerank(ctx, mc, deadline, n_queries: int):
+def stage_rerank(ctx, mc, deadline, n_queries: int | None):
     sel = load_selection()
     lex = lexical_from_selection(ctx)
     sem = semantic_system(ctx, find_spec(mc["bi_encoders"], sel["bi_encoder"]["id"]), deadline)
     sem.build()
-    sample = sorted(random.Random(SEED).sample(sorted(ctx.dev_queries), n_queries))
+    pool = sorted(ctx.dev_queries)
+    sample = sorted(random.Random(SEED).sample(pool, n_queries)) if n_queries and n_queries < len(pool) else pool
     qs = {q: ctx.dev_queries[q] for q in sample}
     lrun, srun = lex.run(qs, TOP_K), sem.run(qs, TOP_K)
     hyb = {q: rrf([lrun[q], srun[q]], k=sel["rrf_k"], depth=TOP_K) for q in qs}
@@ -165,7 +166,7 @@ def stage_rerank(ctx, mc, deadline, n_queries: int):
 def main():
     ap = base_parser('Ajustes no conjunto DEV (o test nunca é usado para escolher nada).')
     ap.add_argument("--stage", default="all", choices=["all", "lexical", "spelling", "semantic", "rrf", "rerank"])
-    ap.add_argument("--rerank-dev-queries", type=int, default=40, help="nº de consultas do dev usadas para escolher o cross-encoder")
+    ap.add_argument("--rerank-dev-queries", type=int, default=None, help="nº de consultas do dev usadas para escolher o cross-encoder (padrão: todas)")
     args = ap.parse_args()
     RESULTS_DIR.mkdir(exist_ok=True)
     ctx, mc, deadline = Ctx(), load_models(args), deadline_from(args)

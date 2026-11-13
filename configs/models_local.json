@@ -1,5 +1,5 @@
 {
-  "_comentario": "Mesmos candidatos de models_hf.json, mas lendo pesos locais SEM PyTorch/Hugging Face (onnxruntime e numpy). Foi a configuração usada na execução que gerou results/. Coloque os pesos em models/ (ver README).",
+  "_comentario": "Mesmos candidatos de models_hf.json, mas lendo pesos locais SEM PyTorch/Hugging Face (onnxruntime e numpy). Usada numa execução anterior em VM (mesmas métricas); a execução entregue em results/ usa models_hf.json. Coloque os pesos em models/ (ver README).",
   "bi_encoders": [
     {"id": "all-MiniLM-L6-v2@128", "name": "sentence-transformers/all-MiniLM-L6-v2", "kind": "onnx", "path": "models/minilm", "max_seq_length": 128,
      "source": "export ONNX fp32 do all-MiniLM-L6-v2 (espelho no GitHub); embeddings idênticos (cos=1,000000) aos do sentence-transformers"},

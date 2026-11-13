@@ -1,0 +1,68 @@
+{
+  "amanda x leonardo": {
+    "fidelidade": {
+      "n": 20,
+      "concordancia_exata": 0.95,
+      "kappa_ponderado_quadratico": 0.9565217391304348
+    },
+    "completude": {
+      "n": 20,
+      "concordancia_exata": 0.75,
+      "kappa_ponderado_quadratico": 0.6710526315789473
+    },
+    "utilidade": {
+      "n": 20,
+      "concordancia_exata": 0.8,
+      "kappa_ponderado_quadratico": 0.7959183673469388
+    },
+    "rastreabilidade": {
+      "n": 10,
+      "concordancia_exata": 0.9,
+      "kappa_ponderado_quadratico": 0.736842105263158
+    }
+  },
+  "amanda x avaliador_ia": {
+    "fidelidade": {
+      "n": 20,
+      "concordancia_exata": 0.95,
+      "kappa_ponderado_quadratico": 0.9583333333333334
+    },
+    "completude": {
+      "n": 20,
+      "concordancia_exata": 0.75,
+      "kappa_ponderado_quadratico": 0.5689655172413793
+    },
+    "utilidade": {
+      "n": 20,
+      "concordancia_exata": 0.85,
+      "kappa_ponderado_quadratico": 0.8314606741573034
+    },
+    "rastreabilidade": {
+      "n": 10,
+      "concordancia_exata": 0.9,
+      "kappa_ponderado_quadratico": 0.736842105263158
+    }
+  },
+  "leonardo x avaliador_ia": {
+    "fidelidade": {
+      "n": 20,
+      "concordancia_exata": 0.9,
+      "kappa_ponderado_quadratico": 0.9152542372881356
+    },
+    "completude": {
+      "n": 20,
+      "concordancia_exata": 0.6,
+      "kappa_ponderado_quadratico": 0.5209580838323353
+    },
+    "utilidade": {
+      "n": 20,
+      "concordancia_exata": 0.85,
+      "kappa_ponderado_quadratico": 0.8484848484848484
+    },
+    "rastreabilidade": {
+      "n": 10,
+      "concordancia_exata": 0.8,
+      "kappa_ponderado_quadratico": 0.375
+    }
+  }
+}

@@ -16,11 +16,15 @@ def main():
     ap.add_argument("--evaluators", nargs="+", default=["amanda", "leonardo", "avaliador_ia"])
     ap.add_argument("--final", help="planilha com as notas finais (humanas) gravadas no rag_experiment.csv")
     ap.add_argument("--sheets", nargs="+", help="planilhas independentes, para a concordância")
+    ap.add_argument("--force", action="store_true", help="make-sheet: sobrescreve planilhas já existentes")
     args = ap.parse_args()
     rag = pd.read_csv(RESULTS_DIR / "rag_experiment.csv", dtype=str, keep_default_na=False)
     if args.cmd == "make-sheet":
         ctx = json.loads((RESULTS_DIR / "rag_contexts.json").read_text(encoding="utf-8"))
         contexts = {q: [(d["doc_id"], d["title"], d["text"]) for d in v] for q, v in ctx.items()}
+        existing = [RESULTS_DIR / f"rag_eval_{n}.csv" for n in args.evaluators if (RESULTS_DIR / f"rag_eval_{n}.csv").exists()]
+        if existing and not args.force:
+            raise SystemExit(f"planilhas já existem (use --force para sobrescrever): {[p.name for p in existing]}")
         sheet, key = make_blind_sheet(rag, contexts, seed=42)
         for name in args.evaluators:
             sheet.to_csv(RESULTS_DIR / f"rag_eval_{name}.csv", index=False)
@@ -32,6 +36,8 @@ def main():
     key = pd.read_csv(RESULTS_DIR / "rag_annotation_key.csv", dtype=str)
     read = lambda p: pd.read_csv(p, dtype=str, keep_default_na=False)
     sheets = {Path(p).stem.removeprefix("rag_eval_"): read(p) for p in args.sheets or []}
+    if not args.final:
+        raise SystemExit("merge: informe --final com a planilha das notas finais")
     merged, means, agree = merge_grades(rag, key, read(args.final), sheets)
     merged.to_csv(RESULTS_DIR / "rag_experiment.csv", index=False)
     means.to_csv(RESULTS_DIR / "rag_generation_means.csv")

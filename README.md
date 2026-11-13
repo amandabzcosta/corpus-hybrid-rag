@@ -5,7 +5,7 @@ Pipeline: documentos → pré-processamento e indexação → recuperação lexi
 ## 1. Integrantes
 | Nome completo | Nº USP |
 |---|---|
-| **Amanda Bezerra Costa** | **12680861** |
+| **Amanda Bezerra da Costa** | **12680861** |
 | **Leonardo Ferreira Runho** | **11832958** |
 
 
@@ -28,10 +28,10 @@ Resultados no test (323 consultas): NDCG@10 — lexical 0,3303; semântico 0,316
 conda create -n tp2ri python=3.11 && conda activate tp2ri
 pip install torch==2.13.0 --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt
-python scripts/run_all.py                # roda 00 -> 05 pulando etapas concluídas (retomável)
-python -m pytest -q tests                # 27 testes (índice vs força bruta, métricas vs ir_measures, RRF, ortografia...)
+python scripts/run_all.py                # etapas 00 a 05, pulando as já concluídas
+python -m pytest -q tests                # 27 testes
 ```
-`run_all.py` usa `configs/models_hf.json` (sentence-transformers; baixa os pesos do Hugging Face). Ordem recomendada, caso queira rodar manualmente (ou use `notebooks/T2_pipeline.ipynb`, que serve no Colab):
+`run_all.py` usa `configs/models_hf.json` (sentence-transformers; baixa os pesos do Hugging Face). Ordem recomendada, caso queira rodar manualmente (ou use `notebooks/pipeline.ipynb`, que serve no Colab):
 
 | # | Script | O que faz |
 |---|---|---|
@@ -42,12 +42,12 @@ python -m pytest -q tests                # 27 testes (índice vs força bruta, m
 | 04 | `04_analysis_cases.py` | 6 casos lexical×semântico e 4 casos de reranking (seleção automática) → `results/analysis/` |
 | 05 | `05_rag_prepare.py` | Top-5 pós-reranking, Recall/Precision/Hit@5, prompts A/B e rastreio de falhas |
 | 06 | `06_rag_generate.py --backend openai --base-url http://localhost:11434/v1 --model qwen2.5:7b` | LLM nas condições A e B → `rag_experiment.csv` (cache em `artifacts/llm_cache.jsonl`; `--no-cache` gera de novo). Requer `ollama pull qwen2.5:7b` |
-| 07 | `07_rag_evaluate.py make-sheet` / `merge --final rag_eval_amanda_final.csv --sheets rag_eval_amanda.csv rag_eval_avaliador_ia.csv ...` | planilhas cegas (uma por avaliador) e incorporação das notas finais humanas, médias por condição e concordância entre avaliadores |
-| 08 | `08_make_report_assets.py` | tabelas, figuras e macros do relatório (`report/auto/`) |
+| 07 | `07_rag_evaluate.py make-sheet` / `merge --final results/rag_eval_amanda.csv --sheets results/rag_eval_amanda.csv results/rag_eval_leonardo.csv results/rag_eval_avaliador_ia.csv` | planilhas cegas (uma por avaliador; `make-sheet` não sobrescreve sem `--force`) e incorporação das notas finais humanas → `rag_experiment.csv`, `rag_generation_means.csv`, `rag_agreement.json` |
+| 08 | `08_make_report_assets.py` | tabelas, figuras e macros do relatório em `report/auto/`, para copiar ao Overleaf |
 
 Arquivos fora do Git (regenerados pelos scripts): `data/` (dataset, script 00), `artifacts/` (embeddings, scores do cross-encoder e cache da LLM; scripts 01, 02 e 06) e `models/` (pesos dos backends opcionais ONNX/NumPy). Os parâmetros escolhidos no dev ficam em `results/dev_selection.json`, que os scripts 02 a 05 leem.
 
-Relatório: `cd report && pdflatex relatorio && bibtex relatorio && pdflatex relatorio && pdflatex relatorio` (precisa de `texlive-lang-portuguese`; ou envie a pasta `report/` ao Overleaf).
+Relatório: escrito e compilado no Overleaf (o texto e o PDF não ficam no Git). As tabelas, figuras e números vêm do script 08 e ficam versionados em `report/auto/`; ao regenerar os resultados, rode o 08 e substitua a pasta `auto/` no projeto do Overleaf.
 
 Backends de modelos: `kind: "st"` (sentence-transformers, padrão), `"onnx"` (onnxruntime) e `"numpy"` (BERT em numpy puro, `src/numpy_bert.py`). Os dois últimos existem para rodar sem PyTorch/Hugging Face; `configs/models_local.json` os usa (pesos em `models/`, não incluídos). A execução entregue usa o backend `st`.
 
@@ -56,7 +56,8 @@ Backends de modelos: `kind: "st"` (sentence-transformers, padrão), `"onnx"` (on
 - `metrics_per_query.csv`: `query_id, model, P10, R10, AP10, NDCG10` (a média de AP10 é o MAP@10 reportado).
 - `typo_experiment.csv`: `query_id, query_original, query_erro, query_corrigida, tipo_erro, NDCG10_original, NDCG10_erro, NDCG10_corrigida` + recuperação, termos e (opcional) resultados do sistema semântico.
 - `rag_experiment.csv`: `query_id, query, condition (A/B), context_doc_ids, prompt, answer`, as quatro notas, as justificativas e `contexto_externo` (A = "sem contexto externo"; rastreabilidade de A = N/A).
-- `rag_eval_<avaliador>.csv`: planilhas cegas de cada avaliador; `rag_eval_avaliador_ia.csv` é a avaliação feita por IA, usada **só** como segundo avaliador para medir a concordância.
+- `rag_eval_<avaliador>.csv`: planilhas cegas de cada avaliador (Amanda = notas finais; Leonardo = segundo avaliador humano); `rag_eval_avaliador_ia.csv` é a avaliação feita por IA, usada **só** para medir a concordância.
+- `rag_generation_means.csv` e `rag_agreement.json`: médias das notas por condição e concordância entre avaliadores (kappa ponderado).
 - Apoio: `dev_*.csv`, `dev_selection.json`, `summary_test.csv`, `significance_tests.csv`, `timings.json`, `typo_summary.json`, `rag_*` e `analysis/` (evidências por consulta citadas no relatório).
 - `rag_annotation_key.csv` revela quem é A ou B: **não abra antes de avaliar**.
 
@@ -66,7 +67,6 @@ Backends de modelos: `kind: "st"` (sentence-transformers, padrão), `"onnx"` (on
 - **Métricas:** conferidas com o ir_measures nos 4 sistemas (diferença máxima 0,0).
 - **Reranking:** escolhido no dev com as 324 consultas: o L6 (0,3316) ficou um pouco abaixo do híbrido sem reranking (0,3326), e o L12 foi pior (0,3195). O enunciado exige a etapa, e o L6 foi o melhor cross-encoder. No test: +0,0002 sobre o híbrido (p = 0,96).
 - **RAG:** temperatura 0 e seed 42, mas o Ollama não foi totalmente determinístico (o modelo não cabe inteiro nos 6 GB de VRAM): uma 2ª geração sem cache repetiu 8 de 20 respostas palavra por palavra. As respostas avaliadas estão congeladas em `rag_experiment.csv` e em `artifacts/llm_cache.jsonl`.
-- **Avaliação do RAG:** as notas finais são humanas. Uma avaliação por IA (Claude, cega à condição pela planilha, embora as citações `[MED-…]` denunciem a condição B) foi usada como segundo avaliador para a concordância humano × IA.
 
 ## 6. Estrutura
-`src/` módulos (dados, pré-processamento, índice invertido, BM25, ortografia, encoders, semântico, fusão, rerank, métricas, análise, RAG) · `scripts/` etapas 00–08 e `run_all.py` · `configs/` modelos · `tests/` · `notebooks/` · `results/` · `report/` (fonte LaTeX, tabelas/figuras geradas e PDF) · `docs/`.
+`src/` módulos (dados, pré-processamento, índice invertido, BM25, ortografia, encoders, semântico, fusão, rerank, métricas, análise, RAG) · `scripts/` etapas 00–08 e `run_all.py` · `configs/` modelos · `tests/` · `notebooks/` · `results/` · `report/auto/` (tabelas e figuras geradas; o texto do relatório fica no Overleaf).

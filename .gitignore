@@ -231,3 +231,7 @@ CLAUDE.md
 docs/enunciado_tp2.pdf
 models/
 cache/
+
+# Relatório: texto e PDF ficam no Overleaf; tabelas e figuras geradas (script 08) ficam no Git
+report/*
+!report/auto/

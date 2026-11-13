@@ -58,12 +58,12 @@ def bootstrap_ci(x, n=10000, seed=42):
 
 def main():
     AUTO.mkdir(parents=True, exist_ok=True)
-    sel = json.loads((R / "dev_selection.json").read_text())
-    tm = json.loads((R / "timings.json").read_text())
+    sel = json.loads((R / "dev_selection.json").read_text(encoding="utf-8"))
+    tm = json.loads((R / "timings.json").read_text(encoding="utf-8"))
     summ = pd.read_csv(R / "summary_test.csv").set_index("model")
     mpq = pd.read_csv(R / "metrics_per_query.csv")
     sig = pd.read_csv(R / "significance_tests.csv")
-    ge = json.loads((R / "analysis" / "global_evidence.json").read_text())
+    ge = json.loads((R / "analysis" / "global_evidence.json").read_text(encoding="utf-8"))
     M = ""
 
     # ---------------- macros ----------------
@@ -97,7 +97,7 @@ def main():
         M += macro(f"LenTop{MACRO.get(k, k.capitalize())[:3]}", pt(v, 0))
     M += macro("SemWins", ge["consultas_semantico_melhor"]) + macro("LexWins", ge["consultas_lexical_melhor"]) + macro("TieQ", ge["consultas_empate"])
     M += macro("RrBetter", ge["reranking"]["melhoraram"]) + macro("RrWorse", ge["reranking"]["pioraram"]) + macro("RrSame", ge["reranking"]["iguais"])
-    ty = json.loads((R / "typo_summary.json").read_text())
+    ty = json.loads((R / "typo_summary.json").read_text(encoding="utf-8"))
     M += macro("TypoOrig", pt(ty["ndcg10_medio"]["original"], 4)) + macro("TypoErr", pt(ty["ndcg10_medio"]["erro"], 4)) + macro("TypoCorr", pt(ty["ndcg10_medio"]["corrigida"], 4))
     M += macro("TypoRecMean", pt(100 * ty["recuperacao_media_por_consulta"], 1)) + macro("TypoRecAgg", pt(100 * ty["recuperacao_agregada"], 1))
     M += macro("TypoNDrop", ty["n_com_queda"]) + macro("TypoNNoDrop", ty["n_erro_nao_reduziu"]) + macro("TypoNExact", ty["correcoes_exatas"]) + macro("TypoEligible", ty["espaco_amostral_elegivel"])
@@ -182,7 +182,7 @@ def main():
          "Diferenças pareadas por consulta no \\textbf{test} (teste de Wilcoxon de postos sinalizados).", "tab:sig"))
 
     # ---------------- casos lexical x semântico ----------------
-    cases = json.loads((R / "analysis" / "lex_vs_sem_cases.json").read_text())
+    cases = json.loads((R / "analysis" / "lex_vs_sem_cases.json").read_text(encoding="utf-8"))
     out = ""
     for i, c in enumerate(cases, start=1):
         rows = []
@@ -201,7 +201,7 @@ def main():
     save("tab_cases_lexsem.tex", out)
 
     # ---------------- casos de reranking ----------------
-    rc = json.loads((R / "analysis" / "rerank_cases.json").read_text())
+    rc = json.loads((R / "analysis" / "rerank_cases.json").read_text(encoding="utf-8"))
     out = ""
     for i, c in enumerate(rc, start=1):
         docs = sorted(c["documentos"], key=lambda d: (-(abs(d["delta"]) if d["delta"] is not None else 0)))
@@ -236,7 +236,7 @@ def main():
             ["Consulta semântica (codificação + busca exaustiva)", f"{pt(tm['semantico_ms_por_consulta']['media'], 1)} ms", "por consulta"],
             ["Fusão RRF (100 + 100 documentos)", f"{pt(tm['fusao_rrf_ms_por_consulta']['media'], 3)} ms", "por consulta"],
             ["Reranking (cross-encoder, 50 pares)", f"{pt(ce['ms_por_consulta_50_pares'] / 1000, 1)} s", "por consulta"]]
-    save("tab_times.tex", table(rows, ["Etapa", "Tempo", "Frequência"], "lrl", f"Tempos medidos (CPU: {esc(env.get('cpu_model', 'n/d'))}, {env.get('cpu_cores')} núcleo(s), sem GPU).", "tab:times"))
+    save("tab_times.tex", table(rows, ["Etapa", "Tempo", "Frequência"], "lrl", f"Tempos medidos (CPU: {esc(env.get('cpu_model', 'n/d'))}, {env.get('cpu_cores')} threads; modelos em {esc(env.get('dispositivo_modelos', 'CPU'))}).", "tab:times"))
     rows = [["Documentos", f"{idx['n_documentos']:,}".replace(",", ".")], ["Termos do vocabulário", f"{idx['vocabulario']:,}".replace(",", ".")],
             ["Total de postings", f"{idx['total_postings']:,}".replace(",", ".")], ["Tokens indexados", f"{idx['total_tokens']:,}".replace(",", ".")],
             ["Comprimento médio do documento", pt(idx["comprimento_medio_doc"], 1)],

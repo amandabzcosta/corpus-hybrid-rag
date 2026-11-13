@@ -14,8 +14,8 @@ class InvertedIndex:
         self.doc_ids: list[str] = []
         self.doc_len: array = array("I")
         self.total_tokens: int = 0
-        self.preprocess_seconds: float = 0.0   # tokenização + stopwords + stemming dos documentos
-        self.structure_seconds: float = 0.0    # construção das posting lists
+        self.preprocess_seconds: float = 0.0
+        self.structure_seconds: float = 0.0
 
     def add_document(self, doc_id: str, tokens: list[str]) -> None:
         idx = len(self.doc_ids)
@@ -26,7 +26,7 @@ class InvertedIndex:
             plist = self.postings.get(term)
             if plist is None:
                 plist = self.postings[term] = (array("I"), array("I"))
-            plist[0].append(idx)   # documentos entram em ordem crescente de idx -> lista já ordenada
+            plist[0].append(idx)
             plist[1].append(tf)
 
     @classmethod
@@ -100,7 +100,6 @@ class BM25Searcher:
     def __init__(self, index: InvertedIndex, k1: float = 1.2, b: float = 0.75) -> None:
         self.index, self.k1, self.b = index, k1, b
         avgdl = index.avgdl
-        # normalização por documento: depende só de (k1, b, |d|); calculada uma vez no construtor
         self._norm = [k1 * (1.0 - b + b * dl / avgdl) for dl in index.doc_len]
         self._idf: dict[str, float] = {}
 

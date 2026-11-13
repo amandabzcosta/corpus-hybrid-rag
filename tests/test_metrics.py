@@ -7,11 +7,11 @@ from src.metrics import (average_precision_at_k, evaluate_run, ndcg_at_k, precis
                          validate_with_ir_measures)
 
 QRELS = {"d1": 2, "d3": 1, "d9": 1, "d12": 2, "d20": 0}
-RANK = ["d1", "x", "d3", "y", "z", "d9", "a", "b", "c", "d", "d12"]   # d12 está na posição 11 (fora do Top-10)
+RANK = ["d1", "x", "d3", "y", "z", "d9", "a", "b", "c", "d", "d12"]
 
 def test_precision_recall():
-    assert precision_at_k(RANK, QRELS) == 0.3                         # d1, d3, d9 nas 10 primeiras
-    assert recall_at_k(RANK, QRELS) == pytest.approx(3 / 4)           # 4 relevantes (grau > 0) no qrels
+    assert precision_at_k(RANK, QRELS) == 0.3
+    assert recall_at_k(RANK, QRELS) == pytest.approx(3 / 4)
 
 def test_average_precision_uses_total_relevant_as_denominator():
     ap = (1 / 1 + 2 / 3 + 3 / 6) / 4

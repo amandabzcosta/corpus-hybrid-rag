@@ -50,7 +50,7 @@ def main():
         md += ["| etapa | 1º relevante | relevantes no Top-5 | Top-10 | Top-100 |", "|---|---|---|---|---|"]
         md += [f"| {n} | {s['primeiro_relevante']} | {s['relevantes_top5']} | {s['relevantes_top10']} | {s['relevantes_top100']} |" for n, s in t["por_etapa"].items()]
         md += ["", "| doc_id | rel | rank lex | rank sem | rank híb. | rank CE | título |", "|---|---|---|---|---|---|---|"]
-        md += [f"| {c['doc_id']} | {c['relevancia']} | {c['rank_lexical'] or '>100'} | {c['rank_semantico'] or '>100'} | {c['rank_hibrido'] or '>200'} | {c['rank_reranking']} | {c['titulo'][:70]} |" for c in t["contexto"]]
+        md += [f"| {c['doc_id']} | {c['relevancia']} | {c['rank_lexical'] or '>100'} | {c['rank_semantico'] or '>100'} | {c['rank_hibrido'] or '>100'} | {c['rank_reranking']} | {c['titulo'][:70]} |" for c in t["contexto"]]
         md.append("")
     (RESULTS_DIR / "analysis" / "rag_failure_traces.md").write_text("\n".join(md), encoding="utf-8")
     pd.set_option("display.width", 220)

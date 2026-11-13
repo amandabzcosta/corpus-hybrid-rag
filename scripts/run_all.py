@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT))
 from src.config import DATA_DIR, RESULTS_DIR  # noqa: E402
 
 S = ROOT / "scripts"
-sel = lambda: json.loads((RESULTS_DIR / "dev_selection.json").read_text()) if (RESULTS_DIR / "dev_selection.json").exists() else {}
+sel = lambda: json.loads((RESULTS_DIR / "dev_selection.json").read_text(encoding="utf-8")) if (RESULTS_DIR / "dev_selection.json").exists() else {}
 STAGES = [
     ("dados", ["00_download_data.py"], lambda: (DATA_DIR / "corpus.jsonl").exists()),
     ("dev-lexical", ["01_dev_tuning.py", "--stage", "lexical"], lambda: "bm25" in sel()),
@@ -29,7 +29,7 @@ def main():
     ap = argparse.ArgumentParser(description='Executa o pipeline completo na ordem recomendada, pulando etapas já concluídas (idempotente e retomável).', formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--force", nargs="*", default=[], help="nomes das etapas a refazer")
     ap.add_argument("--list", action="store_true")
-    ap.add_argument("--rerank-dev-queries", type=int, default=30)
+    ap.add_argument("--rerank-dev-queries", type=int, default=None, help="padrão: todas as consultas do dev")
     ap.add_argument("--models", default=None)
     ap.add_argument("--skip-data", action="store_true", help="não executa a etapa 'dados' (dataset já copiado)")
     args = ap.parse_args()
@@ -43,7 +43,7 @@ def main():
         if done() and name not in args.force:
             print(f"== {name}: concluída (pulando)", flush=True)
             continue
-        extra = ["--rerank-dev-queries", str(args.rerank_dev_queries)] if name == "dev-rerank" else []
+        extra = ["--rerank-dev-queries", str(args.rerank_dev_queries)] if name == "dev-rerank" and args.rerank_dev_queries else []
         if args.models and name.startswith(("dev-", "test", "typo")) and name != "dev-lexical":
             extra += ["--models", args.models]
         print(f"\n== {name}: executando {' '.join(cmd)}", flush=True)

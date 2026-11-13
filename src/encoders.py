@@ -225,7 +225,7 @@ class CachedCrossEncoder:
     def __init__(self, inner, path: Path, deadline: float | None = None) -> None:
         self.inner, self.path, self.deadline = inner, Path(path), deadline
         self.cache: dict[str, float] = {}
-        self.compute_seconds = 0.0        # tempo efetivo de inferência acumulado nesta execução
+        self.compute_seconds = 0.0
         self.n_computed = 0
         self.stats_path = self.path.with_suffix(".stats.json")
         self.stats = json.loads(self.stats_path.read_text()) if self.stats_path.exists() else {"pairs": 0, "seconds": 0.0}

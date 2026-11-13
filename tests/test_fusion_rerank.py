@@ -15,18 +15,18 @@ def test_rrf_depth_truncates_each_ranking():
     out = dict(rrf([["a", "b", "c"], ["c", "b", "a"]], k=10, depth=2))      # só os 2 primeiros de cada ranking
     assert out["a"] == pytest.approx(1 / 11)                               # a: rank 1 no 1º ranking; fora do corte no 2º
     assert out["c"] == pytest.approx(1 / 11)                               # c: rank 1 no 2º ranking; fora do corte no 1º
-    assert out["b"] == pytest.approx(2 / 12)                               # b: rank 2 nos dois
+    assert out["b"] == pytest.approx(2 / 12)
 
 class FakeCE:
     def predict(self, pairs, batch_size=32):
-        return [float(len(d)) for _, d in pairs]                     # score = tamanho do texto
+        return [float(len(d)) for _, d in pairs]
 
 def test_rerank_reorders_top_n_and_keeps_tail_order():
     hybrid = [(f"d{i}", 1.0 / (i + 1)) for i in range(6)]
     texts = {"d0": "aa", "d1": "aaaa", "d2": "a", "d3": "aaaaaa", "d4": "aaa", "d5": "aaaaa"}
     out = rerank_top_n("q", hybrid, texts, FakeCE(), depth=4)
-    assert [d for d, _ in out[:4]] == ["d3", "d1", "d0", "d2"]       # top-4 reordenado pelo score
-    assert [d for d, _ in out[4:]] == ["d4", "d5"]                   # demais: mesma ordem do híbrido
+    assert [d for d, _ in out[:4]] == ["d3", "d1", "d0", "d2"]
+    assert [d for d, _ in out[4:]] == ["d4", "d5"]
     assert out[4][1] == hybrid[4][1]
 
 def test_rerank_ties_keep_hybrid_order():

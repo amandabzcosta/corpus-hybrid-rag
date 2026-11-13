@@ -10,7 +10,7 @@ VOCAB = build_dictionary(TEXTS)
 
 def test_edit_distance():
     assert edit_distance("kitten", "sitting") == 3
-    assert edit_distance("probiotics", "probitoics") == 1           # troca de ordem custa 1 (Damerau)
+    assert edit_distance("probiotics", "probitoics") == 1
     assert edit_distance("cold", "colds") == 1 and edit_distance("", "abc") == 3 and edit_distance("abc", "abc") == 0
 
 def test_kgrams_and_jaccard():
@@ -22,7 +22,7 @@ def test_corrector_fixes_each_error_type():
     for typo, right in [("probiotcs", "probiotics"), ("probiiotics", "probiotics"), ("probxotics", "probiotics"),
                         ("probitoics", "probiotics"), ("cholestrol", "cholesterol")]:
         assert typo not in VOCAB and cor.correct_tokens([typo])[0] == [right]
-    assert cor.correct_tokens(["cold"])[0] == ["cold"]                # termo conhecido não é alterado
+    assert cor.correct_tokens(["cold"])[0] == ["cold"]
 
 def test_typo_generator_invariants():
     rng = random.Random(1)
