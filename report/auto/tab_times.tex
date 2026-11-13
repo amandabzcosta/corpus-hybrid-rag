@@ -1,18 +1,18 @@
 \begin{table}[t]
 \centering
-\caption{Tempos medidos (CPU: Intel(R) Xeon(R) Processor @ 2.10GHz, 1 núcleo(s), sem GPU).}
+\caption{Tempos medidos (CPU: Intel(R) Core(TM) 5 210H, 12 threads; modelos em CPU (torch CPU)).}
 \label{tab:times}
 \small
 \begin{tabular}{lrl}
 \toprule
 Etapa & Tempo & Frequência \\
 \midrule
-Índice invertido (pré-processamento + estruturas) & 1,23 s & uma vez \\
-Embeddings dos documentos (3.633) & 219 s & uma vez \\
-Consulta lexical (pré-proc. + BM25 + Top-100) & 0,25 ms & por consulta \\
-Consulta semântica (codificação + busca exaustiva) & 3,5 ms & por consulta \\
-Fusão RRF (100 + 100 documentos) & 0,102 ms & por consulta \\
-Reranking (cross-encoder, 50 pares) & 12,3 s & por consulta \\
+Índice invertido (pré-processamento + estruturas) & 0,95 s & uma vez \\
+Embeddings dos documentos (3.633) & 76 s & uma vez \\
+Consulta lexical (pré-proc. + BM25 + Top-100) & 0,34 ms & por consulta \\
+Consulta semântica (codificação + busca exaustiva) & 6,1 ms & por consulta \\
+Fusão RRF (100 + 100 documentos) & 0,098 ms & por consulta \\
+Reranking (cross-encoder, 50 pares) & 2,1 s & por consulta \\
 \bottomrule
 \end{tabular}
 \end{table}
